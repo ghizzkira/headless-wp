@@ -1,7 +1,7 @@
 import Head from "next/head"
 // import NextLink from "next/link"
 import { useRouter } from "next/router"
-import { Header } from "../components/Header"
+import { Header } from "@/components/Header"
 import env from "@/env"
 
 export default function Home() {
