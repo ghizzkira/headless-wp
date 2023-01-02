@@ -1,7 +1,7 @@
 import Head from "next/head"
 // import NextLink from "next/link"
 import { useRouter } from "next/router"
-
+import { Header } from "../component/Header"
 import env from "@/env"
 
 export default function Home() {
@@ -19,9 +19,7 @@ export default function Home() {
           href={`https://${env.DOMAIN}${router.pathname}`}
         />
       </Head>
-      <div>
-        <div>div</div>
-      </div>
+      <Header />
     </>
   )
 }
