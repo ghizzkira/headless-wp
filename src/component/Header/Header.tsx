@@ -2,7 +2,7 @@ import React from "react"
 import { Button } from "@/ui"
 import Link from "next/link"
 
-export function Header() {
+export const Header = () => {
   const listCategory = [
     {
       name: "Movies",
