@@ -48,7 +48,7 @@ export const Header = () => {
               <div className="grow-1">
                 {listCategory.map((e) => {
                   return (
-                    <Button variant="ghost">
+                    <Button key={e.name} variant="ghost">
                       <Link href={e.url}>{e.name}</Link>
                     </Button>
                   )
