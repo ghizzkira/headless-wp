@@ -23,7 +23,7 @@ export const Header = () => {
   ]
   return (
     <>
-      <header className="box-border p-0 border-none outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40">
+      <header className="box-border p-0 border-none bg-white outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
         <div className="grow pr-4 pl-4 mr-auto ml-auto">
           <div className="ak-bar-inner relative h-full">
             <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex justify-start h-full -ml-4 -mr-4">

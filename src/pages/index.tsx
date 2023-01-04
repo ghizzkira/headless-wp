@@ -22,8 +22,8 @@ export default function Home({ posts }) {
         />
       </Head>
       <Header />
-      <div className="flex">
-        <section className="">
+      <div className="flex mt-12">
+        <section className="ml-4">
           {posts.map((e) => {
             return (
               <PostCard
