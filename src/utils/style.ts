@@ -1,4 +1,4 @@
-import { apply, css, defineConfig } from "@twind/core"
+import { css, defineConfig } from "@twind/core"
 import presetAutoprefix from "@twind/preset-autoprefix"
 import presetTailwind from "@twind/preset-tailwind"
 import presetLineClamp from "@twind/preset-line-clamp"
@@ -15,10 +15,6 @@ export default defineConfig({
       "2xl": "1536px",
     },
     extend: {
-      fontFamily: {
-        sans: "'Inter', 'sans-serif'",
-        primary: "'Inter', 'sans-serif'",
-      },
       colors: {
         gray: {
           50: "#f2f2f2",
@@ -37,34 +33,6 @@ export default defineConfig({
   },
   preflight: (preflight: any) => css`
     ${preflight}
-    @font-face {
-      font-family: "Inter var";
-      font-weight: 100 900;
-      font-display: block;
-      font-style: normal;
-      font-named-instance: "Regular";
-      src: url("/fonts/inter-roman-latin.var.woff2") format("woff2");
-    }
-    @font-face {
-      font-family: "Inter var";
-      font-weight: 100 900;
-      font-display: block;
-      font-style: italic;
-      font-named-instance: "Italic";
-      src: url("/fonts/inter-italic-latin.var.woff2") format("woff2");
-    }
-    html {
-      ${apply`font-sans`}
-    }
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      ${apply`font-primary`}
-    }
   `,
   presets: [
     presetAutoprefix(),
