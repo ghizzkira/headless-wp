@@ -19,6 +19,7 @@ const env: EnvProps = {
   LOGO_WIDTH: process.env.NEXT_PUBLIC_LOGO_WIDTH,
   LOGO_HEIGHT: process.env.NEXT_PUBLIC_LOGO_HEIGHT,
   ABOUT: process.env.NEXT_PUBLIC_ABOUT,
+  WP_API_URL: process.env.NEXT_PUBLIC_WP_API_URL,
 }
 
 export default env

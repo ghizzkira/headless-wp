@@ -1,15 +1,13 @@
-import { Picture } from "@/components/Picture"
 import NextLink from "next/link"
+import NextImage from "next/image"
 
-export const PostCard = ({ image, slug, excerpt, title }) => {
+export const PostCard = (props) => {
+  const { image, slug, excerpt, title } = props
   return (
     <article class="flex flex-col rounded-lg drop-shadow-md mb-2 border-separate">
       <div class="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto min-h-[185px] h-[185px]">
         <div class="w-full md:w-1/3 grid place-items-stretch">
-          <Picture
-            priority={true}
-            objectFit="cover"
-            layout="intrinsic"
+          <NextImage
             height={250}
             width={350}
             className="post-card-thumbnail h-full rounded-l-lg"

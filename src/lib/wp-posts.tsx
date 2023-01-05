@@ -1,6 +1,6 @@
 import axios from "axios"
 import { wpUpdateUserAvatar } from "./wp-users"
-
+import env from "@/env"
 import {
   QUERY_WP_ALL_POSTS,
   QUERY_WP_POST_BY_SLUG,
@@ -17,13 +17,12 @@ import {
 export function wpPostPathBySlug(slug: string) {
   return `/${slug}`
 }
-const WP_API_URL = "https://gamedaim.com/api"
 
 export async function wpFetchAPI(query: string, { variables } = {} as any) {
   const headers = { "Content-Type": "application/json" }
 
   const res = await axios({
-    url: WP_API_URL,
+    url: env.WP_API_URL,
     headers: headers,
     params: { query },
     data: { variables: variables },
@@ -90,21 +89,21 @@ export function wpMapPostData(post = {}) {
     })
   }
 
-  if (data.content) {
-    if (data.content.includes(`https://media.wowkia.com`)) {
-      let content
-      content = data.content
-      content = content.replace(
-        /href="https:\/\/media.wowkia/gm,
-        'href="https://wowkia',
-      )
-      content = content.replace(
-        /https:\/\/media.wowkia.com\/wp-content/gm,
-        "https://cdn.wowkia.com/wp-content",
-      )
-      data.content = content
-    }
-  }
+  // if (data.content) {
+  //   if (data.content.includes(`https://media.wowkia.com`)) {
+  //     let content
+  //     content = data.content
+  //     content = content.replace(
+  //       /href="https:\/\/media.wowkia/gm,
+  //       'href="https://wowkia',
+  //     )
+  //     content = content.replace(
+  //       /https:\/\/media.wowkia.com\/wp-content/gm,
+  //       "https://cdn.wowkia.com/wp-content",
+  //     )
+  //     data.content = content
+  //   }
+  // }
   // Clean up the featured image to make them more easy to access
 
   if (data.featuredImage) {

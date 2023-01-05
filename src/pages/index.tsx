@@ -1,11 +1,10 @@
 import Head from "next/head"
-import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { Header } from "@/components/Header"
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
-
+import { PostCardSide } from "@/components/Card/PostCardSide"
 export default function Home({ posts }) {
   const router = useRouter()
   return (
@@ -23,7 +22,7 @@ export default function Home({ posts }) {
       </Head>
       <Header />
       <div className="flex mt-12">
-        <section className="ml-4">
+        <section className="mx-8">
           {posts.map((e) => {
             return (
               <PostCard
@@ -36,6 +35,20 @@ export default function Home({ posts }) {
             )
           })}
         </section>
+        <aside className="w-4/12">
+          <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
+            {posts.map((e) => {
+              return (
+                <PostCardSide
+                  key={e.id}
+                  image={e.featuredImage}
+                  slug={e.slug}
+                  title={e.title}
+                />
+              )
+            })}
+          </div>
+        </aside>
       </div>
     </>
   )
