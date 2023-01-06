@@ -8,6 +8,7 @@ export const PostCard = (props) => {
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto min-h-[185px] h-[185px]">
         <div className="w-full md:w-1/3 grid place-items-stretch">
           <NextImage
+            priority={true}
             height={250}
             width={350}
             className="post-card-thumbnail h-full rounded-lg"

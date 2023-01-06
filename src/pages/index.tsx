@@ -1,12 +1,29 @@
 import Head from "next/head"
 import { useRouter } from "next/router"
-import { Header } from "@/components/Header"
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 export default function Home({ posts }) {
   const router = useRouter()
+  const listCategory = [
+    {
+      name: "Movies",
+      url: "movies",
+    },
+    {
+      name: "Games",
+      url: "movies",
+    },
+    {
+      name: "News",
+      url: "movies",
+    },
+    {
+      name: "Otaku",
+      url: "movies",
+    },
+  ]
   return (
     <>
       <Head>
@@ -20,9 +37,9 @@ export default function Home({ posts }) {
           href={`https://${env.DOMAIN}${router.pathname}`}
         />
       </Head>
-      <Header />
-      <div className="flex mt-12">
-        <section className="mx-8">
+
+      <section className="mx-8 flex flex-row">
+        <div>
           {posts.map((e) => {
             return (
               <PostCard
@@ -34,7 +51,8 @@ export default function Home({ posts }) {
               />
             )
           })}
-        </section>
+        </div>
+
         <aside className="w-4/12">
           <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
             {posts.map((e) => {
@@ -49,7 +67,7 @@ export default function Home({ posts }) {
             })}
           </div>
         </aside>
-      </div>
+      </section>
     </>
   )
 }

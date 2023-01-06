@@ -1,4 +1,4 @@
-import { css, defineConfig } from "@twind/core"
+import { apply, css, defineConfig } from "@twind/core"
 import presetAutoprefix from "@twind/preset-autoprefix"
 import presetTailwind from "@twind/preset-tailwind"
 import presetLineClamp from "@twind/preset-line-clamp"
@@ -33,6 +33,29 @@ export default defineConfig({
   },
   preflight: (preflight: any) => css`
     ${preflight}
+    /* width */
+    .scrollbar::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    .scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Handle */
+    .scrollbar::-webkit-scrollbar-thumb {
+      background: transparent;
+    }
+
+    /* Handle on hover */
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    /* Handle on hover */
+    .scrollbar::-webkit-scrollbar-track:hover {
+      background: #f1f1f1;
+    }
   `,
   presets: [
     presetAutoprefix(),
