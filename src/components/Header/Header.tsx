@@ -55,15 +55,7 @@ export const Header = (props) => {
                   </div>
                 </div>
               </div>
-              <div className="grow-1">
-                {listCategory.map((e) => {
-                  return (
-                    <Button key={e.name} variant="ghost">
-                      <Link href={e.url}>{e.name}</Link>
-                    </Button>
-                  )
-                })}
-              </div>
+              <div className="grow-1"></div>
             </div>
           </div>
         </div>

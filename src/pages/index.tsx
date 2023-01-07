@@ -6,26 +6,10 @@ import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { Header } from "@/components/Header"
 
-export default function Home({ posts }) {
+export default function Home(props) {
+  const { posts } = props
   const router = useRouter()
-  const listCategory = [
-    {
-      name: "Movies",
-      url: "movies",
-    },
-    {
-      name: "Games",
-      url: "movies",
-    },
-    {
-      name: "News",
-      url: "movies",
-    },
-    {
-      name: "Otaku",
-      url: "movies",
-    },
-  ]
+
   return (
     <>
       <Head>

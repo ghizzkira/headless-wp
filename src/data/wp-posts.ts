@@ -402,47 +402,6 @@ export const QUERY_WP_POSTS_BY_AUTHOR_SLUG = `
   }
 `
 
-export const QUERY_WP_POST_SEO_BY_SLUG = `
-  query PostSEOBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      id
-      seo {
-        canonical
-        metaDesc
-        metaRobotsNofollow
-        metaRobotsNoindex
-        opengraphAuthor
-        opengraphDescription
-        opengraphModifiedTime
-        opengraphPublishedTime
-        opengraphPublisher
-        opengraphTitle
-        opengraphType
-        readingTime
-        title
-        twitterDescription
-        twitterTitle
-        twitterImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            width
-            height
-          }
-        }
-        opengraphImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            height
-            width
-          }
-        }
-      }
-    }
-  }
-`
-
 export const QUERY_WP_POST_PER_PAGE = `
   query PostPerPage {
     allSettings {

@@ -1,6 +1,5 @@
 import axios from "axios"
 import { wpUpdateUserAvatar } from "./wp-users"
-import { sortObjectsByDate } from "./datetime"
 
 import env from "@/env"
 import {
@@ -8,7 +7,6 @@ import {
   QUERY_WP_POST_BY_SLUG,
   QUERY_WP_POSTS_BY_AUTHOR_SLUG,
   QUERY_WP_POSTS_BY_CATEGORY_SLUG,
-  QUERY_WP_POST_SEO_BY_SLUG,
   QUERY_WP_POST_PER_PAGE,
   QUERY_WP_POSTS_BY_TAG_ID,
   QUERY_WP_ALL_POSTS_LOAD_MORE,
@@ -212,13 +210,13 @@ export async function wpGetPostsByTagId(id: any, after = "") {
   }
 }
 
-export async function wpGetRecentPosts({ count }: { count: number }) {
-  const { posts } = await wpGetAllPosts()
-  const sorted = sortObjectsByDate(posts)
-  return {
-    posts: sorted.slice(0, count),
-  }
-}
+// export async function wpGetRecentPosts({ count }: { count: number }) {
+//   const { posts } = await wpGetAllPosts()
+//   const sorted = sortObjectsByDate(posts)
+//   return {
+//     posts: sorted.slice(0, count),
+//   }
+// }
 
 export function wpSanitizeExcerpt(excerpt: string) {
   if (typeof excerpt !== "string") {
@@ -297,8 +295,7 @@ export async function wpGetRelatedPosts(
   if (category) {
     const { posts }: any = await wpGetPostsByCategoryId(category.categoryId)
     const filtered = posts.filter(({ postId: id }: any) => id !== postId)
-    const sorted = sortObjectsByDate(filtered)
-    relatedPosts = sorted.map((post) => ({
+    relatedPosts = filtered.map((post) => ({
       title: post.title,
       author: post.author,
       date: post.date,

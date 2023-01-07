@@ -44,7 +44,7 @@ export default function Category(props) {
     </>
   )
 }
-export const getStaticProps = async ({ params }: any) => {
+export const getServerSideProps = async ({ params }: any) => {
   const { category } = await wpGetCategoryBySlug(params?.category)
   if (category.error) {
     return {
@@ -58,23 +58,22 @@ export const getStaticProps = async ({ params }: any) => {
       category,
       posts,
     },
-    revalidate: 3600,
   }
 }
 
-export const getStaticPaths = async () => {
-  const { categories } = await wpGetAllCategories()
-  const paths = categories.map((category) => {
-    const { slug } = category
-    return {
-      params: {
-        category: slug,
-      },
-    }
-  })
+// export const getStaticPaths = async () => {
+//   const { categories } = await wpGetAllCategories()
+//   const paths = categories.map((category) => {
+//     const { slug } = category
+//     return {
+//       params: {
+//         category: slug,
+//       },
+//     }
+//   })
 
-  return {
-    paths,
-    fallback: "blocking",
-  }
-}
+//   return {
+//     paths,
+//     fallback: "blocking",
+//   }
+// }
