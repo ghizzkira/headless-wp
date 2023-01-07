@@ -71,7 +71,7 @@ export const Header = (props) => {
       <div
         className={`${
           isOpen ? "translate-y-full" : "translate-y-0"
-        } border-r border-gray-100 bg-white z-20 fixed top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
+        } border-r border-gray-100 bg-white z-20 fixed mt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
       >
         <nav class="flex flex-col w-56 relative">
           <ul class="flex flex-col py-4">
@@ -155,7 +155,7 @@ export const Header = (props) => {
       </div>
       <div
         id="container"
-        className={`flex mt-12 ${isOpen ? "pl-0" : "pl-[250px]"}`}
+        className={`flex mt-20 ${isOpen ? "pl-0" : "pl-[250px]"}`}
       >
         {children}
       </div>

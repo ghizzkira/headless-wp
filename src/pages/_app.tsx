@@ -15,9 +15,7 @@ function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
       <ThemeProvider attribute="class" storageKey="theme" enableSystem>
-        <Header>
-          <Component {...pageProps} />
-        </Header>
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   )
