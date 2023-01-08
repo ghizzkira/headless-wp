@@ -5,17 +5,15 @@ import NextLink from "next/link"
 interface PostCardSlideProps {
   title: string
   slug: string
-  image: {
-    sourceUrl: string
-    altText: string
-  }
+  src: string
+  alt: string
 }
 
 export const PostCardSide = React.forwardRef<
   HTMLDivElement,
   PostCardSlideProps
 >((props) => {
-  const { image, slug, title } = props
+  const { src, alt, slug, title } = props
   return (
     <article className="flex w-full flex-col rounded-lg drop-shadow-md mb-4 border-separate">
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl min-h-[80px] h-[80px]">
@@ -25,8 +23,8 @@ export const PostCardSide = React.forwardRef<
             height={75}
             width={75}
             className="post-card-thumbnail h-full rounded-lg"
-            src={image.sourceUrl}
-            alt={image.altText}
+            src={src}
+            alt={alt}
           />
         </div>
         <div className="w-full md:w-2/3 flex flex-col space-y-2">

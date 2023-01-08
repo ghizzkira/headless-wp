@@ -6,15 +6,13 @@ interface PostCardProps {
   title: string
   slug: string
   excerpt: string
-  image: {
-    sourceUrl: string
-    altText: string
-  }
+  src: string
+  alt: string
 }
 
 export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
   (props) => {
-    const { image, slug, excerpt, title } = props
+    const { src, alt, slug, excerpt, title } = props
     return (
       <article className="flex flex-col rounded-lg drop-shadow-md mb-2 border-separate">
         <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto min-h-[185px] h-[185px]">
@@ -24,8 +22,8 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               height={250}
               width={350}
               className="post-card-thumbnail h-full rounded-lg"
-              src={image.sourceUrl}
-              alt={image.altText}
+              src={src}
+              alt={alt}
             />
           </div>
           <div className="w-full md:w-2/3 flex flex-col space-y-2">

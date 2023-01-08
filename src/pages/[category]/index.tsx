@@ -3,7 +3,16 @@ import { Header } from "@/components/Header"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-export default function Category(props) {
+
+interface CategoryProps {
+  category: {
+    name: string
+  }
+  posts: any
+}
+
+export default function Category(props: CategoryProps) {
+  // eslint-disable-next-line no-unused-vars
   const { category, posts } = props
   console.log(posts)
 
@@ -12,31 +21,49 @@ export default function Category(props) {
       <Header>
         <section className="mx-8 flex flex-row">
           <div>
-            {posts.map((e) => {
-              return (
-                <PostCard
-                  key={e.id}
-                  image={e.featuredImage}
-                  slug={e.slug}
-                  title={e.title}
-                  excerpt={e.excerpt}
-                />
-              )
-            })}
+            {posts.map(
+              (post: {
+                id: number
+                featuredImage: string
+                slug: string
+                title: string
+                excerpt: string
+              }) => {
+                return (
+                  <PostCard
+                    key={post.id}
+                    src={post.featuredImage}
+                    alt={post.title}
+                    slug={post.slug}
+                    title={post.title}
+                    excerpt={post.excerpt}
+                  />
+                )
+              },
+            )}
           </div>
 
           <aside className="w-4/12">
             <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
-              {posts.map((e) => {
-                return (
-                  <PostCardSide
-                    key={e.id}
-                    image={e.featuredImage}
-                    slug={e.slug}
-                    title={e.title}
-                  />
-                )
-              })}
+              {posts.map(
+                (post: {
+                  id: number
+                  featuredImage: string
+                  slug: string
+                  title: string
+                  excerpt: string
+                }) => {
+                  return (
+                    <PostCardSide
+                      key={post.id}
+                      src={post.featuredImage}
+                      alt={post.slug}
+                      title={post.title}
+                      slug={post.slug}
+                    />
+                  )
+                },
+              )}
             </div>
           </aside>
         </section>
@@ -44,6 +71,7 @@ export default function Category(props) {
     </>
   )
 }
+
 export const getServerSideProps = async ({ params }: any) => {
   const { category } = await wpGetCategoryBySlug(params?.category)
   if (category.error) {
