@@ -114,5 +114,4 @@ class MyDocument extends Document {
   }
 }
 
-// @ts-ignore FIX later
 export default install(MyDocument)

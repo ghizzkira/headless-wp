@@ -6,7 +6,11 @@ import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { Header } from "@/components/Header"
 
-export default function Home(props) {
+interface HomeProps {
+  posts: any
+}
+
+export default function Home(props: HomeProps) {
   const { posts } = props
   const router = useRouter()
 
@@ -26,31 +30,55 @@ export default function Home(props) {
       <Header>
         <section className="mx-8 flex flex-row">
           <div>
-            {posts.map((e) => {
-              return (
-                <PostCard
-                  key={e.id}
-                  image={e.featuredImage}
-                  slug={e.slug}
-                  title={e.title}
-                  excerpt={e.excerpt}
-                />
-              )
-            })}
+            {posts.map(
+              (post: {
+                id: number
+                featuredImage: {
+                  sourceUrl: string
+                  altText: string
+                }
+                title: string
+                slug: string
+                excerpt: string
+              }) => {
+                return (
+                  <PostCard
+                    key={post.id}
+                    src={post.featuredImage.sourceUrl}
+                    alt={post.featuredImage.altText}
+                    slug={post.slug}
+                    title={post.title}
+                    excerpt={post.excerpt}
+                  />
+                )
+              },
+            )}
           </div>
 
           <aside className="w-4/12">
             <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
-              {posts.map((e) => {
-                return (
-                  <PostCardSide
-                    key={e.id}
-                    image={e.featuredImage}
-                    slug={e.slug}
-                    title={e.title}
-                  />
-                )
-              })}
+              {posts.map(
+                (post: {
+                  id: number
+                  featuredImage: {
+                    sourceUrl: string
+                    altText: string
+                  }
+                  title: string
+                  slug: string
+                  excerpt: string
+                }) => {
+                  return (
+                    <PostCardSide
+                      key={post.id}
+                      src={post.featuredImage.sourceUrl}
+                      alt={post.featuredImage.altText}
+                      slug={post.slug}
+                      title={post.title}
+                    />
+                  )
+                },
+              )}
             </div>
           </aside>
         </section>

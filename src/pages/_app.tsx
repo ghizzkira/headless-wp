@@ -9,8 +9,19 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <style jsx global>{`
-        html {
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, segoe ui,
+            helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
+            segoe ui emoji, segoe ui symbol, noto color emoji !important;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
           font-family: ${inter.style.fontFamily};
+          font-weight: 600;
         }
         .scrollbar::-webkit-scrollbar {
           width: 10px;
@@ -31,6 +42,7 @@ function App({ Component, pageProps }: AppProps) {
           background: #f1f1f1;
         }
       `}</style>
+
       <ThemeProvider attribute="class" storageKey="theme" enableSystem>
         <Component {...pageProps} />
       </ThemeProvider>
