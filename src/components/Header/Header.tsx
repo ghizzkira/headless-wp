@@ -1,8 +1,11 @@
-import React from "react"
-import { Button, useDisclosure } from "@/ui"
-import Link from "next/link"
+import * as React from "react"
+import { useDisclosure } from "@/ui"
 
-export const Header = (props) => {
+interface HeaderProps {
+  children: React.ReactNode
+}
+
+export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
   const { isOpen, onToggle } = useDisclosure()
 
   const { children } = props
@@ -31,10 +34,10 @@ export const Header = (props) => {
           <div className="ak-bar-inner relative h-full">
             <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex justify-start h-full -ml-4 -mr-4">
               <div id="drawer" className="mx-2">
-                <div class="space-y-1" onClick={onToggle}>
-                  <div class="w-5 h-0.5 bg-gray-600"></div>
-                  <div class="w-5 h-0.5 bg-gray-600"></div>
-                  <div class="w-5 h-0.5 bg-gray-600"></div>
+                <div className="space-y-1" onClick={onToggle}>
+                  <div className="w-5 h-0.5 bg-gray-600"></div>
+                  <div className="w-5 h-0.5 bg-gray-600"></div>
+                  <div className="w-5 h-0.5 bg-gray-600"></div>
                 </div>
               </div>
               <div className="flex-grow-0 flex-shrink-0 flex flex-col pl-4 pr-4 max-w-full min-w-0 basis-auto">
@@ -65,19 +68,19 @@ export const Header = (props) => {
           isOpen ? "translate-y-full" : "translate-y-0"
         } border-r border-gray-100 bg-white z-20 fixed mt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
       >
-        <nav class="flex flex-col w-56 relative">
-          <ul class="flex flex-col py-4">
+        <nav className="flex flex-col w-56 relative">
+          <ul className="flex flex-col py-4">
             {listCategory.map((e) => {
               return (
                 <li>
                   <a
                     href="#"
-                    class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
-                    <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i class="bx bx-home"></i>
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                      <i className="bx bx-home"></i>
                     </span>
-                    <span class="text-sm font-medium">{e.name}</span>
+                    <span className="text-sm font-medium">{e.name}</span>
                   </a>
                 </li>
               )
@@ -87,12 +90,12 @@ export const Header = (props) => {
                 <li>
                   <a
                     href="#"
-                    class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
-                    <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i class="bx bx-home"></i>
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                      <i className="bx bx-home"></i>
                     </span>
-                    <span class="text-sm font-medium">{e.name}</span>
+                    <span className="text-sm font-medium">{e.name}</span>
                   </a>
                 </li>
               )
@@ -102,12 +105,12 @@ export const Header = (props) => {
                 <li>
                   <a
                     href="#"
-                    class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
-                    <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i class="bx bx-home"></i>
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                      <i className="bx bx-home"></i>
                     </span>
-                    <span class="text-sm font-medium">{e.name}</span>
+                    <span className="text-sm font-medium">{e.name}</span>
                   </a>
                 </li>
               )
@@ -117,12 +120,12 @@ export const Header = (props) => {
                 <li>
                   <a
                     href="#"
-                    class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
-                    <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i class="bx bx-home"></i>
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                      <i className="bx bx-home"></i>
                     </span>
-                    <span class="text-sm font-medium">{e.name}</span>
+                    <span className="text-sm font-medium">{e.name}</span>
                   </a>
                 </li>
               )
@@ -132,12 +135,12 @@ export const Header = (props) => {
                 <li>
                   <a
                     href="#"
-                    class="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
+                    className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
-                    <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i class="bx bx-home"></i>
+                    <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                      <i className="bx bx-home"></i>
                     </span>
-                    <span class="text-sm font-medium">{e.name}</span>
+                    <span className="text-sm font-medium">{e.name}</span>
                   </a>
                 </li>
               )
@@ -153,4 +156,4 @@ export const Header = (props) => {
       </div>
     </>
   )
-}
+})
