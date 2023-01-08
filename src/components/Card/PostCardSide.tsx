@@ -8,6 +8,7 @@ export const PostCardSide = (props) => {
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl min-h-[80px] h-[80px]">
         <div className="w-[75px] h-[75px] grid place-items-stretch">
           <NextImage
+            priority={true}
             height={75}
             width={75}
             className="post-card-thumbnail h-full rounded-lg"

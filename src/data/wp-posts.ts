@@ -1,6 +1,6 @@
 export const QUERY_WP_ALL_POSTS = `
   query AllPosts {
-    posts(first: 1000) {
+    posts(first: 10) {
       pageInfo {
         hasNextPage
         endCursor
@@ -59,7 +59,7 @@ export const QUERY_WP_ALL_POSTS = `
 `
 export const QUERY_WP_ALL_SLUG = `
 query AllSlug($after: String) {
-  posts(after: $after, first: 1000) {
+  posts(after: $after, first: 100) {
     pageInfo {
       endCursor
       hasNextPage
@@ -122,7 +122,6 @@ export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
               }
             }
           }
-          content
           date
           excerpt
           featuredImage {
@@ -213,9 +212,9 @@ export const QUERY_WP_POST_BY_SLUG = `
   }
 `
 
-export const QUERY_WP_POSTS_BY_CATEGORY_ID = `
-  query PostsByCategoryId($categoryId: Int!, $after: String) {
-    posts(where: { categoryId: $categoryId }, after: $after, first: 12) {
+export const QUERY_WP_POSTS_BY_CATEGORY_SLUG = `
+  query PostsByCategoryId($categoryId: String, $after: String) {
+    posts(where: { categoryName: $categoryId }, after: $after, first: 12) {
       pageInfo {
         hasNextPage
         endCursor
@@ -397,47 +396,6 @@ export const QUERY_WP_POSTS_BY_AUTHOR_SLUG = `
           postId
           slug
           title
-        }
-      }
-    }
-  }
-`
-
-export const QUERY_WP_POST_SEO_BY_SLUG = `
-  query PostSEOBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      id
-      seo {
-        canonical
-        metaDesc
-        metaRobotsNofollow
-        metaRobotsNoindex
-        opengraphAuthor
-        opengraphDescription
-        opengraphModifiedTime
-        opengraphPublishedTime
-        opengraphPublisher
-        opengraphTitle
-        opengraphType
-        readingTime
-        title
-        twitterDescription
-        twitterTitle
-        twitterImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            width
-            height
-          }
-        }
-        opengraphImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            height
-            width
-          }
         }
       }
     }
