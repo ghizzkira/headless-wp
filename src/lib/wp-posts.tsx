@@ -4,21 +4,19 @@ import { wpUpdateUserAvatar } from "./wp-users"
 import env from "@/env"
 import {
   QUERY_WP_ALL_POSTS,
-  QUERY_WP_POST_BY_SLUG,
   QUERY_WP_POSTS_BY_AUTHOR_SLUG,
   QUERY_WP_POSTS_BY_CATEGORY_SLUG,
   QUERY_WP_POST_PER_PAGE,
   QUERY_WP_POSTS_BY_TAG_ID,
   QUERY_WP_ALL_POSTS_LOAD_MORE,
   QUERY_WP_ALL_SLUG,
-  QUERY_WP_SEARCH_POSTS,
 } from "@/data/wp-posts"
 
 export function wpPostPathBySlug(slug: string) {
   return `/${slug}`
 }
 
-export async function wpFetchAPI(query: string, variables) {
+export async function wpFetchAPI(query: string, variables?: any) {
   const headers = { "Content-Type": "application/json" }
 
   const res = await axios({
@@ -50,25 +48,15 @@ export async function wpGetAllPostsLoadMore(after = "") {
 export function wpMapPostData(post = {}) {
   const data: any = { ...post }
 
-  // Clean up the author object to avoid someone having to look an extra
-  // level deeper into the node
-
   if (data.author) {
     data.author = {
       ...data.author.node,
     }
   }
 
-  // The URL by default that comes from Gravatar / WordPress is not a secure
-  // URL. This ends up redirecting to https, but it gives mixed content warnings
-  // as the HTML shows it as http. Replace the url to avoid those warnings
-  // and provide a secure URL by default
-
   if (data.author?.avatar) {
     data.author.avatar = wpUpdateUserAvatar(data.author.avatar)
   }
-
-  // Clean up the categories to make them more easy to access
 
   if (data.categories) {
     data.categories = data.categories.edges.map(({ node }: any) => {
@@ -77,8 +65,6 @@ export function wpMapPostData(post = {}) {
       }
     })
   }
-
-  // Clean up the tags to make them more easy to access
 
   if (data.tags) {
     data.tags = data.tags.edges.map(({ node }: any) => {
@@ -103,7 +89,6 @@ export function wpMapPostData(post = {}) {
   //     data.content = content
   //   }
   // }
-  // Clean up the featured image to make them more easy to access
 
   if (data.featuredImage) {
     data.featuredImage = data.featuredImage.node
@@ -227,20 +212,11 @@ export function wpSanitizeExcerpt(excerpt: string) {
 
   let sanitized = excerpt
 
-  // If the theme includes [...] as the more indication, clean it up to just ...
-
   sanitized = sanitized.replace(/\s?\[&hellip;\]/, "&hellip;")
-
-  // If after the above replacement, the ellipsis includes 4 dots, it's
-  // the end of a setence
-
   sanitized = sanitized.replace("....", ".")
   sanitized = sanitized.replace(".&hellip;", ".")
-
-  // If the theme is including a "Continue..." link, remove it
   sanitized = sanitized.replace(/<p>/gi, "")
   sanitized = sanitized.replace(/<\/p>/gi, "")
-
   sanitized = sanitized.replace(/\w*<a class="more-link".*<\/a>/, "")
 
   return sanitized
@@ -248,26 +224,15 @@ export function wpSanitizeExcerpt(excerpt: string) {
 
 export function wpMapPostDataLM(post = {}) {
   const data: any = { ...post }
-
-  // Clean up the author object to avoid someone having to look an extra
-  // level deeper into the node
-
   if (data.node.author) {
     data.node.author = {
       ...data.node.author.node,
     }
   }
 
-  // The URL by default that comes from Gravatar / WordPress is not a secure
-  // URL. This ends up redirecting to https, but it gives mixed content warnings
-  // as the HTML shows it as http. Replace the url to avoid those warnings
-  // and provide a secure URL by default
-
   if (data.author?.avatar) {
     data.author.avatar = wpUpdateUserAvatar(data.author.avatar)
   }
-
-  // Clean up the categories to make them more easy to access
 
   if (data.node.categories) {
     data.node.categories = data.node.categories.edges.map(({ node }: any) => {
@@ -276,8 +241,6 @@ export function wpMapPostDataLM(post = {}) {
       }
     })
   }
-
-  // Clean up the featured image to make them more easy to access
 
   if (data.node.featuredImage) {
     data.node.featuredImage = data.node.featuredImage.node
@@ -295,14 +258,23 @@ export async function wpGetRelatedPosts(
   if (category) {
     const { posts }: any = await wpGetPostsByCategoryId(category.categoryId)
     const filtered = posts.filter(({ postId: id }: any) => id !== postId)
-    relatedPosts = filtered.map((post) => ({
-      title: post.title,
-      author: post.author,
-      date: post.date,
-      categories: post.categories,
-      slug: post.slug,
-      featuredImage: post.featuredImage,
-    }))
+    relatedPosts = filtered.map(
+      (post: {
+        title: string
+        author: any
+        date: Date
+        categories: any
+        slug: string
+        featuredImage: string
+      }) => ({
+        title: post.title,
+        author: post.author,
+        date: post.date,
+        categories: post.categories,
+        slug: post.slug,
+        featuredImage: post.featuredImage,
+      }),
+    )
   }
 
   if (relatedPosts.length > count) {
@@ -337,13 +309,14 @@ export async function wpGetPaginatedPosts(currentPage = 1) {
   const { posts, pageInfo } = await wpGetAllPostsLoadMore()
 
   const postsPerPage = await wpGetPostsPerPage()
-  const pagesCount = await wpGetPagesCount(posts, postsPerPage)
+  const pagesCount = await wpGetPagesCount(posts as any, postsPerPage)
   let page = Number(currentPage)
   if (typeof page === "undefined" || isNaN(page) || page > pagesCount) {
     page = 1
   }
   const offset = postsPerPage * (page - 1)
   return {
+    //@ts-ignore FIX: later
     posts: posts.slice(offset, offset + postsPerPage),
     pagination: {
       currentPage: page,
