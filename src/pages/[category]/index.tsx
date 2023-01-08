@@ -24,7 +24,10 @@ export default function Category(props: CategoryProps) {
             {posts.map(
               (post: {
                 id: number
-                featuredImage: string
+                featuredImage: {
+                  sourceUrl: string
+                  altText: string
+                }
                 slug: string
                 title: string
                 excerpt: string
@@ -32,8 +35,8 @@ export default function Category(props: CategoryProps) {
                 return (
                   <PostCard
                     key={post.id}
-                    src={post.featuredImage}
-                    alt={post.title}
+                    src={post.featuredImage.sourceUrl}
+                    alt={post.featuredImage.altText}
                     slug={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
@@ -48,7 +51,10 @@ export default function Category(props: CategoryProps) {
               {posts.map(
                 (post: {
                   id: number
-                  featuredImage: string
+                  featuredImage: {
+                    sourceUrl: string
+                    altText: string
+                  }
                   slug: string
                   title: string
                   excerpt: string
@@ -56,8 +62,8 @@ export default function Category(props: CategoryProps) {
                   return (
                     <PostCardSide
                       key={post.id}
-                      src={post.featuredImage}
-                      alt={post.slug}
+                      src={post.featuredImage.sourceUrl}
+                      alt={post.featuredImage.altText}
                       title={post.title}
                       slug={post.slug}
                     />

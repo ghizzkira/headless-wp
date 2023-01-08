@@ -33,7 +33,10 @@ export default function Home(props: HomeProps) {
             {posts.map(
               (post: {
                 id: number
-                featuredImage: string
+                featuredImage: {
+                  sourceUrl: string
+                  altText: string
+                }
                 title: string
                 slug: string
                 excerpt: string
@@ -41,8 +44,8 @@ export default function Home(props: HomeProps) {
                 return (
                   <PostCard
                     key={post.id}
-                    src={post.featuredImage}
-                    alt={post.title}
+                    src={post.featuredImage.sourceUrl}
+                    alt={post.featuredImage.altText}
                     slug={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
@@ -57,7 +60,10 @@ export default function Home(props: HomeProps) {
               {posts.map(
                 (post: {
                   id: number
-                  featuredImage: string
+                  featuredImage: {
+                    sourceUrl: string
+                    altText: string
+                  }
                   title: string
                   slug: string
                   excerpt: string
@@ -65,8 +71,8 @@ export default function Home(props: HomeProps) {
                   return (
                     <PostCardSide
                       key={post.id}
-                      src={post.featuredImage}
-                      alt={post.title}
+                      src={post.featuredImage.sourceUrl}
+                      alt={post.featuredImage.altText}
                       slug={post.slug}
                       title={post.title}
                     />

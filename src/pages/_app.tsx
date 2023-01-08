@@ -21,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
         h5,
         h6 {
           font-family: ${inter.style.fontFamily};
+          font-weight: 600;
         }
         .scrollbar::-webkit-scrollbar {
           width: 10px;
