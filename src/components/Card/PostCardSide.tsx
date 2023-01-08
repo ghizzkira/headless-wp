@@ -1,7 +1,20 @@
+import * as React from "react"
 import NextImage from "next/image"
 import NextLink from "next/link"
 
-export const PostCardSide = (props) => {
+interface PostCardSlideProps {
+  title: string
+  slug: string
+  image: {
+    sourceUrl: string
+    altText: string
+  }
+}
+
+export const PostCardSide = React.forwardRef<
+  HTMLDivElement,
+  PostCardSlideProps
+>((props) => {
   const { image, slug, title } = props
   return (
     <article className="flex w-full flex-col rounded-lg drop-shadow-md mb-4 border-separate">
@@ -26,4 +39,4 @@ export const PostCardSide = (props) => {
       </div>
     </article>
   )
-}
+})
