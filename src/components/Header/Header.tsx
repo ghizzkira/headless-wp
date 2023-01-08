@@ -1,6 +1,9 @@
 import * as React from "react"
 import { useDisclosure } from "@/ui"
-
+import env from "@/env"
+import NextLink from "next/link"
+import NextImage from "next/image"
+import { Footer } from "@/components/Footer"
 interface HeaderProps {
   children: React.ReactNode
 }
@@ -44,16 +47,16 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
                 <div className="pr-0 pl-0 items-center justify-start w-full flex flex-wrap flex-row">
                   <div className="ak-bar-item ak-header-logo pr-0 pl-0 items-center justify-start w-full flex flex-wrap flex-row">
                     <h1 className="logo-image m-0 p-0 leading-none font-bold text-4xl	">
-                      <a href="https://wowkia.com/">
-                        <img
+                      <NextLink href={env.DOMAIN}>
+                        <NextImage
                           className="site-logo"
                           height={32}
                           width={120}
-                          alt="Wowkia.com"
-                          src="https://wowkia.com/wp-content/uploads/2019/01/Wowkia-2019-v2-Menu-Logo-min.png"
-                          srcSet="https://wowkia.com/wp-content/uploads/2019/01/Wowkia-2019-v2-Menu-Logo-min.png 1x, https://wowkia.com/wp-content/uploads/2019/03/Wowkia-Retina-Logo-min.png 2x"
+                          alt={env.SITE_TITLE}
+                          src={env.LOGO_URL}
+                          srcSet={env.LOGO_SRC_SET}
                         />
-                      </a>
+                      </NextLink>
                     </h1>
                   </div>
                 </div>
@@ -65,8 +68,8 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       </header>
       <div
         className={`${
-          isOpen ? "translate-y-full" : "translate-y-0"
-        } border-r border-gray-100 bg-white z-20 fixed mt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
+          isOpen ? "-translate-x-full" : "translate-x-0"
+        } transition ease-in-out delay-150 border-r border-gray-100 bg-white z-20 fixed mt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
       >
         <nav className="flex flex-col w-56 relative">
           <ul className="flex flex-col py-4">
@@ -150,10 +153,13 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       </div>
       <div
         id="container"
-        className={`flex mt-20 ${isOpen ? "pl-0" : "pl-[250px]"}`}
+        className={`flex mt-20 ${
+          isOpen ? "pl-0" : "pl-[250px]"
+        } transition-[padding] ease-in-out delay-150`}
       >
         {children}
       </div>
+      <Footer className={`${isOpen ? "pl-0" : "pl-[250px]"}`} />
     </>
   )
 })

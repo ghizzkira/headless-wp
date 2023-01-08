@@ -173,25 +173,23 @@ export async function wpGetPostsByCategoryId(categoryId: any, after = "") {
 export async function wpGetPostsByTagId(id: any, after = "") {
   let postData
   try {
-    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_ID, {
-      variables: { id, after },
-    })
+    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_ID, { id, after })
   } catch (e) {
     console.log(`Failed to query post data: ${e}`)
     throw e
   }
-  if (postData.tag === null) {
+  if (postData.data.tag === null) {
     let posts: { error: string } = {
       error: "",
     }
     posts.error = "Something went wrong"
     return { posts }
   }
-  const posts = postData?.tag.posts.edges.map(({ node = {} }) => node)
+  const posts = postData?.data.tag.posts.edges.map(({ node = {} }) => node)
 
   return {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
-    pageInfo: postData?.tag.posts.pageInfo,
+    pageInfo: postData?.data.tag.posts.pageInfo,
   }
 }
 
