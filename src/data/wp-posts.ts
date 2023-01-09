@@ -35,7 +35,6 @@ export const QUERY_WP_ALL_POSTS = `
               }
             }
           }
-          content
           date
           excerpt
           featuredImage {
