@@ -1,19 +1,18 @@
-import { wpGetCategoryBySlug } from "@/lib/wp-categories"
+import { wpGetTagBySlug } from "@/lib/wp-tags"
+import { wpGetPostsByTagId } from "@/lib/wp-posts"
 import { Header } from "@/components/Header"
-import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 
-interface CategoryProps {
-  category: {
+interface TagProps {
+  tag: {
     name: string
   }
   posts: any
 }
-
-export default function Category(props: CategoryProps) {
+export default function Tag(props: TagProps) {
   // eslint-disable-next-line no-unused-vars
-  const { category, posts } = props
+  const { tag, posts } = props
 
   return (
     <>
@@ -76,37 +75,19 @@ export default function Category(props: CategoryProps) {
     </>
   )
 }
-
 export const getServerSideProps = async ({ params }: any) => {
-  const { category } = await wpGetCategoryBySlug(params?.category)
-  if (category.error) {
+  const { tag } = await wpGetTagBySlug(params?.name)
+  if (tag == null || tag?.error) {
     return {
       notFound: true,
     }
   }
 
-  const { posts } = await wpGetPostsByCategoryId(category.name)
+  const { posts } = await wpGetPostsByTagId(tag.id)
   return {
     props: {
-      category,
+      tag,
       posts,
     },
   }
 }
-
-// export const getStaticPaths = async () => {
-//   const { categories } = await wpGetAllCategories()
-//   const paths = categories.map((category) => {
-//     const { slug } = category
-//     return {
-//       params: {
-//         category: slug,
-//       },
-//     }
-//   })
-
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   }
-// }
