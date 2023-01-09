@@ -24,7 +24,7 @@ function App({ Component, pageProps }: AppProps) {
           font-weight: 600;
         }
         .scrollbar::-webkit-scrollbar {
-          width: 10px;
+          width: 5px;
         }
 
         .scrollbar::-webkit-scrollbar-track {

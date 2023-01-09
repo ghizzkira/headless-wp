@@ -4,12 +4,22 @@ import env from "@/env"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { Footer } from "@/components/Footer"
+import { wpGetPrimaryMenus } from "@/lib/wp-menus"
 interface HeaderProps {
   children: React.ReactNode
 }
 
 export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
   const { isOpen, onToggle } = useDisclosure()
+  const [primaryMenus, setPrimaryMenus] = React.useState(null)
+  React.useEffect(() => {
+    async function menus() {
+      const { menu } = await wpGetPrimaryMenus()
+      setPrimaryMenus(menu)
+      console.log(primaryMenus)
+    }
+    menus()
+  }, [])
 
   const { children } = props
   const listCategory = [
@@ -69,25 +79,33 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       <div
         className={`${
           isOpen ? "-translate-x-full" : "translate-x-0"
-        } transition ease-in-out delay-150 border-r border-gray-100 bg-white z-20 fixed mt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
+        } transition ease-in-out delay-150 border-r border-gray-100 bg-white z-20 fixed pt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
       >
-        <nav className="flex flex-col w-56 relative">
-          <ul className="flex flex-col py-4">
-            {listCategory.map((e) => {
+        <nav className="flex w-full flex-col w-56 relative">
+          <ul className="flex flex-col py-4 border-b border-gray-100">
+            {primaryMenus?.map((e) => {
+              const fullUrl = e.url.includes(env.DOMAIN)
+              let slicedUrl
+              if (fullUrl) {
+                slicedUrl = e.url.slice(env.DOMAIN.length + 1)
+              }
+
               return (
-                <li>
-                  <a
-                    href="#"
+                <li key={e.label}>
+                  <NextLink
+                    href={fullUrl ? slicedUrl : e.url}
                     className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800"
                   >
                     <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
                       <i className="bx bx-home"></i>
                     </span>
-                    <span className="text-sm font-medium">{e.name}</span>
-                  </a>
+                    <span className="text-sm font-medium">{e.label}</span>
+                  </NextLink>
                 </li>
               )
             })}
+          </ul>
+          <ul className="flex flex-col py-4 border-b border-gray-100">
             {listCategory.map((e) => {
               return (
                 <li>
