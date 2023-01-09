@@ -15,21 +15,3 @@
 //     revalidate: 3600,
 //   }
 // }
-
-// export const getStaticPaths = async () => {
-//   const { categories } = await wpGetAllCategories()
-//   const paths = categories.map((category) => {
-//     const { slug } = category
-//     return {
-//       params: {
-//         category: slug,
-//         slug: slug,
-//       },
-//     }
-//   })
-
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   }
-// }

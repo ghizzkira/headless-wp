@@ -16,7 +16,6 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
     async function menus() {
       const { menu } = await wpGetPrimaryMenus()
       setPrimaryMenus(menu)
-      console.log(primaryMenus)
     }
     menus()
   }, [])
@@ -83,11 +82,11 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       >
         <nav className="flex w-full flex-col w-56 relative">
           <ul className="flex flex-col py-4 border-b border-gray-100">
-            {primaryMenus?.map((e) => {
-              const fullUrl = e.url.includes(env.DOMAIN)
+            {primaryMenus?.map((menu) => {
+              const fullUrl = menu.url.includes(env.DOMAIN)
               let slicedUrl
               if (fullUrl) {
-                slicedUrl = e.url.slice(env.DOMAIN.length + 1)
+                slicedUrl = menu.url.slice(env.DOMAIN.length + 1)
               }
 
               return (
@@ -99,7 +98,7 @@ export const Header = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
                     <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
                       <i className="bx bx-home"></i>
                     </span>
-                    <span className="text-sm font-medium">{e.label}</span>
+                    <span className="text-sm font-medium">{menu.label}</span>
                   </NextLink>
                 </li>
               )
