@@ -4,7 +4,7 @@ import { tx } from "@twind/core"
 const DEFAULT_ORIENTATION = "horizontal"
 const ORIENTATIONS = ["horizontal", "vertical"] as const
 
-type Orientation = typeof ORIENTATIONS[number]
+type Orientation = (typeof ORIENTATIONS)[number]
 
 export interface DividerProps extends React.HTMLAttributes<HTMLHRElement> {
   as?: React.ElementType
