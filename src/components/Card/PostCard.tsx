@@ -27,7 +27,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             />
           </div>
           <div className="w-full md:w-2/3 flex flex-col space-y-2">
-            <NextLink href={slug}>
+            <NextLink href={`/${slug}`}>
               <h3 className="text-gray-800 md:text-xl text-lg">{title}</h3>
               <div
                 className="md:text-lg text-gray-500 text-base line-clamp-2"

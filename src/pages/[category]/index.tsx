@@ -1,5 +1,5 @@
 import { wpGetCategoryBySlug, wpPrimaryCategorySlug } from "@/lib/wp-categories"
-import { Header } from "@/components/Header"
+import { Layout } from "@/components/Layout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
@@ -17,7 +17,7 @@ export default function Category(props: CategoryProps) {
 
   return (
     <>
-      <Header>
+      <Layout>
         <section className="mx-8 flex flex-row">
           <div>
             {posts.map(
@@ -76,7 +76,7 @@ export default function Category(props: CategoryProps) {
             </div>
           </aside>
         </section>
-      </Header>
+      </Layout>
     </>
   )
 }

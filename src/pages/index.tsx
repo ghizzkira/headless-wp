@@ -4,7 +4,7 @@ import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Header } from "@/components/Header"
+import { Layout } from "@/components/Layout"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 interface HomeProps {
   posts: any
@@ -27,7 +27,7 @@ export default function Home(props: HomeProps) {
           href={`https://${env.DOMAIN}${router.pathname}`}
         />
       </Head>
-      <Header>
+      <Layout>
         <section className="mx-8 flex flex-row">
           <div>
             {posts.map(
@@ -86,7 +86,7 @@ export default function Home(props: HomeProps) {
             </div>
           </aside>
         </section>
-      </Header>
+      </Layout>
     </>
   )
 }
