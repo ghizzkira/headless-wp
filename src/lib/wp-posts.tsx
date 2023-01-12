@@ -10,6 +10,7 @@ import {
   QUERY_WP_POSTS_BY_TAG_ID,
   QUERY_WP_ALL_POSTS_LOAD_MORE,
   QUERY_WP_ALL_SLUG,
+  QUERY_WP_POST_BY_SLUG,
 } from "@/data/wp-posts"
 
 export function wpPostPathBySlug(slug: string) {
@@ -113,7 +114,28 @@ export async function wpGetAllSlug() {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
   }
 }
+export async function wpGetPostBySlug(slug: string) {
+  let postData
+  let seoData
+  try {
+    postData = await wpFetchAPI(QUERY_WP_POST_BY_SLUG, { slug })
+  } catch (e) {
+    console.log(`[posts][wpGetPostBySlug] Failed to query post data: ${e}`)
+    throw e
+  }
+  if (postData.post === null) {
+    let post: { error: string } = {
+      error: "",
+    }
+    post.error = "Something went wrong"
+    return { post }
+  }
+  const post = [postData?.data.post].map(wpMapPostData)[0]
 
+  return {
+    post,
+  }
+}
 export async function wpGetPostsByAuthorSlug(
   slug: string | string[],
   after = "",

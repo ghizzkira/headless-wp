@@ -1,6 +1,6 @@
 import { wpGetTagBySlug } from "@/lib/wp-tags"
 import { wpGetPostsByTagId } from "@/lib/wp-posts"
-import { Header } from "@/components/Header"
+import { Layout } from "@/components/Layout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 
@@ -16,7 +16,7 @@ export default function Tag(props: TagProps) {
 
   return (
     <>
-      <Header>
+      <Layout>
         <section className="mx-8 flex flex-row">
           <div>
             {posts.map(
@@ -29,6 +29,8 @@ export default function Tag(props: TagProps) {
                 slug: string
                 title: string
                 excerpt: string
+                author: any
+                date: string
               }) => {
                 return (
                   <PostCard
@@ -38,6 +40,8 @@ export default function Tag(props: TagProps) {
                     slug={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
+                    author={post.author}
+                    date={post.date}
                   />
                 )
               },
@@ -71,7 +75,7 @@ export default function Tag(props: TagProps) {
             </div>
           </aside>
         </section>
-      </Header>
+      </Layout>
     </>
   )
 }

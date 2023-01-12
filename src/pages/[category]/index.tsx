@@ -1,5 +1,5 @@
-import { wpGetCategoryBySlug, wpPrimaryCategorySlug } from "@/lib/wp-categories"
-import { Header } from "@/components/Header"
+import { wpGetCategoryBySlug } from "@/lib/wp-categories"
+import { Layout } from "@/components/Layout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
@@ -17,7 +17,7 @@ export default function Category(props: CategoryProps) {
 
   return (
     <>
-      <Header>
+      <Layout>
         <section className="mx-8 flex flex-row">
           <div>
             {posts.map(
@@ -31,16 +31,18 @@ export default function Category(props: CategoryProps) {
                 title: string
                 excerpt: string
                 categories: any
+                uri: string
               }) => {
-                const { primary } = wpPrimaryCategorySlug(post.categories)
                 return (
                   <PostCard
                     key={post.id}
                     src={post.featuredImage.sourceUrl}
                     alt={post.featuredImage.altText}
-                    slug={`${primary.slug}/${post.slug}`}
+                    slug={post.uri}
                     title={post.title}
                     excerpt={post.excerpt}
+                    author={post.author}
+                    date={post.date}
                   />
                 )
               },
@@ -61,14 +63,13 @@ export default function Category(props: CategoryProps) {
                   excerpt: string
                   categories: any
                 }) => {
-                  const { primary } = wpPrimaryCategorySlug(post.categories)
                   return (
                     <PostCardSide
                       key={post.id}
                       src={post.featuredImage.sourceUrl}
                       alt={post.featuredImage.altText}
                       title={post.title}
-                      slug={`${primary.slug}/${post.slug}`}
+                      slug={post.uri}
                     />
                   )
                 },
@@ -76,7 +77,7 @@ export default function Category(props: CategoryProps) {
             </div>
           </aside>
         </section>
-      </Header>
+      </Layout>
     </>
   )
 }
