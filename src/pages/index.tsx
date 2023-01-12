@@ -5,7 +5,6 @@ import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { Layout } from "@/components/Layout"
-import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 interface HomeProps {
   posts: any
 }
@@ -42,15 +41,16 @@ export default function Home(props: HomeProps) {
                 excerpt: string
                 categories: any
               }) => {
-                const { primary } = wpPrimaryCategorySlug(post.categories)
                 return (
                   <PostCard
                     key={post.id}
                     src={post.featuredImage.sourceUrl}
                     alt={post.featuredImage.altText}
-                    slug={`${primary.slug}/${post.slug}`}
+                    slug={post.uri}
                     title={post.title}
                     excerpt={post.excerpt}
+                    author={post.author}
+                    date={post.date}
                   />
                 )
               },
@@ -71,13 +71,12 @@ export default function Home(props: HomeProps) {
                   excerpt: string
                   categories: any
                 }) => {
-                  const { primary } = wpPrimaryCategorySlug(post.categories)
                   return (
                     <PostCardSide
                       key={post.id}
                       src={post.featuredImage.sourceUrl}
                       alt={post.featuredImage.altText}
-                      slug={`${primary.slug}/${post.slug}`}
+                      slug={post.uri}
                       title={post.title}
                     />
                   )

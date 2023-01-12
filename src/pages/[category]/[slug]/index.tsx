@@ -1,19 +1,14 @@
-import {
-  wpGetPostBySlug,
-  wpGetAllSlug,
-  wpGetAllPosts,
-  wpPostPathBySlug,
-  wpGetPopularPosts,
-} from "@/lib/wp-posts"
+import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 import { Layout } from "@/components/Layout"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import NextImage from "next/image"
 import { Heading, Button } from "@/ui"
 import NextLink from "next/link"
+import { MetadataPost } from "@/components/Metadata/MetaDataPost"
 export default function Post(props) {
   const { post, posts } = props
-  const { content, title, author, categories, featuredImage } = post
+  const { content, title, author, categories, featuredImage, date } = post
 
   return (
     <Layout>
@@ -37,6 +32,9 @@ export default function Post(props) {
               __html: title,
             }}
           />
+          <div>
+            <MetadataPost author={author} date={date} />
+          </div>
           {featuredImage && (
             <>
               <NextImage

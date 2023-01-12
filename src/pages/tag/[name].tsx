@@ -29,6 +29,8 @@ export default function Tag(props: TagProps) {
                 slug: string
                 title: string
                 excerpt: string
+                author: any
+                date: string
               }) => {
                 return (
                   <PostCard
@@ -38,6 +40,8 @@ export default function Tag(props: TagProps) {
                     slug={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
+                    author={post.author}
+                    date={post.date}
                   />
                 )
               },

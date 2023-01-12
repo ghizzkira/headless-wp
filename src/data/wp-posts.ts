@@ -17,6 +17,7 @@ export const QUERY_WP_ALL_POSTS = `
               id
               name
               slug
+              uri
             }
           }
           id
@@ -51,6 +52,7 @@ export const QUERY_WP_ALL_POSTS = `
           postId
           title
           slug
+          uri
         }
       }
     }
@@ -137,6 +139,7 @@ export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
           postId
           title
           slug
+          uri
         }
       }
     }
@@ -207,6 +210,7 @@ export const QUERY_WP_POST_BY_SLUG = `
       postId
       title
       slug
+      uri
     }
   }
 `
@@ -230,6 +234,7 @@ export const QUERY_WP_POSTS_BY_CATEGORY_SLUG = `
               id
               name
               slug
+              uri
             }
           }
           id
@@ -276,6 +281,7 @@ export const QUERY_WP_POSTS_BY_CATEGORY_SLUG = `
           postId
           title
           slug
+          uri
         }
       }
     }
@@ -301,6 +307,7 @@ export const QUERY_WP_POSTS_BY_TAG_ID = `
               id
               name
               slug
+              uri
             }
           }
           id
@@ -336,6 +343,7 @@ export const QUERY_WP_POSTS_BY_TAG_ID = `
           postId
           title
           slug
+          uri
         }
       }
     }
@@ -377,6 +385,7 @@ export const QUERY_WP_POSTS_BY_AUTHOR_SLUG = `
               id
               name
               slug
+              uri
             }
           }
           excerpt
@@ -394,6 +403,7 @@ export const QUERY_WP_POSTS_BY_AUTHOR_SLUG = `
           modified
           postId
           slug
+          uri
           title
         }
       }
@@ -423,6 +433,7 @@ export const QUERY_WP_SEARCH_POSTS = `
               id
               name
               slug
+              uri
             }
           }
           id
@@ -458,6 +469,7 @@ export const QUERY_WP_SEARCH_POSTS = `
           postId
           title
           slug
+          uri
         }
       }
     }
