@@ -1,7 +1,14 @@
-import env from "@/env"
+import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
-export const Footer = (props) => {
+
+import env from "@/env"
+
+interface FooterProps {
+  className?: string
+}
+
+export const Footer = React.forwardRef<HTMLDivElement, FooterProps>((props) => {
   const { className } = props
   return (
     <footer className={`${className} flex flex-col mt-12`}>
@@ -13,15 +20,15 @@ export const Footer = (props) => {
             width={120}
             alt={env.SITE_TITLE}
             src={env.LOGO_URL}
-            srcSet={env.LOGO_SRC_SET}
           />
         </NextLink>
       </div>
       <div className="border-t border-gray-100 flex min-h-[60px]">
         <div className="pl-4 w-full self-center">
+          {/* TODO: fetch from api*/}
           {"© 2023 Gamedaim - Everlasting Gaming Knowledge"}
         </div>
       </div>
     </footer>
   )
-}
+})

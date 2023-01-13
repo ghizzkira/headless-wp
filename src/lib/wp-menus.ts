@@ -1,5 +1,6 @@
 import { wpFetchAPI } from "./wp-posts"
 import { Wp_PrimaryMenus } from "@/data/wp-menus"
+
 export async function wpGetPrimaryMenus() {
   const data = await wpFetchAPI(Wp_PrimaryMenus)
   const menu = data?.data.menu.menuItems.edges.map(({ node = {} }) => node)
