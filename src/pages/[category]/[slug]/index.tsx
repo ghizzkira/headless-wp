@@ -6,7 +6,31 @@ import NextImage from "next/image"
 import { Heading, Button } from "@/ui"
 import NextLink from "next/link"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
-export default function Post(props) {
+import { GetServerSideProps } from "next"
+
+interface PostProps {
+  post: {
+    title: string
+    content: string
+    author: {
+      name: string
+      slug: string
+      avatar: {
+        url: string
+      }
+    }
+    categories: any
+    featuredImage: {
+      altText: string
+      sourceUrl: string
+      caption: string
+    }
+    date: string
+  }
+  posts: any
+}
+
+export default function Post(props: PostProps) {
   const { post, posts } = props
   const { content, title, author, categories, featuredImage, date } = post
 
@@ -15,7 +39,7 @@ export default function Post(props) {
       <section className="mx-8 flex flex-row">
         <div className="pr-4">
           <div>
-            {categories.map((category) => {
+            {categories.map((category: { slug: string; name: string }) => {
               return (
                 <Button variant="ghost" className="rounded-full">
                   <NextLink href={`/${category.slug}`}>
@@ -33,7 +57,12 @@ export default function Post(props) {
             }}
           />
           <div>
-            <MetadataPost author={author} date={date} />
+            <MetadataPost
+              authorName={author.name}
+              authorAvatarUrl={author.avatar.url}
+              authorSlug={author.slug}
+              date={date}
+            />
           </div>
           {featuredImage && (
             <>
@@ -41,9 +70,8 @@ export default function Post(props) {
                 width="1280"
                 height="720"
                 alt={featuredImage.altText}
-                className="featured-thumbnail"
+                className="featured-thumbnail object-cover"
                 src={featuredImage.sourceUrl}
-                objectFit="cover"
               />
               {featuredImage.caption && (
                 <span
@@ -96,7 +124,9 @@ export default function Post(props) {
   )
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+}: any) => {
   const { post } = await wpGetPostBySlug(params?.slug)
   const { posts } = await wpGetAllPosts()
   if (post.author === undefined) {

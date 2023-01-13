@@ -34,31 +34,7 @@ export const QUERY_WP_ALL_USERS_SLUG = `
   }
 }
 `
-export const QUERY_WP_USERS_SEO_BY_ID = `
-  query AuthorId($id: ID! ){
-    user(id: $id) {
-          id
-          seo {
-            metaDesc
-            metaRobotsNofollow
-            metaRobotsNoindex
-            title
-            social {
-                  facebook
-                  instagram
-                  linkedIn
-                  mySpace
-                  pinterest
-                  soundCloud
-                  twitter
-                  wikipedia
-                  youTube
-          }
-          }
-        
-    }
-  }
-`
+
 export const QUERY_WP_USERS_BY_ID = `
   query AuthorId($id: ID!){
     user(id: $id,idType: ID) {
@@ -77,35 +53,6 @@ export const QUERY_WP_USERS_BY_ID = `
           }
           slug
         
-    }
-  }
-`
-
-export const QUERY_WP_ALL_USERS_SEO = `
-  {
-    users(first: 1000) {
-      edges {
-        node {
-          id
-          seo {
-            metaDesc
-            metaRobotsNofollow
-            metaRobotsNoindex
-            title
-            social {
-                  facebook
-                  instagram
-                  linkedIn
-                  mySpace
-                  pinterest
-                  soundCloud
-                  twitter
-                  wikipedia
-                  youTube
-          }
-          }
-        }
-      }
     }
   }
 `
