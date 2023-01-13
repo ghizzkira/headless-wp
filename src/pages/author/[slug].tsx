@@ -1,25 +1,15 @@
-import { wpGetCategoryBySlug } from "@/lib/wp-categories"
+import { wpGetUserbyId } from "@/lib/wp-users"
+import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
 import { Layout } from "@/components/Layout"
-import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-
-interface CategoryProps {
-  category: {
-    name: string
-  }
-  posts: any
-}
-
-export default function Category(props: CategoryProps) {
-  // eslint-disable-next-line no-unused-vars
-  const { category, posts } = props
+export default function Author(props) {
+  const { posts } = props
+  console.log(posts)
 
   return (
     <>
       <Layout>
-        <div className="flex flex-col"></div>
-
         <section className="mx-8 flex flex-row">
           <div>
             {posts.map(
@@ -83,20 +73,22 @@ export default function Category(props: CategoryProps) {
     </>
   )
 }
-
 export const getServerSideProps = async ({ params }: any) => {
-  const { category } = await wpGetCategoryBySlug(params?.category)
-  if (category.error) {
+  const { posts, pageInfo, authorId } = await wpGetPostsByAuthorSlug(
+    params?.slug,
+  )
+  const { user } = await wpGetUserbyId(authorId)
+  if (user.error) {
     return {
       notFound: true,
     }
   }
 
-  const { posts } = await wpGetPostsByCategoryId(category.name)
   return {
     props: {
-      category,
+      user,
       posts,
+      pageInfo,
     },
   }
 }
