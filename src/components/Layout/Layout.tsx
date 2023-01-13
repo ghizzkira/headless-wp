@@ -1,16 +1,15 @@
 import * as React from "react"
 import { useDisclosure } from "@/ui"
-import { Header } from "@/components/Header"
+import { TopNav, SideNav } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { wpGetPrimaryMenus } from "@/lib/wp-menus"
-import { SideNav } from "@/components/Nav/SideNav"
 interface HeaderProps {
   children: React.ReactNode
 }
 
 export const Layout = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
   const { isOpen, onToggle } = useDisclosure()
-  const [primaryMenus, setPrimaryMenus] = React.useState(null)
+  const [primaryMenus, setPrimaryMenus] = React.useState<any>(null)
   React.useEffect(() => {
     async function menus() {
       const { menu } = await wpGetPrimaryMenus()
@@ -23,7 +22,7 @@ export const Layout = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
 
   return (
     <>
-      <Header onToggle={onToggle} />
+      <TopNav onToggle={onToggle} />
       <div
         className={`${
           isOpen ? "-translate-x-full" : "translate-x-0"

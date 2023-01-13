@@ -1,6 +1,6 @@
 import axios from "axios"
-import { wpUpdateUserAvatar } from "./wp-users"
 
+import { wpUpdateUserAvatar } from "./wp-users"
 import env from "@/env"
 import {
   QUERY_WP_ALL_POSTS,
@@ -28,6 +28,7 @@ export async function wpFetchAPI(query: string, variables?: any) {
 
   return res.data
 }
+
 export async function wpGetAllPosts() {
   const data = await wpFetchAPI(QUERY_WP_ALL_POSTS)
   const posts = data?.data.posts.edges.map(({ node = {} }) => node)
@@ -36,6 +37,7 @@ export async function wpGetAllPosts() {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
   }
 }
+
 export async function wpGetAllPostsLoadMore(after = "") {
   const data = await wpFetchAPI(QUERY_WP_ALL_POSTS_LOAD_MORE, {
     variables: { after },
@@ -46,6 +48,7 @@ export async function wpGetAllPostsLoadMore(after = "") {
     pageInfo: data?.data.posts.pageInfo,
   }
 }
+
 export function wpMapPostData(post = {}) {
   const data: any = { ...post }
 
@@ -114,6 +117,7 @@ export async function wpGetAllSlug() {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
   }
 }
+
 export async function wpGetPostBySlug(slug: string) {
   let postData
   try {
@@ -135,6 +139,7 @@ export async function wpGetPostBySlug(slug: string) {
     post,
   }
 }
+
 export async function wpGetPostsByAuthorSlug(
   slug: string | string[],
   after = "",

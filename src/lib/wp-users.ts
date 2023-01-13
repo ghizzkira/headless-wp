@@ -18,12 +18,6 @@ export async function wpGetUserBySlug(slug: string) {
     user,
   }
 }
-// export function wpUpdateUserAvatar(avatar: { url: string }) {
-//   return {
-//     ...avatar,
-//     url: avatar.url?.replace("http://", "https://"),
-//   }
-// }
 
 export function wpAuthorPathByName(slug: string) {
   return `/author/${slug}`
@@ -53,7 +47,7 @@ export async function wpGetUserbyId(id: string) {
 
   try {
     usersData = await wpFetchAPI(QUERY_WP_USERS_BY_ID, {
-      id,
+      variables: { id: id },
     })
   } catch (e) {
     console.log(`[users][USERS_BY_ID] Failed to query users data: ${e}`)

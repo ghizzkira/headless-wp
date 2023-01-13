@@ -8,11 +8,25 @@ interface PostCardProps {
   excerpt: string
   src: string
   alt: string
+  authorName: string
+  authorUri: string
+  authorAvatarUrl: string
+  date: string
 }
 
 export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
   (props) => {
-    const { src, alt, slug, excerpt, title, author, date } = props
+    const {
+      src,
+      alt,
+      slug,
+      excerpt,
+      title,
+      authorName,
+      authorUri,
+      authorAvatarUrl,
+      date,
+    } = props
     return (
       <article className="flex flex-col rounded-lg drop-shadow-md mb-4 border-separate">
         <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto min-h-[185px] h-[185px]">
@@ -36,21 +50,21 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             </NextLink>
             <div className="flex-column flex">
               <div className="my-2 flex flex-row items-center gap-2">
-                {author && (
+                {authorName && (
                   <>
                     <div className="flex flex-row items-center">
-                      {author.avatar && (
+                      {authorAvatarUrl && (
                         <NextImage
                           width="20"
                           height="20"
-                          src={author.avatar.url}
-                          alt={author.name}
+                          src={authorAvatarUrl}
+                          alt={authorName}
                           className="rounded-full object-cover"
                         />
                       )}
-                      <NextLink href={author.uri}>
+                      <NextLink href={authorUri}>
                         <h4 className="ml-2 text-base font-bold text-black">
-                          {author.name}
+                          {authorName}
                         </h4>
                       </NextLink>
                     </div>

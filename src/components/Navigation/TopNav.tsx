@@ -2,7 +2,12 @@ import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import env from "@/env"
-export const Header = (props) => {
+
+interface TopNavProps {
+  onToggle: any
+}
+
+export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   const { onToggle } = props
   return (
     <header className="box-border p-0 border-none bg-white outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
@@ -27,7 +32,6 @@ export const Header = (props) => {
                         width={120}
                         alt={env.SITE_TITLE}
                         src={env.LOGO_URL}
-                        srcSet={env.LOGO_SRC_SET}
                       />
                     </NextLink>
                   </h1>
@@ -40,4 +44,4 @@ export const Header = (props) => {
       </div>
     </header>
   )
-}
+})

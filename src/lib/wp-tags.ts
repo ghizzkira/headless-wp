@@ -42,19 +42,10 @@ export async function wpGetTagBySlug(slug: string) {
     tag.error = "Ada yang salah"
     return { tag }
   }
-  // Use the first tag as we should only be matching 1 with the slug
 
   const tag = tagData?.data.tags.edges
     .map(({ node = {} }) => node)
     .map(wpMapTagData)[0]
-
-  // If the SEO plugin is enabled, look up the data
-  // and apply it to the default settings
-
-  // The SEO plugin by default includes a canonical link, but we don't want to use that
-  // because it includes the WordPress host, not the site host. We manage the canonical
-  // link along with the other metadata, but explicitly check if there's a custom one
-  // in here by looking for the API's host in the provided canonical link
 
   return {
     tag,

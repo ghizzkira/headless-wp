@@ -1,3 +1,5 @@
+import { GetServerSideProps } from "next"
+
 import { wpGetTagBySlug } from "@/lib/wp-tags"
 import { wpGetPostsByTagId } from "@/lib/wp-posts"
 import { Layout } from "@/components/Layout"
@@ -29,7 +31,13 @@ export default function Tag(props: TagProps) {
                 slug: string
                 title: string
                 excerpt: string
-                author: any
+                author: {
+                  name: string
+                  avatar: {
+                    url: string
+                  }
+                  uri: string
+                }
                 date: string
               }) => {
                 return (
@@ -40,7 +48,9 @@ export default function Tag(props: TagProps) {
                     slug={post.slug}
                     title={post.title}
                     excerpt={post.excerpt}
-                    author={post.author}
+                    authorName={post.author.name}
+                    authorAvatarUrl={post.author.avatar.url}
+                    authorUri={post.author.uri}
                     date={post.date}
                   />
                 )
@@ -79,7 +89,9 @@ export default function Tag(props: TagProps) {
     </>
   )
 }
-export const getServerSideProps = async ({ params }: any) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+}: any) => {
   const { tag } = await wpGetTagBySlug(params?.name)
   if (tag == null || tag?.error) {
     return {
