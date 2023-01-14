@@ -1,5 +1,5 @@
 import { AppProps } from "next/app"
-import { ThemeProvider } from "next-themes"
+import { ThemeProvider as NextThemeProvider } from "next-themes"
 import install from "@twind/with-next/app"
 import { Inter } from "@next/font/google"
 import styleConfig from "@/utils/style"
@@ -20,9 +20,9 @@ function App({ Component, pageProps }: AppProps) {
         }
       `}</style>
 
-      <ThemeProvider attribute="class" storageKey="theme" enableSystem>
+      <NextThemeProvider attribute="class" storageKey="theme" enableSystem>
         <Component {...pageProps} />
-      </ThemeProvider>
+      </NextThemeProvider>
     </>
   )
 }
