@@ -1,37 +1,21 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-
-import env from "@/env"
-import { wpGetAllPosts } from "../lib/wp-posts"
+import { wpGetUserbyId } from "@/lib/wp-users"
+import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
+import { Layout } from "@/components/Layout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Layout } from "@/components/Layout"
 import { Heading } from "@/ui"
-
-interface HomeProps {
-  posts: any
-}
-
-export default function Home(props: HomeProps) {
+export default function Author(props) {
   const { posts } = props
-  const router = useRouter()
+  console.log(posts)
 
   return (
     <>
-      <Head>
-        <title>{env.SITE_TITLE}</title>
-        <meta name="description" content={env.ABOUT} />
-        <meta property="og:title" content={env.SITE_TITLE} />
-        <meta property="og:title" content={env.SITE_TITLE} />
-        <meta property="og:description" content={env.ABOUT} />
-        <link
-          rel="canonical"
-          href={`https://${env.DOMAIN}${router.pathname}`}
-        />
-      </Head>
       <Layout>
         <section className="mx-8 flex flex-row">
           <div>
+            <h2 className="terxt-center pt-4 text-2xl font-semibold">
+              Latest Post
+            </h2>
             {posts.map(
               (post: {
                 id: number
@@ -39,19 +23,11 @@ export default function Home(props: HomeProps) {
                   sourceUrl: string
                   altText: string
                 }
-                title: string
                 slug: string
+                title: string
                 excerpt: string
                 categories: any
-                author: {
-                  name: string
-                  avatar: {
-                    url: string
-                  }
-                  uri: string
-                }
                 uri: string
-                date: string
               }) => {
                 return (
                   <PostCard
@@ -61,9 +37,7 @@ export default function Home(props: HomeProps) {
                     slug={post.uri}
                     title={post.title}
                     excerpt={post.excerpt}
-                    authorName={post.author.name}
-                    authorAvatarUrl={post.author.avatar.url}
-                    authorUri={post.author.uri}
+                    author={post.author}
                     date={post.date}
                   />
                 )
@@ -87,19 +61,18 @@ export default function Home(props: HomeProps) {
                     sourceUrl: string
                     altText: string
                   }
-                  title: string
                   slug: string
+                  title: string
                   excerpt: string
                   categories: any
-                  uri: string
                 }) => {
                   return (
                     <PostCardSide
                       key={post.id}
                       src={post.featuredImage.sourceUrl}
                       alt={post.featuredImage.altText}
-                      slug={post.uri}
                       title={post.title}
+                      slug={post.uri}
                     />
                   )
                 },
@@ -111,8 +84,22 @@ export default function Home(props: HomeProps) {
     </>
   )
 }
+export const getServerSideProps = async ({ params }: any) => {
+  const { posts, pageInfo, authorId } = await wpGetPostsByAuthorSlug(
+    params?.slug,
+  )
+  const { user } = await wpGetUserbyId(authorId)
+  if (user.error) {
+    return {
+      notFound: true,
+    }
+  }
 
-export async function getServerSideProps() {
-  const { posts } = await wpGetAllPosts()
-  return { props: { posts } }
+  return {
+    props: {
+      user,
+      posts,
+      pageInfo,
+    },
+  }
 }

@@ -148,7 +148,8 @@ export async function wpGetPostsByAuthorSlug(
 
   try {
     postData = await wpFetchAPI(QUERY_WP_POSTS_BY_AUTHOR_SLUG, {
-      variables: { slug, after },
+      slug,
+      after,
     })
   } catch (e) {
     console.log(`Failed to query post data: ${e}`)
@@ -161,11 +162,11 @@ export async function wpGetPostsByAuthorSlug(
     post.error = "Something went wrong"
     return { post }
   }
-  const posts = postData?.posts.edges.map(({ node = {} }) => node)
+  const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
   const authorId = posts[0]?.author.node.id
   return {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
-    pageInfo: postData?.posts.pageInfo,
+    pageInfo: postData?.data.posts.pageInfo,
     authorId: authorId,
   }
 }
