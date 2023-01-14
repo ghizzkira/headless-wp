@@ -9,11 +9,6 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <style jsx global>{`
-        body {
-          font-family: -apple-system, BlinkMacSystemFont, segoe ui,
-            helvetica neue, Arial, noto sans, sans-serif, apple color emoji,
-            segoe ui emoji, segoe ui symbol, noto color emoji !important;
-        }
         h1,
         h2,
         h3,
@@ -22,24 +17,6 @@ function App({ Component, pageProps }: AppProps) {
         h6 {
           font-family: ${inter.style.fontFamily};
           font-weight: 600;
-        }
-        .scrollbar::-webkit-scrollbar {
-          width: 5px;
-        }
-
-        .scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .scrollbar::-webkit-scrollbar-thumb {
-          background: transparent;
-        }
-
-        .scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #555;
-        }
-        .scrollbar::-webkit-scrollbar-track:hover {
-          background: #f1f1f1;
         }
       `}</style>
 
