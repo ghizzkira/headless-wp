@@ -175,6 +175,16 @@ export default defineConfig({
       color: rgb(229 231 235 / var(--tw-text-opacity));
     }
 
+    .article-body .wp-block-table .has-fixed-layout {
+      @apply w-full;
+      table-layout: fixed;
+    }
+
+    .article-body .wp-block-table th,
+    .article-body .wp-block-table td {
+      @apply p-3 border border-gray-300;
+    }
+
     #ez-toc-container.ez-toc-transparent {
       background: none;
     }
