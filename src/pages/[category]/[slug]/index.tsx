@@ -25,6 +25,7 @@ interface PostProps {
       sourceUrl: string
       caption: string
     }
+    tags: any
     date: string
   }
   posts: any
@@ -32,7 +33,7 @@ interface PostProps {
 
 export default function Post(props: PostProps) {
   const { post, posts } = props
-  const { content, title, author, categories, featuredImage, date } = post
+  const { content, title, author, categories, featuredImage, date, tags } = post
 
   return (
     <SinglePostLayout>
@@ -96,6 +97,21 @@ export default function Post(props: PostProps) {
                 __html: content,
               }}
             />
+            <section className="my-6" id="tag">
+              {tags.map((tag: { slug: string; name: string }) => {
+                return (
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    variant="outline"
+                    className="mx-1"
+                    key={tag.slug}
+                  >
+                    <NextLink href={tag.slug}>{tag.name}</NextLink>
+                  </Button>
+                )
+              })}
+            </section>
           </div>
         </section>
         <aside className="w-4/12">
