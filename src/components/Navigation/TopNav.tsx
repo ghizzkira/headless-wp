@@ -27,7 +27,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
     <header className="box-border p-0 border-none bg-white px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
       <div className="grow pr-4 pl-4 mr-auto ml-auto">
         <div className="ak-bar-inner relative h-full">
-          <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex justify-start h-full -ml-4 -mr-4">
+          <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
             <div id="drawer" className="mx-2">
               <div
                 className="space-y-[6px] hover:space-y-[3px]"
@@ -60,7 +60,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
                 </div>
               </div>
             </div>
-            <div className="grow-1">
+            <div className="grow-1 ml-auto">
               <IconButton
                 variant="ghost"
                 aria-label="Toggle Dark Mode"

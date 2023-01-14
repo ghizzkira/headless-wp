@@ -47,20 +47,20 @@ export async function wpGetUserbyId(id: string) {
 
   try {
     usersData = await wpFetchAPI(QUERY_WP_USERS_BY_ID, {
-      variables: { id: id },
+      id,
     })
   } catch (e) {
     console.log(`[users][USERS_BY_ID] Failed to query users data: ${e}`)
     throw e
   }
 
-  let user = usersData?.data.user
+  // let user = usersData?.data.data.user
 
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
 
   return {
-    user,
+    usersData,
   }
 }
 export async function wpGetAllUsers() {

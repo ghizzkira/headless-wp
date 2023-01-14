@@ -29,7 +29,7 @@ export const PostCardSide = React.forwardRef<
         </div>
         <div className="w-full md:w-2/3 flex flex-col space-y-2">
           <NextLink href={slug}>
-            <h3 className="text-gray-800 text-lg leading-5 line-clamp-3">
+            <h3 className="text-gray-800 text-lg lg:text-[13px] leading-5 line-clamp-3">
               {title}
             </h3>
           </NextLink>

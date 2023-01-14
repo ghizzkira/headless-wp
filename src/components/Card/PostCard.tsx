@@ -28,28 +28,28 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       date,
     } = props
     return (
-      <article className="flex flex-row lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate">
-        <div className="relative flex flex-row lg:flex-col md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto">
-          <div className="w-[125px] h-[90px] md:w-1/3 grid place-items-stretch">
+      <article className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate">
+        <div className="relative  flex flex-row">
+          <div className="mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:w-[220px] md:min-w-[220px] md:min-h-[158px] md:h-[158px]">
             <NextImage
               priority={true}
               height={250}
               width={350}
-              className="post-card-thumbnail h-full rounded-lg"
+              className="post-card-thumbnail w-full h-full object-cover aspect-video rounded-lg"
               src={src}
               alt={alt}
             />
           </div>
-          <div className="w-full md:w-2/3 flex flex-col space-y-2">
+          <div className="flex flex-col">
             <NextLink href={slug}>
               <h3 className="text-gray-800 md:text-xl text-lg">{title}</h3>
               <div
-                className="hidden lg:block md:text-lg text-gray-500 text-base line-clamp-2"
+                className="hidden md:my-3 md:inline-flex md:text-lg text-gray-500 text-base md:!line-clamp-2"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
               />
             </NextLink>
             <div className="flex-column flex">
-              <div className="my-2 flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center ">
                 {authorName && (
                   <>
                     <div className="flex flex-row items-center">
@@ -63,22 +63,22 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                         />
                       )}
                       <NextLink href={authorUri}>
-                        <h4 className="ml-2 text-base font-bold text-black">
+                        <h4 className="ml-2 text-[12px] font-bold text-black">
                           {authorName}
                         </h4>
                       </NextLink>
                     </div>
                   </>
                 )}
-                {/* <span className="text-sm">&bull;</span> */}
-                {/* {date && (
+                <span className="text-sm">&bull;</span>
+                {date && (
                   <time
                     className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
                     {date}
                   </time>
-                )} */}
+                )}
               </div>
             </div>
           </div>

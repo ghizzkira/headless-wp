@@ -36,8 +36,8 @@ export const QUERY_WP_ALL_USERS_SLUG = `
 `
 
 export const QUERY_WP_USERS_BY_ID = `
-  query AuthorId($id: ID!){
-    user(id: $id,idType: ID) {
+  query AuthorId($id: String){
+    user(id: $id) {
           avatar {
             height
             width
