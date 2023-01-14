@@ -174,6 +174,37 @@ export default defineConfig({
     .dark .article-body .postTitle {
       color: rgb(229 231 235 / var(--tw-text-opacity));
     }
+
+    #ez-toc-container.ez-toc-transparent {
+      background: none;
+    }
+
+    div#ez-toc-container {
+      width: 100%;
+    }
+
+    div#ez-toc-container {
+      padding-right: 20px;
+    }
+
+    #ez-toc-container {
+      background: #f9f9f9;
+      border: 1px solid #aaa;
+      border-radius: 4px;
+      -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+      display: table;
+      margin-bottom: 1em;
+      padding: 10px;
+      position: relative;
+      width: auto;
+    }
+
+    #ez-toc-container > [type="checkbox"],
+    .cssicon,
+    .cssiconcheckbox {
+      @apply hidden;
+    }
   `,
   presets: [
     presetAutoprefix(),
