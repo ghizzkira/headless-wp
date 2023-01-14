@@ -38,6 +38,13 @@ export const QUERY_WP_CATEGORY_BY_SLUG = `
           id
           name
           slug
+          children {
+          nodes {
+          uri
+          name
+          slug
+               }
+           }
         }
       }
     }
