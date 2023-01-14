@@ -1,7 +1,10 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
+import { useTheme } from "next-themes"
+
 import env from "@/env"
+import { IconButton, MoonIcon, SunIcon } from "@/ui"
 
 interface TopNavProps {
   onToggle: any
@@ -9,6 +12,17 @@ interface TopNavProps {
 
 export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   const { onToggle } = props
+  const [mounted, setMounted] = React.useState(false)
+  const { resolvedTheme, setTheme } = useTheme()
+
+  React.useEffect(() => setMounted(true), [])
+
+  const switchTheme = () => {
+    if (mounted) {
+      setTheme(resolvedTheme === "dark" ? "light" : "dark")
+    }
+  }
+
   return (
     <header className="box-border p-0 border-none bg-white px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
       <div className="grow pr-4 pl-4 mr-auto ml-auto">
@@ -29,19 +43,37 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
                 <div className="ak-bar-item ak-header-logo pr-0 pl-0 items-center justify-start w-full flex flex-wrap flex-row">
                   <h1 className="logo-image m-0 p-0 leading-none font-bold text-4xl	">
                     <NextLink href="/">
-                      <NextImage
-                        className="site-logo"
-                        height={32}
-                        width={120}
-                        alt={env.SITE_TITLE}
-                        src={env.LOGO_URL}
-                      />
+                      {mounted &&
+                        (resolvedTheme === "light" ? (
+                          <NextImage
+                            className="site-logo"
+                            height={32}
+                            width={120}
+                            alt={env.SITE_TITLE}
+                            src={env.LOGO_URL}
+                          />
+                        ) : (
+                          <div>kontol</div>
+                        ))}
                     </NextLink>
                   </h1>
                 </div>
               </div>
             </div>
-            <div className="grow-1"></div>
+            <div className="grow-1">
+              <IconButton
+                variant="ghost"
+                aria-label="Toggle Dark Mode"
+                onClick={switchTheme}
+              >
+                {mounted &&
+                  (resolvedTheme === "light" ? (
+                    <MoonIcon className="h-5 w-5" />
+                  ) : (
+                    <SunIcon className="h-5 w-5" />
+                  ))}
+              </IconButton>
+            </div>
           </div>
         </div>
       </div>
