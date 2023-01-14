@@ -3,12 +3,17 @@ import NextLink from "next/link"
 import { GetServerSideProps } from "next"
 import { Heading, Button, ButtonGroup } from "@/ui"
 
-import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
+import {
+  wpGetPostBySlug,
+  wpGetAllPosts,
+  wpPostPathBySlug,
+} from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 import { wpTagPathBySlug } from "@/lib/wp-tags"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
+import { ShareButtonArticle } from "@/components/Share"
 
 interface PostProps {
   post: {
@@ -21,6 +26,7 @@ interface PostProps {
         url: string
       }
     }
+    slug: string
     categories: any
     featuredImage: {
       altText: string
@@ -93,6 +99,13 @@ export default function Post(props: PostProps) {
                 )}
               </>
             )}
+            <div className="shadow-xs fixed top-[unset] bottom-0 left-0 z-40 mx-0 mb-0 mr-0 flex w-full flex-row items-center justify-center bg-white dark:bg-gray-700 lg:sticky lg:top-20 lg:bottom-[unset] lg:left-[unset] lg:w-auto lg:bg-transparent lg:shadow-none lg:dark:bg-transparent">
+              {/* TODO: category on slug not applied  */}
+              <ShareButtonArticle
+                url={`/${wpPostPathBySlug(post.slug)}`}
+                text={title}
+              />
+            </div>
             <section
               className="article-body"
               dangerouslySetInnerHTML={{
