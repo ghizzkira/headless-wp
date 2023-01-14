@@ -12,12 +12,14 @@ export const ShareButtonEmail = React.forwardRef<
   return (
     <ShareButton
       ref={ref}
-      additionalClassName="text-primary-300 bg-white lg:bg-primary-300 lg:hover:bg-primary-300 lg:text-white dark:text-gray-100"
+      additionalClassName="text-blue-300 bg-white lg:bg-blue-300 lg:hover:bg-blue-300 lg:text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaEnvelope />}
-      subject={encodeURI(subject as string)}
+      subject={subject}
       text={text || "Email"}
-      fullUrl={`mailto:?subject=${subject}&body=${encodeURI(url as string)}`}
+      fullUrl={`mailto:?subject=${encodeURI(
+        subject as string,
+      )}&body=${encodeURI(url as string)}`}
       {...rest}
     />
   )

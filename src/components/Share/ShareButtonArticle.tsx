@@ -4,7 +4,7 @@ import {
   ShareButtonFacebook,
   ShareButtonTwitter,
   ShareButtonWhatsApp,
-  ShareButtonReddit,
+  ShareButtonEmail,
 } from "."
 
 interface ShareButtonArticleProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -26,7 +26,7 @@ export const ShareButtonArticle = React.forwardRef<
     >
       <ShareButtonFacebook url={url} />
       <ShareButtonTwitter url={url} shareText={text} />
-      <ShareButtonReddit url={url} shareText={text} />
+      <ShareButtonEmail url={url} subject={text} />
       <ShareButtonWhatsApp message={text} url={url} />
     </div>
   )
