@@ -9,12 +9,17 @@ import { Button, Heading } from "@/ui"
 interface CategoryProps {
   category: {
     name: string
+    slug: string
+    children: {
+      nodes: any
+    }
   }
   posts: any
 }
 
 export default function Category(props: CategoryProps) {
   const { category, posts } = props
+
   const categoryChild = category.children.nodes
 
   return (
@@ -55,7 +60,7 @@ export default function Category(props: CategoryProps) {
                 </Button>
               </NextLink>
               {categoryChild &&
-                categoryChild.map((child) => {
+                categoryChild.map((child: { slug: string; name: string }) => {
                   return (
                     <NextLink href={`/${child.slug}`}>
                       <Button className="mr-2 border border-[#24272f] !bg-[#ffffff33] hover:!bg-[#1e3799]">
