@@ -6,7 +6,6 @@ import { PostCardSide } from "@/components/Card/PostCardSide"
 import { Heading } from "@/ui"
 export default function Author(props) {
   const { posts } = props
-  console.log(posts)
 
   return (
     <>

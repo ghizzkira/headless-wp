@@ -25,7 +25,7 @@ export const Layout = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       <TopNav onToggle={onToggle} />
       <div
         className={`${
-          isOpen ? "-translate-x-full" : "translate-x-0"
+          isOpen ? "translate-x-0" : "-translate-x-full"
         } transition ease-in-out delay-150 border-r border-gray-100 bg-white z-20 fixed pt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
       >
         <SideNav primaryMenus={primaryMenus} />
@@ -33,14 +33,14 @@ export const Layout = React.forwardRef<HTMLDivElement, HeaderProps>((props) => {
       <div
         id="container"
         className={`flex mt-20 ${
-          isOpen ? "pl-0" : "pl-[250px]"
+          isOpen ? "pl-[250px]" : "pl-[0]"
         } transition-[padding] ease-in-out delay-150`}
       >
         {children}
       </div>
       <Footer
         className={`transition-[padding] ease-in-out delay-150 ${
-          isOpen ? "pl-0" : "pl-[250px]"
+          isOpen ? "pl-[250px]" : "pl-[0]"
         }`}
       />
     </>

@@ -1,6 +1,6 @@
 import Head from "next/head"
 import { useRouter } from "next/router"
-
+import * as React from "react"
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
@@ -14,8 +14,33 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const { posts } = props
+  // // const postsListA = posts.slice(0, posts.length / 2)
+  // // const postsListB = posts.slice(posts.length / 2)
+  // const [postsLM, setPostsLM] = React.useState(posts)
   const router = useRouter()
+  // const [endCursor, setEndCursor] = React.useState(pageInfo.endCursor)
+  // const infiniteScroll = async () => {
+  //   const { posts, pageInfo } = await wpGetAllPostsLoadMore(endCursor)
+  //   setPostsLM([...posts, ...postsLM])
+  //   setEndCursor(pageInfo.endCursor)
+  // }
+  // console.log(postsLM)
 
+  // const handleKeyDown = async () => {
+  //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement
+  //   if (scrollTop + clientHeight > scrollHeight) {
+  //     await infiniteScroll()
+  //   }
+  // }
+  // console.log(postsLM)
+  // React.useEffect(() => {
+  //   window.addEventListener("scroll", handleKeyDown)
+
+  //   // cleanup this component
+  //   return () => {
+  //     window.removeEventListener("scroll", handleKeyDown)
+  //   }
+  // }, [])
   return (
     <>
       <Head>
@@ -30,7 +55,7 @@ export default function Home(props: HomeProps) {
         />
       </Head>
       <Layout>
-        <section className="mx-8 flex flex-row">
+        <section className="mx-8 w-full flex flex-row">
           <div>
             {posts.map(
               (post: {
@@ -71,7 +96,7 @@ export default function Home(props: HomeProps) {
             )}
           </div>
 
-          <aside className="w-4/12">
+          <aside className="w-4/12 hidden lg:block">
             <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
               <div className="mb-4">
                 <Heading as="h4" className="text-transparent">
@@ -113,6 +138,6 @@ export default function Home(props: HomeProps) {
 }
 
 export async function getServerSideProps() {
-  const { posts } = await wpGetAllPosts()
-  return { props: { posts } }
+  const { posts, pageInfo } = await wpGetAllPosts()
+  return { props: { posts, pageInfo } }
 }
