@@ -13,7 +13,7 @@ export const Footer = React.forwardRef<HTMLDivElement, FooterProps>((props) => {
   return (
     <footer className={`${className} flex flex-col mt-12`}>
       <div className="border-t min-h-[120px] flex border-gray-100">
-        <NextLink className="w-full pl-4 self-center" href={env.DOMAIN}>
+        <NextLink className="w-full pl-4 self-center" href="/">
           <NextImage
             className="site-logo"
             height={32}
