@@ -18,6 +18,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.48.1
   axios: ^1.2.2
   commitizen: ^4.2.6
+  date-fns: ^2.29.3
   eslint: 8.31.0
   eslint-config-next: 13.1.2
   eslint-config-prettier: ^8.6.0
@@ -47,6 +48,7 @@ dependencies:
   '@types/react': 18.0.26
   '@types/react-dom': 18.0.10
   axios: 1.2.2
+  date-fns: 2.29.3
   eslint: 8.31.0
   eslint-config-next: 13.1.2_iukboom6ndih5an6iafl45j2fe
   next: 13.1.2_biqbaboplfbrettd7655fr4n2y
@@ -1293,6 +1295,11 @@ packages:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
     engines: {node: '>=8'}
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
