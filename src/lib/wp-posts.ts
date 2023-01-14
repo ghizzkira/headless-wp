@@ -79,21 +79,21 @@ export function wpMapPostData(post = {}) {
     })
   }
 
-  // if (data.content) {
-  //   if (data.content.includes(`https://media.wowkia.com`)) {
-  //     let content
-  //     content = data.content
-  //     content = content.replace(
-  //       /href="https:\/\/media.wowkia/gm,
-  //       'href="https://wowkia',
-  //     )
-  //     content = content.replace(
-  //       /https:\/\/media.wowkia.com\/wp-content/gm,
-  //       "https://cdn.wowkia.com/wp-content",
-  //     )
-  //     data.content = content
-  //   }
-  // }
+  if (data.content) {
+    if (data.content.includes(`https://gamedaim.com`)) {
+      let content
+      content = data.content
+      content = content.replace(
+        /href="https:\/\/gamedaim/gm,
+        'href="https://beta.gamedaim',
+      )
+      // content = content.replace(
+      //   /https:\/\/media.wowkia.com\/wp-content/gm,
+      //   "https://cdn.wowkia.com/wp-content",
+      // )
+      data.content = content
+    }
+  }
 
   if (data.featuredImage) {
     data.featuredImage = data.featuredImage.node

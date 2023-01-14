@@ -2,6 +2,7 @@ import { forwardRef, HTMLAttributes } from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { wpAuthorPathBySlug } from "@/lib/wp-users"
+import { Bullet } from "@/ui"
 
 interface MetadataPostProps extends HTMLAttributes<HTMLDivElement> {
   authorName: string
@@ -36,7 +37,7 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
               </NextLink>
             </div>
           </>
-          <span className="text-sm">&bull;</span>
+          <Bullet size="3xs" />
           {date && (
             <time
               className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"

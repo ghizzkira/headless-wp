@@ -1,12 +1,19 @@
-import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
+import NextImage from "next/image"
+import NextLink from "next/link"
+import { GetServerSideProps } from "next"
+import { Heading, Button, ButtonGroup } from "@/ui"
+
+import {
+  wpGetPostBySlug,
+  wpGetAllPosts,
+  wpPostPathBySlug,
+} from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
+import { wpTagPathBySlug } from "@/lib/wp-tags"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import NextImage from "next/image"
-import { Heading, Button, ButtonGroup } from "@/ui"
-import NextLink from "next/link"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
-import { GetServerSideProps } from "next"
+import { ShareButtonArticle } from "@/components/Share"
 
 interface PostProps {
   post: {
@@ -19,12 +26,14 @@ interface PostProps {
         url: string
       }
     }
+    slug: string
     categories: any
     featuredImage: {
       altText: string
       sourceUrl: string
       caption: string
     }
+    tags: any
     date: string
   }
   posts: any
@@ -32,7 +41,7 @@ interface PostProps {
 
 export default function Post(props: PostProps) {
   const { post, posts } = props
-  const { content, title, author, categories, featuredImage, date } = post
+  const { content, title, author, categories, featuredImage, date, tags } = post
 
   return (
     <SinglePostLayout>
@@ -90,12 +99,36 @@ export default function Post(props: PostProps) {
                 )}
               </>
             )}
+            <div className="shadow-xs fixed top-[unset] bottom-0 left-0 z-40 mx-0 mb-0 mr-0 flex w-full flex-row items-center justify-center bg-white dark:bg-gray-700 lg:sticky lg:top-20 lg:bottom-[unset] lg:left-[unset] lg:w-auto lg:bg-transparent lg:shadow-none lg:dark:bg-transparent">
+              {/* TODO: category on slug not applied  */}
+              <ShareButtonArticle
+                url={`/${wpPostPathBySlug(post.slug)}`}
+                text={title}
+              />
+            </div>
             <section
               className="article-body"
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
+            <section className="my-6" id="tag">
+              {tags.map((tag: { slug: string; name: string }) => {
+                return (
+                  <Button
+                    size="sm"
+                    colorScheme="blue"
+                    variant="outline"
+                    className="mx-1"
+                    key={tag.slug}
+                  >
+                    <NextLink href={wpTagPathBySlug(tag.slug)}>
+                      {tag.name}
+                    </NextLink>
+                  </Button>
+                )
+              })}
+            </section>
           </div>
         </section>
         <aside className="w-4/12 hidden lg:block">
