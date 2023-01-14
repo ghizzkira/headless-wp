@@ -55,8 +55,8 @@ export default function Home(props: HomeProps) {
         />
       </Head>
       <Layout>
-        <section className="mx-8 w-full flex flex-row">
-          <div>
+        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-4">
+          <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
               (post: {
                 id: number
@@ -99,7 +99,7 @@ export default function Home(props: HomeProps) {
           <aside className="w-4/12 hidden lg:block">
             <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
               <div className="mb-4">
-                <Heading as="h4" className="text-transparent">
+                <Heading as="h4" className="!text-transparent">
                   <span className="after:absolute after:border after:border-[#1e3799] after:bg-[#1e3799] after:h-[3px] after:w-[50px] after:ml-[-25px] after:left-1/2 after:top-[40px]">
                     Trending
                   </span>
