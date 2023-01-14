@@ -1,12 +1,14 @@
+import NextImage from "next/image"
+import NextLink from "next/link"
+import { GetServerSideProps } from "next"
+import { Heading, Button, ButtonGroup } from "@/ui"
+
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
+import { wpTagPathBySlug } from "@/lib/wp-tags"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import NextImage from "next/image"
-import { Heading, Button, ButtonGroup } from "@/ui"
-import NextLink from "next/link"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
-import { GetServerSideProps } from "next"
 
 interface PostProps {
   post: {
@@ -107,7 +109,9 @@ export default function Post(props: PostProps) {
                     className="mx-1"
                     key={tag.slug}
                   >
-                    <NextLink href={tag.slug}>{tag.name}</NextLink>
+                    <NextLink href={wpTagPathBySlug(tag.slug)}>
+                      {tag.name}
+                    </NextLink>
                   </Button>
                 )
               })}
