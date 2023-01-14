@@ -35,12 +35,13 @@ export async function wpGetAllPosts() {
 
   return {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
+    pageInfo: data?.data.posts.pageInfo,
   }
 }
 
 export async function wpGetAllPostsLoadMore(after = "") {
   const data = await wpFetchAPI(QUERY_WP_ALL_POSTS_LOAD_MORE, {
-    variables: { after },
+    after,
   })
   const posts = data?.data.posts.edges.map(({ node = {} }) => node)
   return {

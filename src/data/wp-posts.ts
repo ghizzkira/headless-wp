@@ -88,7 +88,7 @@ query AllSlug($after: String) {
 `
 export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
   query AllPosts($after : String) {
-    posts(first: 20, after: $after) {
+    posts(first: 10, after: $after) {
       pageInfo {
         hasNextPage
         endCursor
@@ -105,6 +105,7 @@ export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
               id
               name
               slug
+              uri
             }
           }
           id

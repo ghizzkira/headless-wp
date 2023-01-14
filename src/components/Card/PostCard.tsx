@@ -28,9 +28,9 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       date,
     } = props
     return (
-      <article className="flex flex-col rounded-lg drop-shadow-md mb-4 border-separate">
-        <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto min-h-[185px] h-[185px]">
-          <div className="w-full md:w-1/3 grid place-items-stretch">
+      <article className="flex flex-row lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate">
+        <div className="relative flex flex-row lg:flex-col md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl mx-auto">
+          <div className="w-[125px] h-[90px] md:w-1/3 grid place-items-stretch">
             <NextImage
               priority={true}
               height={250}
@@ -44,7 +44,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             <NextLink href={slug}>
               <h3 className="text-gray-800 md:text-xl text-lg">{title}</h3>
               <div
-                className="md:text-lg text-gray-500 text-base line-clamp-2"
+                className="hidden lg:block md:text-lg text-gray-500 text-base line-clamp-2"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
               />
             </NextLink>
@@ -70,15 +70,15 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                     </div>
                   </>
                 )}
-                <span className="text-sm">&bull;</span>
-                {date && (
+                {/* <span className="text-sm">&bull;</span> */}
+                {/* {date && (
                   <time
                     className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
                     {date}
                   </time>
-                )}
+                )} */}
               </div>
             </div>
           </div>
