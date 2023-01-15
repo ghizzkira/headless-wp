@@ -37,7 +37,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
             isOpen ? "pl-0" : "pl-[250px]"
           } transition-[padding] ease-in-out delay-150`}
         >
-          <Container className="md:px-32">{children}</Container>
+          <Container className="md:px-34 md:!mx-auto">{children}</Container>
         </div>
         <Footer
           className={`transition-[padding] ease-in-out delay-150 ${

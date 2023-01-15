@@ -25,7 +25,7 @@ export default function Category(props: CategoryProps) {
   return (
     <>
       <Layout>
-        <section className="flex flex-col">
+        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto flex flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
             <div className="absolute top-1">
               <nav className="ml-2 flex" aria-label="Breadcrumb">
@@ -71,7 +71,7 @@ export default function Category(props: CategoryProps) {
                 })}
             </div>
           </div>
-          <div className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-4 lg:px-4">
+          <div className=" w-full flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
               {posts.map(
                 (post: {
