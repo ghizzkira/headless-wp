@@ -3,6 +3,7 @@ import NextLink from "next/link"
 import NextImage from "next/image"
 import { wpAuthorPathBySlug } from "@/lib/wp-users"
 import { Bullet } from "@/ui"
+import { formatDate } from "@/utils/datetime"
 
 interface MetadataPostProps extends HTMLAttributes<HTMLDivElement> {
   authorName: string
@@ -43,7 +44,7 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
               className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"
               dateTime={date}
             >
-              {date}
+              {formatDate(date)}
             </time>
           )}
         </div>

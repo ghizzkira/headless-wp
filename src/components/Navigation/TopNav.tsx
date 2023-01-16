@@ -18,6 +18,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   const inputRef = React.useRef() as React.RefObject<HTMLInputElement>
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
+    //@ts-ignore
     const value = inputRef.current.value
     router.push(`/search?q=${value}`)
   }
@@ -37,7 +38,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
           <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
             <div id="drawer" className="mx-2">
               <div
-                className="space-y-[6px] hover:space-y-[3px]"
+                className="cursor-pointer space-y-[6px] hover:space-y-[3px]"
                 onClick={onToggle}
               >
                 <div className="w-5 h-0.5 bg-gray-600 transition-[margin] delay-200	"></div>
@@ -50,18 +51,12 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
                 <div className="ak-bar-item ak-header-logo pr-0 pl-0 items-center justify-start w-full flex flex-wrap flex-row">
                   <h1 className="logo-image m-0 p-0 leading-none font-bold text-4xl	">
                     <NextLink href="/">
-                      {mounted &&
-                        (resolvedTheme === "light" ? (
-                          <NextImage
-                            className="site-logo"
-                            height={32}
-                            width={120}
-                            alt={env.SITE_TITLE}
-                            src={env.LOGO_URL}
-                          />
-                        ) : (
-                          <div>kontol</div>
-                        ))}
+                      <NextImage
+                        height={32}
+                        width={120}
+                        alt={env.SITE_TITLE}
+                        src={env.LOGO_URL}
+                      />
                     </NextLink>
                   </h1>
                 </div>

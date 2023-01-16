@@ -1,6 +1,8 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
+import { Bullet } from "@/ui"
+import { formatDate } from "@/utils/datetime"
 
 interface PostCardProps {
   title: string
@@ -70,13 +72,13 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                     </div>
                   </>
                 )}
-                <span className="text-sm">&bull;</span>
+                <Bullet size="3xs" className="mx-2" />
                 {date && (
                   <time
                     className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
-                    {date}
+                    {formatDate(date)}
                   </time>
                 )}
               </div>
