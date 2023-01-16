@@ -1,7 +1,7 @@
 import * as React from "react"
 import NextLink, { LinkProps } from "next/link"
 
-import { Button } from "@/ui"
+import { IconButton } from "@/ui"
 
 export interface ShareButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   fullUrl?: LinkProps | any
@@ -41,12 +41,12 @@ export const ShareButton = React.forwardRef<HTMLDivElement, ShareButtonProps>(
           title={text}
           href={fullUrl}
         >
-          <Button
+          <IconButton
             variant={variant}
-            className={`${additionalClassName} mb-0 h-12 w-12 md:mb-1`}
+            className={`${additionalClassName} mb-0 h-12 w-12 md:mb-1 !h-10`}
           >
             {icon}
-          </Button>
+          </IconButton>
         </NextLink>
       </div>
     )
