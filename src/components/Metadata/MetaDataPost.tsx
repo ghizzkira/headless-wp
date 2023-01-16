@@ -2,7 +2,6 @@ import { forwardRef, HTMLAttributes } from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { MdAccessTime } from "react-icons/md"
-import { Bullet } from "@/ui"
 
 import { formatDate } from "@/utils/datetime"
 import { wpAuthorPathBySlug } from "@/lib/wp-users"
