@@ -1,6 +1,7 @@
 import * as React from "react"
 import NextImage from "next/image"
 import NextLink from "next/link"
+import { Heading } from "@/ui"
 
 interface PostCardSlideProps {
   title: string
@@ -29,9 +30,9 @@ export const PostCardSide = React.forwardRef<
         </div>
         <div className="w-full md:w-2/3 flex flex-col space-y-2">
           <NextLink href={slug}>
-            <h3 className="text-gray-800 text-lg lg:text-[13px] leading-5 line-clamp-3">
+            <Heading as="h3" size="lg" className="leading-5 line-clamp-3">
               {title}
-            </h3>
+            </Heading>
           </NextLink>
         </div>
       </div>

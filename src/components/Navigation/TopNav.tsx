@@ -32,7 +32,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   }
 
   return (
-    <header className="box-border p-0 border-none bg-white px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
+    <header className="box-border p-0 border-none bg-white dark:bg-gray-900 px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
       <div className="grow pr-4 pl-4 mr-auto ml-auto">
         <div className="ak-bar-inner relative h-full">
           <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
@@ -68,12 +68,12 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
                 onSubmit={handlerSubmit}
                 autoComplete="off"
               >
-                <div className="relative flex min-w-full lg:w-[400px]">
+                <div className="relative flex min-w-full lg:w-[400px] bg-white dark:bg-gray-900">
                   <div className="absolute top-[4px] bottom-0 left-0 flex items-center pl-3">
                     <span className="text-gray-4 h-5 w-5"></span>
                   </div>
                   <input
-                    className="focus:border-brand-200 h-11 w-full rounded-full border border-gray-300 bg-white px-8 py-3 text-gray-700 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-gray-500"
+                    className="focus:border-primary-200 h-11 w-full rounded-full border border-gray-300 bg-white px-8 py-3 text-gray-700 focus:outline-none dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-gray-500"
                     type="search"
                     name="q"
                     ref={inputRef}
