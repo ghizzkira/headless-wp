@@ -113,7 +113,7 @@ export default function Post(props: PostProps) {
               />
             </div>
 
-            <section className="mx-12 my-6" id="tag">
+            <section className="mx-4 md:mx-12 my-6" id="tag">
               {tags.map((tag: { slug: string; name: string }) => {
                 return (
                   <ButtonGroup className="p-1">
