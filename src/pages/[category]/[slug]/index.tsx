@@ -51,7 +51,7 @@ export default function Post(props: PostProps) {
             <div>
               {categories.map((category: { slug: string; name: string }) => {
                 return (
-                  <ButtonGroup className="px-1">
+                  <ButtonGroup className="p-1">
                     <Button
                       size="xs"
                       colorScheme="slate"
@@ -115,20 +115,22 @@ export default function Post(props: PostProps) {
               />
             </div>
 
-            <section className="my-6" id="tag">
+            <section className="mx-12 my-6" id="tag">
               {tags.map((tag: { slug: string; name: string }) => {
                 return (
-                  <Button
-                    size="sm"
-                    colorScheme="blue"
-                    variant="outline"
-                    className="mx-1"
-                    key={tag.slug}
-                  >
-                    <NextLink href={wpTagPathBySlug(tag.slug)}>
-                      {tag.name}
-                    </NextLink>
-                  </Button>
+                  <ButtonGroup className="p-1">
+                    <Button
+                      size="sm"
+                      colorScheme="blue"
+                      variant="outline"
+                      className="mx-1"
+                      key={tag.slug}
+                    >
+                      <NextLink href={wpTagPathBySlug(tag.slug)}>
+                        {tag.name}
+                      </NextLink>
+                    </Button>
+                  </ButtonGroup>
                 )
               })}
             </section>
