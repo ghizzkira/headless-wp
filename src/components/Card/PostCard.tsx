@@ -3,6 +3,7 @@ import NextLink from "next/link"
 import NextImage from "next/image"
 import { Bullet, Heading } from "@/ui"
 import { formatDate } from "@/utils/datetime"
+import { MdAccessTime } from "react-icons/md"
 
 interface PostCardProps {
   title: string
@@ -72,10 +73,10 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                     </div>
                   </>
                 )}
-                <Bullet size="3xs" className="mx-2" />
+                <MdAccessTime className="h-3 w-3 ml-2 text-gray-700 dark:text-gray-200" />
                 {date && (
                   <time
-                    className="pl-0.5 text-sm text-gray-700 dark:text-gray-200"
+                    className="pl-0.5 text-xs text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
                     {formatDate(date)}

@@ -3,17 +3,14 @@ import NextLink from "next/link"
 import { GetServerSideProps } from "next"
 import { Heading, Button, ButtonGroup } from "@/ui"
 
-import {
-  wpGetPostBySlug,
-  wpGetAllPosts,
-  wpPostPathBySlug,
-} from "@/lib/wp-posts"
+import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 import { wpTagPathBySlug } from "@/lib/wp-tags"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
 import { ShareButtonArticle } from "@/components/Share"
+import env from "@/env"
 
 interface PostProps {
   post: {
@@ -43,10 +40,12 @@ export default function Post(props: PostProps) {
   const { post, posts } = props
   const { content, title, author, categories, featuredImage, date, tags } = post
 
+  const { primary } = wpPrimaryCategorySlug(post.categories)
+
   return (
     <SinglePostLayout>
-      <div className="flex">
-        <section className="mx-4 lg:mx-8 flex flex-row w-full lg:w-8/12">
+      <div className="flex mx-4 md:mx-24">
+        <section className="flex flex-row w-full lg:w-8/12">
           <div className="pr-4">
             <div>
               {categories.map((category: { slug: string; name: string }) => {
@@ -101,9 +100,8 @@ export default function Post(props: PostProps) {
             )}
             <div className="flex">
               <div className="h-fit mr-2 shadow-xs fixed top-[unset] bottom-0 left-0 z-40 mx-0 mb-0 mr-0 flex w-full flex-row items-center justify-center bg-white dark:bg-gray-700 lg:sticky lg:top-20 lg:bottom-[unset] lg:left-[unset] lg:w-auto lg:bg-transparent lg:shadow-none lg:dark:bg-transparent">
-                {/* TODO: category on slug not applied  */}
                 <ShareButtonArticle
-                  url={`/${wpPostPathBySlug(post.slug)}`}
+                  url={`https://${env.DOMAIN}/${primary.slug}/${post.slug}`}
                   text={title}
                 />
               </div>
@@ -115,7 +113,7 @@ export default function Post(props: PostProps) {
               />
             </div>
 
-            <section className="mx-12 my-6" id="tag">
+            <section className="mx-4 md:mx-12 my-6" id="tag">
               {tags.map((tag: { slug: string; name: string }) => {
                 return (
                   <ButtonGroup className="p-1">
@@ -157,7 +155,6 @@ export default function Post(props: PostProps) {
                 excerpt: string
                 categories: any
               }) => {
-                const { primary } = wpPrimaryCategorySlug(post.categories)
                 return (
                   <PostCardSide
                     key={post.id}
