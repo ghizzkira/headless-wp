@@ -70,7 +70,7 @@ export default defineConfig({
     .article-body h4,
     .article-body h5,
     .article-body h6 {
-      @apply my-4 font-bold;
+      @apply my-4 font-bold text-black dark: text-gray-100;
     }
 
     .article-body h1 {
@@ -90,7 +90,7 @@ export default defineConfig({
     }
 
     .article-body a {
-      @apply text-primary-500 duration-200 hover:text-primary-600;
+      @apply text-primary-500 duration-200 hover:text-primary-600 dark:text-primary-700 dark:hover:text-primary-800;
     }
 
     .dark .article-body a {

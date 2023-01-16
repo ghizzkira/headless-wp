@@ -113,7 +113,7 @@ export default function Category(props: CategoryProps) {
               )}
             </div>
             <aside className="w-4/12 hidden lg:block">
-              <div className="rounded-xl border border-gray-100 p-4 sticky top-8">
+              <div className="rounded-xl border border-gray-100 dark:border-gray-700 p-4 sticky top-8">
                 <div className="mb-4">
                   <Heading as="h4" className="!text-transparent">
                     <span className="after:absolute after:border after:border-[#1e3799] after:bg-[#1e3799] after:h-[3px] after:w-[50px] after:ml-[-25px] after:left-1/2 after:top-[40px]">

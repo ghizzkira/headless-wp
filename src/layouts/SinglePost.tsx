@@ -27,7 +27,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
         <div
           className={`${
             isOpen ? "-translate-x-full" : "translate-x-0"
-          } transition ease-in-out delay-150 border-r border-gray-100 bg-white z-20 fixed pt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
+          } transition ease-in-out delay-150 border-r border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 z-20 fixed pt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
         >
           <SideNav primaryMenus={primaryMenus} />
         </div>

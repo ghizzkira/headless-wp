@@ -19,8 +19,7 @@ function App({ Component, pageProps }: AppProps) {
           font-weight: 600;
         }
       `}</style>
-
-      <NextThemeProvider attribute="class" storageKey="theme" enableSystem>
+      <NextThemeProvider defaultTheme="system" attribute="class" enableSystem>
         <Component {...pageProps} />
       </NextThemeProvider>
     </>

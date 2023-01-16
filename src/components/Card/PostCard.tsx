@@ -1,7 +1,7 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
-import { Bullet } from "@/ui"
+import { Bullet, Heading } from "@/ui"
 import { formatDate } from "@/utils/datetime"
 
 interface PostCardProps {
@@ -44,9 +44,9 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
           </div>
           <div className="flex flex-col">
             <NextLink href={slug}>
-              <h3 className="text-gray-800 md:text-xl text-lg">{title}</h3>
+              <Heading as="h3">{title}</Heading>
               <div
-                className="hidden md:my-3 md:inline-flex md:text-lg text-gray-500 text-base md:!line-clamp-2"
+                className="hidden md:my-3 md:inline-flex md:text-lg text-gray-500 dark:text-gray-300 text-base md:!line-clamp-2"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
               />
             </NextLink>
@@ -65,9 +65,9 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                         />
                       )}
                       <NextLink href={authorUri}>
-                        <h4 className="ml-2 text-[12px] font-bold text-black">
+                        <Heading bold as="h4" className="ml-2 text-[12px] ">
                           {authorName}
-                        </h4>
+                        </Heading>
                       </NextLink>
                     </div>
                   </>
