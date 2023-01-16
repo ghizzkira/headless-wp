@@ -4,7 +4,7 @@ const nextConfig = {
   productionBrowserSourceMaps: true,
   poweredByHeader: false,
   images: {
-    domains: ["gamedaim.com"],
+    domains: ["gamedaim.com", "secure.gravatar.com"],
   },
 }
 

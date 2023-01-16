@@ -11,6 +11,7 @@ import {
   QUERY_WP_ALL_POSTS_LOAD_MORE,
   QUERY_WP_ALL_SLUG,
   QUERY_WP_POST_BY_SLUG,
+  QUERY_WP_SEARCH_POSTS,
 } from "@/data/wp-posts"
 
 export function wpPostPathBySlug(slug: string) {
@@ -114,6 +115,29 @@ export async function wpGetAllSlug() {
     variables: { after },
   })
   const posts = data?.posts.edges.map(({ node = {} }) => node)
+  return {
+    posts: Array.isArray(posts) && posts.map(wpMapPostData),
+  }
+}
+export async function wpGetPostsBySearch(search: string | string[]) {
+  let postData
+  try {
+    postData = await wpFetchAPI(QUERY_WP_SEARCH_POSTS, {
+      search,
+    })
+  } catch (e) {
+    console.log(`Failed to query post data: ${e}`)
+    throw e
+  }
+  if (postData.posts === null) {
+    let post: { error: string } = {
+      error: "",
+    }
+    post.error = "Something went wrong"
+    return { post }
+  }
+  const posts = postData?.data.posts.edges.map(({ node = {} }) => node)
+
   return {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
   }

@@ -2,7 +2,7 @@ import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { useTheme } from "next-themes"
-
+import { useRouter } from "next/router"
 import env from "@/env"
 import { IconButton, MoonIcon, SunIcon } from "@/ui"
 
@@ -14,6 +14,13 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   const { onToggle } = props
   const [mounted, setMounted] = React.useState(false)
   const { resolvedTheme, setTheme } = useTheme()
+  const router = useRouter()
+  const inputRef = React.useRef() as React.RefObject<HTMLInputElement>
+  const handlerSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault()
+    const value = inputRef.current.value
+    router.push(`/search?q=${value}`)
+  }
 
   React.useEffect(() => setMounted(true), [])
 
@@ -59,6 +66,28 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
                   </h1>
                 </div>
               </div>
+            </div>
+            <div className="ml-10 hidden lg:block">
+              <form
+                className="bg-white dark:bg-gray-800"
+                onSubmit={handlerSubmit}
+                autoComplete="off"
+              >
+                <div className="relative flex min-w-full lg:w-[400px]">
+                  <div className="absolute top-[4px] bottom-0 left-0 flex items-center pl-3">
+                    <span className="text-gray-4 h-5 w-5"></span>
+                  </div>
+                  <input
+                    className="focus:border-brand-200 h-11 w-full rounded-full border border-gray-300 bg-white px-8 py-3 text-gray-700 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-gray-500"
+                    type="search"
+                    name="q"
+                    ref={inputRef}
+                    autoComplete="off"
+                    placeholder="Search..."
+                    required
+                  />
+                </div>
+              </form>
             </div>
             <div className="grow-1 ml-auto">
               <IconButton
