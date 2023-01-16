@@ -3,10 +3,15 @@ import * as React from "react"
 import { wpGetPostsBySearch, wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Layout } from "@/components/Layout"
+import { HomeLayout } from "@/layouts/HomeLayout"
 import { Heading } from "@/ui"
 import NextLink from "next/link"
-export default function Search(props) {
+
+interface SearchProps {
+  posts: any
+}
+
+export default function Search(props: SearchProps) {
   const { posts } = props
   const router = useRouter()
   const [notFound, setNotFound] = React.useState(false)
@@ -14,15 +19,20 @@ export default function Search(props) {
   const inputRef = React.useRef() as React.RefObject<HTMLInputElement>
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
+
+    //@ts-ignore
     const value = inputRef.current.value
     router.push(`/search?q=${value}`)
   }
 
   React.useEffect(() => {
     const loadPosts = async () => {
-      const { posts } = await wpGetPostsBySearch(router.query.q)
+      const { posts } = await wpGetPostsBySearch(router.query.q as string)
+      //@ts-ignore
       if (posts.length >= 1) {
+        //@ts-ignore
         setPostsSearch(posts)
+        //@ts-ignore
       } else if (posts.length == 0) {
         setNotFound(true)
       }
@@ -33,7 +43,7 @@ export default function Search(props) {
   }, [router.query.q])
   return (
     <>
-      <Layout>
+      <HomeLayout>
         <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto flex flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
             <div className="absolute top-1">
@@ -165,10 +175,11 @@ export default function Search(props) {
             </aside>
           </div>
         </section>
-      </Layout>
+      </HomeLayout>
     </>
   )
 }
+
 export async function getServerSideProps() {
   const { posts, pageInfo } = await wpGetAllPosts()
   return { props: { posts, pageInfo } }
