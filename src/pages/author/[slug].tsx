@@ -1,16 +1,21 @@
+import { Heading } from "@/ui"
+
 // import { wpGetUserbyId } from "@/lib/wp-users"
 import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
-import { Layout } from "@/components/Layout"
+import { HomeLayout } from "@/layouts/HomeLayout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Heading } from "@/ui"
-export default function Author(props) {
-  const { posts, sss } = props
-  console.log(sss)
+
+interface AuthorProps {
+  posts: any
+}
+
+export default function Author(props: AuthorProps) {
+  const { posts } = props
 
   return (
     <>
-      <Layout>
+      <HomeLayout>
         <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
@@ -88,7 +93,7 @@ export default function Author(props) {
             </div>
           </aside>
         </section>
-      </Layout>
+      </HomeLayout>
     </>
   )
 }

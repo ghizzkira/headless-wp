@@ -1,12 +1,13 @@
+import * as React from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
-import * as React from "react"
+import { Heading } from "@/ui"
+
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Layout } from "@/components/Layout"
-import { Heading } from "@/ui"
+import { HomeLayout } from "@/layouts/HomeLayout"
 
 interface HomeProps {
   posts: any
@@ -54,7 +55,7 @@ export default function Home(props: HomeProps) {
           href={`https://${env.DOMAIN}${router.pathname}`}
         />
       </Head>
-      <Layout>
+      <HomeLayout>
         <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
@@ -132,7 +133,7 @@ export default function Home(props: HomeProps) {
             </div>
           </aside>
         </section>
-      </Layout>
+      </HomeLayout>
     </>
   )
 }

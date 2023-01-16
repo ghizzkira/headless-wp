@@ -1,11 +1,13 @@
+import NextLink from "next/link"
+import { GetServerSideProps } from "next"
+import { Button, Heading } from "@/ui"
+
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
-import { Layout } from "@/components/Layout"
+import { HomeLayout } from "@/layouts/HomeLayout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { GetServerSideProps } from "next"
-import NextLink from "next/link"
-import { Button, Heading } from "@/ui"
+
 interface CategoryProps {
   category: {
     name: string
@@ -19,12 +21,11 @@ interface CategoryProps {
 
 export default function Category(props: CategoryProps) {
   const { category, posts } = props
-
   const categoryChild = category.children.nodes
 
   return (
     <>
-      <Layout>
+      <HomeLayout>
         <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto flex flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
             <div className="absolute top-1">
@@ -148,7 +149,7 @@ export default function Category(props: CategoryProps) {
             </aside>
           </div>
         </section>
-      </Layout>
+      </HomeLayout>
     </>
   )
 }
