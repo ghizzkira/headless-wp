@@ -7,6 +7,10 @@ import { HomeLayout } from "@/layouts/HomeLayout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { Button } from "@/ui"
+import Head from "next/head"
+import parse from "html-react-parser"
+import { getSeoDatas } from "@/lib/wp-seo"
+import env from "@/env"
 interface TagProps {
   tag: {
     name: string
@@ -15,10 +19,11 @@ interface TagProps {
 }
 export default function Tag(props: TagProps) {
   // eslint-disable-next-line no-unused-vars
-  const { tag, posts } = props
+  const { tag, posts, seo } = props
 
   return (
     <>
+      <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
         <section className="flex w-full flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
@@ -158,10 +163,13 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const { posts } = await wpGetPostsByTagId(tag.id)
+  const seo = await getSeoDatas(`${env.DOMAIN}${tag.uri}`)
+
   return {
     props: {
       tag,
       posts,
+      seo,
     },
   }
 }

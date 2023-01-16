@@ -23,6 +23,7 @@ const env: EnvProps = {
   WP_API_URL: process.env.NEXT_PUBLIC_WP_API_URL,
   MENU_PRIMARY: process.env.NEXT_PUBLIC_MENU_PRIMARY,
   MENU_FOOTER: process.env.NEXT_PUBLIC_MENU_FOOTER,
+  WP_SEO_API_URL: process.env.NEXT_PUBLIC_WP_SEO_API_URL,
 }
 
 export default env

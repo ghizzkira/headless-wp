@@ -1,20 +1,23 @@
 import { Heading } from "@/ui"
 
-// import { wpGetUserbyId } from "@/lib/wp-users"
+import Head from "next/head"
+import parse from "html-react-parser"
+import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-
+import env from "@/env"
 interface AuthorProps {
   posts: any
 }
 
 export default function Author(props: AuthorProps) {
-  const { posts } = props
+  const { posts, seo } = props
 
   return (
     <>
+      <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
         <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
@@ -107,10 +110,12 @@ export const getServerSideProps = async ({ params }: any) => {
   // //     notFound: true,
   // //   }
   // // }
+  const seo = await getSeoDatas(`${env.DOMAIN}/author/${params.slug}`)
 
   return {
     props: {
       posts,
+      seo,
       pageInfo,
     },
   }
