@@ -38,7 +38,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
           <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
             <div id="drawer" className="mx-2">
               <div
-                className="space-y-[6px] hover:space-y-[3px]"
+                className="cursor-pointer space-y-[6px] hover:space-y-[3px]"
                 onClick={onToggle}
               >
                 <div className="w-5 h-0.5 bg-gray-600 transition-[margin] delay-200	"></div>
