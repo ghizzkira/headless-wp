@@ -42,7 +42,7 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
             <>
               <MdAccessTime className="h-3 w-3 text-gray-700 dark:text-gray-200" />
               <time
-                className="ml-[-6px] text-sm text-gray-700 dark:text-gray-200"
+                className="ml-[-6px] text-xs text-gray-700 dark:text-gray-200"
                 dateTime={date}
               >
                 {formatDate(date)}
