@@ -82,7 +82,7 @@ export default function Search(props: SearchProps) {
                       <span className="text-gray-4 h-5 w-5"></span>
                     </div>
                     <input
-                      className="focus:border-brand-200 h-11 w-full rounded-full border border-gray-300 bg-white px-8 py-3 text-gray-700 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-gray-500"
+                      className="focus:border-primary-200 h-11 w-full rounded-full border border-gray-300 bg-white px-8 py-3 text-gray-700 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-gray-500"
                       type="search"
                       name="q"
                       value={router.query.q}

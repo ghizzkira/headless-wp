@@ -28,6 +28,18 @@ export default defineConfig({
           800: "#262626",
           900: "#0d0d0d",
         },
+        primary: {
+          50: "#e7edff",
+          100: "#bec9f6",
+          200: "#93a6eb",
+          300: "#6a82e2",
+          400: "#405ed8",
+          500: "#2845bf",
+          600: "#1d3695",
+          700: "#14266c",
+          800: "#0a1743",
+          900: "#01081b",
+        },
       },
     },
   },
@@ -90,16 +102,7 @@ export default defineConfig({
     }
 
     .article-body a {
-      @apply text-primary-500 duration-200 hover:text-primary-600 dark:text-primary-700 dark:hover:text-primary-800;
-    }
-
-    .dark .article-body a {
-      @apply link-underline text-gray-500;
-    }
-
-    .dark .article-body a {
-      background-image: linear-gradient(transparent, transparent),
-        linear-gradient(#6b7280, #6b7280);
+      @apply text-primary-500 duration-200 hover:text-primary-600 dark:text-primary-300 dark:hover:text-primary-400;
     }
 
     .article-body {
@@ -162,17 +165,13 @@ export default defineConfig({
       @apply mx-4 mb-4 text-gray-400;
     }
 
-    .dark .article-body .IRPP_kangoo .ctaText {
-      color: #ffffff9c;
+    .article-body .IRPP_kangoo .ctaText {
+      dark: color-[#ffffff9c];
     }
 
     .article-body .IRPP_kangoo:hover .ctaText,
     .article-body .IRPP_kangoo:hover .postTitle {
       @apply opacity-60 transition-opacity duration-200;
-    }
-
-    .dark .article-body .postTitle {
-      color: rgb(229 231 235 / var(--tw-text-opacity));
     }
 
     .article-body .wp-block-table .has-fixed-layout {
