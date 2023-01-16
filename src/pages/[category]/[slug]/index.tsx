@@ -3,11 +3,7 @@ import NextLink from "next/link"
 import { GetServerSideProps } from "next"
 import { Heading, Button, ButtonGroup } from "@/ui"
 
-import {
-  wpGetPostBySlug,
-  wpGetAllPosts,
-  wpPostPathBySlug,
-} from "@/lib/wp-posts"
+import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
 import { wpTagPathBySlug } from "@/lib/wp-tags"
 import { SinglePostLayout } from "@/layouts/SinglePost"
@@ -48,8 +44,8 @@ export default function Post(props: PostProps) {
 
   return (
     <SinglePostLayout>
-      <div className="flex">
-        <section className="mx-4 lg:mx-8 flex flex-row w-full lg:w-8/12">
+      <div className="flex mx-4 md:mx-24">
+        <section className="flex flex-row w-full lg:w-8/12">
           <div className="pr-4">
             <div>
               {categories.map((category: { slug: string; name: string }) => {
@@ -117,7 +113,7 @@ export default function Post(props: PostProps) {
               />
             </div>
 
-            <section className="mx-12 my-6" id="tag">
+            <section className="mx-4 md:mx-12 my-6" id="tag">
               {tags.map((tag: { slug: string; name: string }) => {
                 return (
                   <ButtonGroup className="p-1">
