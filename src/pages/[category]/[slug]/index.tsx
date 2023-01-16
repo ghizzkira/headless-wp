@@ -44,7 +44,7 @@ export default function Post(props: PostProps) {
 
   return (
     <SinglePostLayout>
-      <div className="flex mx-4 md:mx-24">
+      <div className="flex mx-4">
         <section className="flex flex-row w-full lg:w-8/12">
           <div className="pr-4">
             <div>

@@ -72,7 +72,7 @@ export default function Category(props: CategoryProps) {
                 })}
             </div>
           </div>
-          <div className="mx-4 container md:mx-auto flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-4 container 2xl:!max-w-[1536px] md:mx-auto flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
               {posts.map(
                 (post: {
