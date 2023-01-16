@@ -44,7 +44,7 @@ export default function Search(props: SearchProps) {
   return (
     <>
       <HomeLayout>
-        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto flex flex-col">
+        <section className="w-full flex flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
             <div className="absolute top-1">
               <nav className="ml-2 flex" aria-label="Breadcrumb">
@@ -60,7 +60,9 @@ export default function Search(props: SearchProps) {
                   <li aria-current="page">
                     <div className="flex items-center">
                       <span className="text-sm font-medium text-white dark:text-gray-400">
-                        {`Search results for "${router.query.q}"`}
+                        {router.query.q !== undefined
+                          ? `Search results for "${router.query?.q}`
+                          : "Search"}
                       </span>
                     </div>
                   </li>
@@ -69,11 +71,13 @@ export default function Search(props: SearchProps) {
             </div>
             <div className="self-center">
               <Heading size="4xl" className="text-white">
-                {`Search results for "${router.query.q}"`}
+                {router.query.q !== undefined
+                  ? `Search results for "${router.query?.q}`
+                  : "Search"}
               </Heading>
             </div>
           </div>
-          <div className=" w-full flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-4 container md:mx-auto  flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
               <div className="mb-4 bg-gray-100 rounded-md p-2">
                 <form onSubmit={handlerSubmit} autoComplete="off">

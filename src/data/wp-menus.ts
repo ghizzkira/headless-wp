@@ -11,3 +11,15 @@ export const Wp_PrimaryMenus = `query PrimaryMenus {
     }
   }
 }`
+export const WP_GetMenusByName = `query WP_GetMenusByName($id: ID!) {
+  menu(id: $id, idType: NAME) {
+    menuItems {
+      edges {
+        node {
+          url
+          label
+        }
+      }
+    }
+  }
+}`

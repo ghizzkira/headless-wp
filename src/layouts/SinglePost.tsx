@@ -26,7 +26,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
         <TopNav onToggle={onToggle} />
         <div
           className={`${
-            isOpen ? "-translate-x-full" : "translate-x-0"
+            isOpen ? "translate-x-0" : "-translate-x-full"
           } transition ease-in-out delay-150 border-r border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 z-20 fixed pt-20 top-0 overflow-x-auto h-full flex flex-row bg-gray-100 w-[250px] scrollbar`}
         >
           <SideNav primaryMenus={primaryMenus} />
@@ -34,7 +34,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
         <div
           id="container"
           className={`flex mt-20 ${
-            isOpen ? "pl-0" : "pl-[250px]"
+            isOpen ? "pl-[250px]" : "pl-0"
           } transition-[padding] ease-in-out delay-150`}
         >
           <Container className="md:px-34 md:!mx-auto">{children}</Container>
