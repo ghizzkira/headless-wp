@@ -1,12 +1,15 @@
 import NextLink from "next/link"
 import { GetServerSideProps } from "next"
 import { Button, Heading } from "@/ui"
-
+import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
+import env from "@/env"
+import Head from "next/head"
+import parse from "html-react-parser"
 
 interface CategoryProps {
   category: {
@@ -20,13 +23,14 @@ interface CategoryProps {
 }
 
 export default function Category(props: CategoryProps) {
-  const { category, posts } = props
+  const { category, posts, seo } = props
   const categoryChild = category.children.nodes
 
   return (
     <>
+      <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
-        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto flex flex-col">
+        <section className="flex w-full flex-col">
           <div className="flex py-10 mb-10 flex-col bg-gradient-to-r from-[#1e3799] to-[#0984e3] relative">
             <div className="absolute top-1">
               <nav className="ml-2 flex" aria-label="Breadcrumb">
@@ -72,7 +76,7 @@ export default function Category(props: CategoryProps) {
                 })}
             </div>
           </div>
-          <div className=" w-full flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-4 container 2xl:!max-w-[1536px] md:mx-auto flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
               {posts.map(
                 (post: {
@@ -165,10 +169,12 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const { posts } = await wpGetPostsByCategoryId(category.slug)
+  const seo = await getSeoDatas(`${env.DOMAIN}/${category.slug}`)
   return {
     props: {
       category,
       posts,
+      seo,
     },
   }
 }

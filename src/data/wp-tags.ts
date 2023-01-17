@@ -37,6 +37,7 @@ export const QUERY_WP_TAG_BY_SLUG = `
           description
           id
           name
+          uri
           slug
         }
       }
