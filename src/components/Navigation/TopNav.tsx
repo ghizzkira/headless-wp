@@ -32,10 +32,10 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>((props) => {
   }
 
   return (
-    <header className="box-border p-0 border-none bg-white dark:bg-gray-900 px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
+    <header className="box-border py-0 border-none bg-white dark:bg-gray-900 px-4 outline-none align-baseline flex items-center -my-0 mx-auto fixed top-0 left-auto w-full opacity-1 h-16 shadow-lg shadow-black-500/40 z-[99]">
       <div className="grow pr-4 pl-4 mr-auto ml-auto">
-        <div className="ak-bar-inner relative h-full">
-          <div className="ak-row ak-row-items-middle flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
+        <div className="relative h-full">
+          <div className="flex-nowrap flex-row items-center flex h-full -ml-4 -mr-4">
             <div id="drawer" className="mx-2">
               <div
                 className="cursor-pointer space-y-[6px] hover:space-y-[3px]"

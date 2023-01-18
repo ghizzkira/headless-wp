@@ -2,19 +2,20 @@ import * as React from "react"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { Heading } from "@/ui"
-
+import parse from "html-react-parser"
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { HomeLayout } from "@/layouts/HomeLayout"
+import { getSeoDatas } from "@/lib/wp-seo"
 
 interface HomeProps {
   posts: any
 }
 
 export default function Home(props: HomeProps) {
-  const { posts } = props
+  const { posts, seo } = props
   // // const postsListA = posts.slice(0, posts.length / 2)
   // // const postsListB = posts.slice(posts.length / 2)
   // const [postsLM, setPostsLM] = React.useState(posts)
@@ -44,19 +45,9 @@ export default function Home(props: HomeProps) {
   // }, [])
   return (
     <>
-      <Head>
-        <title>{env.SITE_TITLE}</title>
-        <meta name="description" content={env.ABOUT} />
-        <meta property="og:title" content={env.SITE_TITLE} />
-        <meta property="og:title" content={env.SITE_TITLE} />
-        <meta property="og:description" content={env.ABOUT} />
-        <link
-          rel="canonical"
-          href={`https://${env.DOMAIN}${router.pathname}`}
-        />
-      </Head>
+      <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
-        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
+        <section className="mx-4 container 2xl:!max-w-[1536px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
               (post: {
@@ -140,5 +131,7 @@ export default function Home(props: HomeProps) {
 
 export async function getServerSideProps() {
   const { posts, pageInfo } = await wpGetAllPosts()
-  return { props: { posts, pageInfo } }
+  const seo = await getSeoDatas(`${env.DOMAIN}`)
+
+  return { props: { posts, pageInfo, seo } }
 }
