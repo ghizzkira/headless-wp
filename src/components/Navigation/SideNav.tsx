@@ -16,11 +16,13 @@ export const SideNav = React.forwardRef<HTMLDivElement, SideNavProps>(
       <nav className="flex w-full flex-col w-56 relative">
         <ul className="flex flex-col p-4  border-b border-gray-100 dark:border-gray-700">
           {primaryMenus?.map((menu: { url: string; label: string }) => {
-            const fullUrl = menu.url.includes(env.DOMAIN)
+            const domainUrl = `https://${env.DOMAIN}`
+            const fullUrl = menu.url.includes(domainUrl)
             let slicedUrl
             if (fullUrl) {
-              slicedUrl = menu.url.slice(env.DOMAIN.length + 1)
+              slicedUrl = menu.url.slice(domainUrl.length + 1)
             }
+            console.log(slicedUrl)
 
             return (
               <li key={menu.label}>

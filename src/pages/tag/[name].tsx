@@ -163,7 +163,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const { posts } = await wpGetPostsByTagId(tag.id)
-  const seo = await getSeoDatas(`${env.DOMAIN}${tag.uri}`)
+  const seo = await getSeoDatas(`https://${env.DOMAIN}${tag.uri}`)
 
   return {
     props: {

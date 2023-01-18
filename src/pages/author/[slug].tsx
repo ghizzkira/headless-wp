@@ -110,7 +110,7 @@ export const getServerSideProps = async ({ params }: any) => {
   // //     notFound: true,
   // //   }
   // // }
-  const seo = await getSeoDatas(`${env.DOMAIN}/author/${params.slug}`)
+  const seo = await getSeoDatas(`https://${env.DOMAIN}/author/${params.slug}`)
 
   return {
     props: {
