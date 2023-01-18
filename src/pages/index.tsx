@@ -12,6 +12,10 @@ import { getSeoDatas } from "@/lib/wp-seo"
 
 interface HomeProps {
   posts: any
+  seo: {
+    head: string
+    success: boolean
+  }
 }
 
 export default function Home(props: HomeProps) {

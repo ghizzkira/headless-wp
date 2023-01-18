@@ -20,6 +20,10 @@ interface CategoryProps {
     }
   }
   posts: any
+  seo: {
+    head: string
+    success: boolean
+  }
 }
 
 export default function Category(props: CategoryProps) {
