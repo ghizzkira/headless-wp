@@ -4,12 +4,13 @@ import { useDisclosure } from "@/ui"
 import { TopNav, SideNav } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { wpGetPrimaryMenus } from "@/lib/wp-menus"
+
 interface HeaderProps {
   children: React.ReactNode
 }
 
 export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
-  (props) => {
+  (props, ref) => {
     const { isOpen, onToggle } = useDisclosure()
     const [primaryMenus, setPrimaryMenus] = React.useState<any>(null)
     React.useEffect(() => {
@@ -20,10 +21,10 @@ export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
       menus()
     }, [])
 
-    const { children } = props
+    const { children, ...rest } = props
 
     return (
-      <>
+      <div ref={ref} {...rest}>
         <TopNav onToggle={onToggle} />
         <div
           className={`${
@@ -45,7 +46,7 @@ export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
             isOpen ? "pl-[250px]" : "pl-[0]"
           }`}
         />
-      </>
+      </div>
     )
   },
 )

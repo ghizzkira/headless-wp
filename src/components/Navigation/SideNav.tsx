@@ -9,11 +9,11 @@ interface SideNavProps {
 }
 
 export const SideNav = React.forwardRef<HTMLDivElement, SideNavProps>(
-  (props) => {
-    const { primaryMenus } = props
+  (props, ref) => {
+    const { primaryMenus, ...rest } = props
 
     return (
-      <nav className="flex w-full flex-col w-56 relative">
+      <nav className="flex w-full flex-col w-56 relative" ref={ref} {...rest}>
         <ul className="flex flex-col p-4  border-b border-gray-100 dark:border-gray-700">
           {primaryMenus?.map((menu: { url: string; label: string }) => {
             const domainUrl = `https://${env.DOMAIN}`
