@@ -64,7 +64,7 @@ export default function Category(props: CategoryProps) {
             </div>
             <div className="self-center">
               <NextLink href={`/${category.slug}`}>
-                <Button className="mr-2 border border-[#24272f] !bg-[#1e3799]">
+                <Button className="!mr-2 border border-[#24272f] !bg-[#1e3799]">
                   All
                 </Button>
               </NextLink>
