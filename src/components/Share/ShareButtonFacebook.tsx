@@ -18,8 +18,8 @@ export const ShareButtonFacebook = React.forwardRef<
         url as string,
       )}`}
       text={text || "Facebook"}
-      {...rest}
       ref={ref}
+      {...rest}
     />
   )
 })

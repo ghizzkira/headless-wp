@@ -13,10 +13,14 @@ interface PostCardSlideProps {
 export const PostCardSide = React.forwardRef<
   HTMLDivElement,
   PostCardSlideProps
->((props) => {
-  const { src, alt, slug, title } = props
+>((props, ref) => {
+  const { src, alt, slug, title, ...rest } = props
   return (
-    <article className="flex w-full flex-col rounded-lg drop-shadow-md mb-4 border-separate">
+    <article
+      className="flex w-full flex-col rounded-lg drop-shadow-md mb-4 border-separate"
+      ref={ref}
+      {...rest}
+    >
       <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 max-w-xs md:max-w-3xl min-h-[80px] h-[80px]">
         <div className="w-[75px] h-[75px] min-w-[75px] min-h-[75px]">
           <NextImage

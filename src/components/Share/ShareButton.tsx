@@ -13,7 +13,7 @@ export interface ShareButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   additionalClassName?: string
   subject?: string | null
   message?: string | null
-  shareText?: string | null
+  sharetext?: string | null
   mediaSrc?: string | null
   baseUrl?: string | null
   caption?: string | null

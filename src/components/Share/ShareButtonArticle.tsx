@@ -20,12 +20,12 @@ export const ShareButtonArticle = React.forwardRef<
   const { url, text, ...rest } = props
   return (
     <div
-      ref={ref}
       className="lg:justify-unset flex w-full flex-row justify-evenly py-2 sm:w-1/2 lg:mt-2 lg:w-auto lg:flex-col lg:py-0 "
+      ref={ref}
       {...rest}
     >
       <ShareButtonFacebook url={url} />
-      <ShareButtonTwitter url={url} shareText={text} />
+      <ShareButtonTwitter url={url} sharetext={text} />
       <ShareButtonEmail url={url} subject={text} />
       <ShareButtonWhatsApp message={text} url={url} />
     </div>

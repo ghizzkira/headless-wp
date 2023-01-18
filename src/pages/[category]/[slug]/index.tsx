@@ -1,9 +1,10 @@
 import NextImage from "next/image"
 import NextLink from "next/link"
 import { GetServerSideProps } from "next"
-import { Heading, Button, ButtonGroup } from "@/ui"
 import Head from "next/head"
 import parse from "html-react-parser"
+
+import { Heading, Button, ButtonGroup } from "@/ui"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
@@ -56,21 +57,23 @@ export default function Post(props: PostProps) {
           <section className="flex flex-row w-full lg:w-8/12">
             <div className="lg:pr-4">
               <div>
-                {categories.map((category: { slug: string; name: string }) => {
-                  return (
-                    <ButtonGroup className="p-1">
-                      <Button
-                        size="xs"
-                        colorScheme="slate"
-                        className="!rounded-full uppercase"
-                      >
-                        <NextLink href={`/${category.slug}`}>
-                          {category.name}
-                        </NextLink>
-                      </Button>
-                    </ButtonGroup>
-                  )
-                })}
+                {categories.map(
+                  (category: { slug: string; name: string }, i: number) => {
+                    return (
+                      <ButtonGroup className="p-1" key={i}>
+                        <Button
+                          size="xs"
+                          colorScheme="slate"
+                          className="!rounded-full uppercase"
+                        >
+                          <NextLink href={`/${category.slug}`}>
+                            {category.name}
+                          </NextLink>
+                        </Button>
+                      </ButtonGroup>
+                    )
+                  },
+                )}
               </div>
               <Heading
                 as="h1"
@@ -122,9 +125,9 @@ export default function Post(props: PostProps) {
               </div>
 
               <section className="mx-4 md:mx-12 my-6" id="tag">
-                {tags.map((tag: { slug: string; name: string }) => {
+                {tags.map((tag: { slug: string; name: string }, i: number) => {
                   return (
-                    <ButtonGroup className="p-1">
+                    <ButtonGroup className="p-1" key={i}>
                       <Button
                         size="sm"
                         colorScheme="blue"

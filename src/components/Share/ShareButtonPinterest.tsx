@@ -7,7 +7,7 @@ export const ShareButtonPinterest = React.forwardRef<
   HTMLDivElement,
   ShareButtonProps
 >((props, ref) => {
-  const { url, onClick, text, shareText, mediaSrc, ...rest } = props
+  const { url, onClick, text, sharetext, mediaSrc, ...rest } = props
 
   return (
     <ShareButton
@@ -18,7 +18,7 @@ export const ShareButtonPinterest = React.forwardRef<
       fullUrl={`https://pinterest.com/pin/create/button/?url=${encodeURI(
         url as string,
       )}&media=${encodeURI(mediaSrc as string)}&description=${encodeURI(
-        shareText as string,
+        sharetext as string,
       )}`}
       ref={ref}
       {...rest}
