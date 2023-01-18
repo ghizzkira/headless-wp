@@ -7,7 +7,7 @@ export const ShareButtonTwitter = React.forwardRef<
   HTMLDivElement,
   ShareButtonProps
 >((props, ref) => {
-  const { url, onClick, text, shareText, ...rest } = props
+  const { url, onClick, text, sharetext, ...rest } = props
 
   return (
     <ShareButton
@@ -15,9 +15,9 @@ export const ShareButtonTwitter = React.forwardRef<
       onClick={onClick}
       icon={<FaTwitter />}
       text={text || "Twitter"}
-      shareText={shareText}
+      sharetext={sharetext}
       fullUrl={`https://twitter.com/intent/tweet/?text=${encodeURI(
-        shareText as string,
+        sharetext as string,
       )}&url=${encodeURI(url as string)}`}
       ref={ref}
       {...rest}

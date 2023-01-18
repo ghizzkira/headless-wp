@@ -25,7 +25,7 @@ export const ShareButtonArticle = React.forwardRef<
       {...rest}
     >
       <ShareButtonFacebook url={url} />
-      <ShareButtonTwitter url={url} shareText={text} />
+      <ShareButtonTwitter url={url} sharetext={text} />
       <ShareButtonEmail url={url} subject={text} />
       <ShareButtonWhatsApp message={text} url={url} />
     </div>
