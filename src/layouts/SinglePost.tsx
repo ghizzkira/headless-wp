@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Container, useDisclosure } from "@/ui"
+import { useDisclosure } from "@/ui"
 import { TopNav, SideNav } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { wpGetPrimaryMenus } from "@/lib/wp-menus"
@@ -37,7 +37,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
             isOpen ? "pl-[250px]" : "pl-0"
           } transition-[padding] ease-in-out delay-150`}
         >
-          <Container>{children}</Container>
+          {children}
         </div>
         <Footer
           className={`transition-[padding] ease-in-out delay-150 ${
