@@ -22,7 +22,6 @@ export const SideNav = React.forwardRef<HTMLDivElement, SideNavProps>(
             if (fullUrl) {
               slicedUrl = menu.url.slice(domainUrl.length + 1)
             }
-            console.log(slicedUrl)
 
             return (
               <li key={menu.label}>
