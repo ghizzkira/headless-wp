@@ -188,7 +188,7 @@ export const getServerSideProps: GetServerSideProps = async ({
       notFound: true,
     }
   }
-  const seo = await getSeoDatas(`${env.DOMAIN}${post.uri}`)
+  const seo = await getSeoDatas(`https://${env.DOMAIN}${post.uri}`)
 
   return {
     props: {

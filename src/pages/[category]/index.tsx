@@ -169,7 +169,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 
   const { posts } = await wpGetPostsByCategoryId(category.slug)
-  const seo = await getSeoDatas(`${env.DOMAIN}/${category.slug}`)
+  const seo = await getSeoDatas(`https://${env.DOMAIN}/${category.slug}`)
   return {
     props: {
       category,

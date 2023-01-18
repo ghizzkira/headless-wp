@@ -131,7 +131,7 @@ export default function Home(props: HomeProps) {
 
 export async function getServerSideProps() {
   const { posts, pageInfo } = await wpGetAllPosts()
-  const seo = await getSeoDatas(`${env.DOMAIN}`)
+  const seo = await getSeoDatas(`https://${env.DOMAIN}`)
 
   return { props: { posts, pageInfo, seo } }
 }
