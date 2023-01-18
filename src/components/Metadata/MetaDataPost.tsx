@@ -2,7 +2,7 @@ import { forwardRef, HTMLAttributes } from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { MdAccessTime } from "react-icons/md"
-
+import { Heading } from "@/ui"
 import { formatDate } from "@/utils/datetime"
 import { wpAuthorPathBySlug } from "@/lib/wp-users"
 
@@ -32,9 +32,9 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
               />
             )}
             <NextLink href={wpAuthorPathBySlug(authorSlug)}>
-              <h4 className="ml-2 text-base font-bold text-[#E15F41]">
+              <Heading as="h4" className="ml-2 text-base font-bold">
                 {authorName}
-              </h4>
+              </Heading>
             </NextLink>
           </div>
           {date && (

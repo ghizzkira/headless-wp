@@ -34,7 +34,7 @@ export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
         </div>
         <div
           id="container"
-          className={`flex mt-20 ${
+          className={`flex w-full mt-20 ${
             isOpen ? "pl-[250px]" : "pl-[0]"
           } transition-[padding] ease-in-out delay-150`}
         >

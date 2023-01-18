@@ -61,7 +61,7 @@ export default function Search(props: SearchProps) {
                     <div className="flex items-center">
                       <span className="text-sm font-medium text-white dark:text-gray-400">
                         {router.query.q !== undefined
-                          ? `Search results for "${router.query?.q}`
+                          ? `Search results for "${router.query?.q}"`
                           : "Search"}
                       </span>
                     </div>
@@ -72,7 +72,7 @@ export default function Search(props: SearchProps) {
             <div className="self-center">
               <Heading size="4xl" className="text-white">
                 {router.query.q !== undefined
-                  ? `Search results for "${router.query?.q}`
+                  ? `Search results for "${router.query?.q}"`
                   : "Search"}
               </Heading>
             </div>
