@@ -10,6 +10,10 @@ import { PostCardSide } from "@/components/Card/PostCardSide"
 import env from "@/env"
 interface AuthorProps {
   posts: any
+  seo: {
+    head: string
+    success: boolean
+  }
 }
 
 export default function Author(props: AuthorProps) {

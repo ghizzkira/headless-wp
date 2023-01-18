@@ -98,7 +98,7 @@ export default defineConfig({
     }
 
     .article-body p {
-      @apply text-base leading-[24px] md:text-lg md:leading-[32px];
+      @apply text-base leading-[24px] md:text-lg md:leading-[32px] text-black dark:text-gray-100;
     }
 
     .article-body p:not(:last-child) {
