@@ -33,7 +33,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
     return (
       <article className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate">
         <div className="relative flex flex-row">
-          <div className="order-2 md:order-1 md:mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:w-[220px] md:min-w-[220px] md:min-h-[158px] md:h-[158px]">
+          <div className="order-2 md:order-1 md:mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:!w-[220px] md:!min-w-[220px] md:!min-h-[158px] md:!h-[158px]">
             <NextImage
               priority={true}
               height={250}
