@@ -46,9 +46,9 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
                   className="cursor-pointer space-y-[6px] hover:space-y-[3px]"
                   onClick={onToggle}
                 >
-                  <div className="w-5 h-0.5 bg-gray-600 transition-[margin] delay-200	"></div>
-                  <div className="w-5 h-0.5 bg-gray-600 transition-[margin] delay-200	"></div>
-                  <div className="w-5 h-0.5 bg-gray-600 transition-[margin] delay-200	"></div>
+                  <div className="h-0.5 w-5 bg-gray-600 transition-[margin] delay-200	"></div>
+                  <div className="h-0.5 w-5 bg-gray-600 transition-[margin] delay-200	"></div>
+                  <div className="h-0.5 w-5 bg-gray-600 transition-[margin] delay-200	"></div>
                 </div>
               </div>
               <div className="flex-grow-0 flex-shrink-0 flex flex-col pl-4 pr-4 max-w-full min-w-0 basis-auto">
