@@ -14,12 +14,10 @@ interface MetadataPostProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
-  function MetadataPost(
-    { authorName, authorAvatarUrl, authorSlug, date, ...props },
-    ref,
-  ) {
+  (props, ref) => {
+    const { authorName, authorAvatarUrl, authorSlug, date, ...rest } = props
     return (
-      <div className="flex-column flex" {...props} ref={ref}>
+      <div className="flex-column flex" ref={ref} {...rest}>
         <div className="my-2 flex flex-row items-center gap-2">
           <div className="flex flex-row items-center">
             {authorAvatarUrl && (

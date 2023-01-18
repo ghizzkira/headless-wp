@@ -8,9 +8,10 @@ interface HeaderProps {
 }
 
 export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
-  (props) => {
+  (props, ref) => {
     const { isOpen, onToggle } = useDisclosure()
     const [primaryMenus, setPrimaryMenus] = React.useState<any>(null)
+
     React.useEffect(() => {
       async function menus() {
         const { menu } = await wpGetPrimaryMenus()
@@ -19,10 +20,10 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
       menus()
     }, [])
 
-    const { children } = props
+    const { children, ...rest } = props
 
     return (
-      <>
+      <div ref={ref} {...rest}>
         <TopNav onToggle={onToggle} />
         <div
           className={`${
@@ -44,7 +45,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
             isOpen ? "pl-[250px]" : "pl-0"
           }`}
         />
-      </>
+      </div>
     )
   },
 )

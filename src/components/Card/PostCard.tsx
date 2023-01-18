@@ -18,7 +18,7 @@ interface PostCardProps {
 }
 
 export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
-  (props) => {
+  (props, ref) => {
     const {
       src,
       alt,
@@ -29,9 +29,14 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       authorUri,
       authorAvatarUrl,
       date,
+      ...rest
     } = props
     return (
-      <article className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate">
+      <article
+        className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate"
+        ref={ref}
+        {...rest}
+      >
         <div className="relative  flex flex-row">
           <div className="mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:w-[220px] md:min-w-[220px] md:min-h-[158px] md:h-[158px]">
             <NextImage

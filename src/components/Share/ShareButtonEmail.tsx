@@ -11,7 +11,6 @@ export const ShareButtonEmail = React.forwardRef<
 
   return (
     <ShareButton
-      ref={ref}
       additionalClassName="text-blue-300 bg-white lg:bg-blue-300 lg:hover:bg-blue-300 lg:text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaEnvelope />}
@@ -20,6 +19,7 @@ export const ShareButtonEmail = React.forwardRef<
       fullUrl={`mailto:?subject=${encodeURI(
         subject as string,
       )}&body=${encodeURI(url as string)}`}
+      ref={ref}
       {...rest}
     />
   )
