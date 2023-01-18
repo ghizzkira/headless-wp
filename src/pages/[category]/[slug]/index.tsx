@@ -35,6 +35,10 @@ interface PostProps {
     tags: any
     date: string
   }
+  seo: {
+    head: string
+    success: boolean
+  }
   posts: any
 }
 

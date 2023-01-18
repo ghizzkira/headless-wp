@@ -14,6 +14,11 @@ import env from "@/env"
 interface TagProps {
   tag: {
     name: string
+    slug: string
+  }
+  seo: {
+    head: string
+    success: boolean
   }
   posts: any
 }

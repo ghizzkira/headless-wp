@@ -1,7 +1,7 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
-import { Bullet, Heading } from "@/ui"
+import { Heading } from "@/ui"
 import { formatDate } from "@/utils/datetime"
 import { MdAccessTime } from "react-icons/md"
 
