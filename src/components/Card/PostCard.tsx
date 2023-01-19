@@ -73,7 +73,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                         />
                       )}
                       <NextLink href={authorUri}>
-                        <Heading bold as="h4" className="ml-2 text-[12px] ">
+                        <Heading bold as="h4" className="ml-2 !text-[12px] ">
                           {authorName}
                         </Heading>
                       </NextLink>

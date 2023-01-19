@@ -83,7 +83,7 @@ export default function Post(props: PostProps) {
                   __html: title,
                 }}
               />
-              <div>
+              <div className="mb-2">
                 <MetadataPost
                   authorName={author.name}
                   authorAvatarUrl={author.avatar.url}
@@ -150,10 +150,10 @@ export default function Post(props: PostProps) {
                     as="h4"
                     className="border-b-4 !text-primary-400 border-primary-400"
                   >
-                    Latest Posts
+                    Related Posts
                   </Heading>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-[repeat(1,1fr)] md:grid-cols-2 gap-4">
                   {posts.map(
                     (
                       post: { title: string; uri: string },

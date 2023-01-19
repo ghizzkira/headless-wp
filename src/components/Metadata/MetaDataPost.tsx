@@ -30,7 +30,7 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
               />
             )}
             <NextLink href={wpAuthorPathBySlug(authorSlug)}>
-              <Heading as="h4" className="ml-2 text-base font-bold">
+              <Heading as="h4" className="ml-2 !text-base">
                 {authorName}
               </Heading>
             </NextLink>
