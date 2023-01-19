@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import parse from "html-react-parser"
 
-import { Heading, Button, ButtonGroup } from "@/ui"
+import { Heading, Button, ButtonGroup, Text } from "@/ui"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
@@ -14,6 +14,7 @@ import { PostCardSide } from "@/components/Card/PostCardSide"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
 import { ShareButtonArticle } from "@/components/Share"
 import env from "@/env"
+import { Key } from "react"
 
 interface PostProps {
   post: {
@@ -142,6 +143,37 @@ export default function Post(props: PostProps) {
                     </ButtonGroup>
                   )
                 })}
+              </section>
+              <section>
+                <div className="mb-2">
+                  <Heading
+                    as="h4"
+                    className="border-b-4 !text-primary-400 border-primary-400"
+                  >
+                    Latest Posts
+                  </Heading>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {posts.map(
+                    (
+                      post: { title: string; uri: string },
+                      i: Key | null | undefined,
+                    ) => {
+                      return (
+                        <article className="border-b-2 border-gray-200">
+                          <NextLink key={i} href={post.uri}>
+                            <Text
+                              size="lg"
+                              className="font-semibold hover:text-primary-400"
+                            >
+                              {post.title}
+                            </Text>
+                          </NextLink>
+                        </article>
+                      )
+                    },
+                  )}
+                </div>
               </section>
             </div>
           </section>
