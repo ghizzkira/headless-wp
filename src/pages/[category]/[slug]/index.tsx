@@ -53,9 +53,9 @@ export default function Post(props: PostProps) {
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <SinglePostLayout>
-        <div className="flex mx-4">
+        <div className="flex w-full px-4 lg:max-w-[1024px] xl:max-w-[1280px] 2xl:!max-w-[1536px] mx-auto">
           <section className="flex flex-row w-full lg:w-8/12">
-            <div className="pr-4">
+            <div className="lg:pr-4">
               <div>
                 {categories.map(
                   (category: { slug: string; name: string }, i: number) => {
