@@ -53,7 +53,7 @@ export default function Post(props: PostProps) {
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <SinglePostLayout>
-        <div className="flex w-full px-4 lg:max-w-[1024px] xl:max-w-[1280px] 2xl:!max-w-[1536px] mx-auto">
+        <div className="flex px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] mx-auto">
           <section className="flex flex-row w-full lg:w-8/12">
             <div className="lg:pr-4">
               <div>

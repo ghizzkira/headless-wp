@@ -77,7 +77,7 @@ export default function Search(props: SearchProps) {
               </Heading>
             </div>
           </div>
-          <div className="mx-4 container md:mx-auto  flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] md:mx-auto flex flex-row px-4">
             <div className="w-full flex flex-col lg:mr-4">
               <div className="mb-4 bg-gray-100 rounded-md p-2">
                 <form onSubmit={handlerSubmit} autoComplete="off">
