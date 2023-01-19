@@ -2,7 +2,7 @@ import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { Heading } from "@/ui"
-import { formatDate } from "@/utils/datetime"
+import { cleanDate } from "@/utils/datetime"
 import { MdAccessTime } from "react-icons/md"
 
 interface PostCardProps {
@@ -31,6 +31,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       date,
       ...rest
     } = props
+
     return (
       <article
         className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate"
@@ -86,7 +87,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                     className="pl-0.5 text-xs text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
-                    {formatDate(date)}
+                    {cleanDate(date)}
                   </time>
                 )}
               </div>

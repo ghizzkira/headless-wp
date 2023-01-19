@@ -3,7 +3,7 @@ import NextLink from "next/link"
 import NextImage from "next/image"
 import { MdAccessTime } from "react-icons/md"
 import { Heading } from "@/ui"
-import { formatDate } from "@/utils/datetime"
+import { cleanDate } from "@/utils/datetime"
 import { wpAuthorPathBySlug } from "@/lib/wp-users"
 
 interface MetadataPostProps extends HTMLAttributes<HTMLDivElement> {
@@ -42,7 +42,7 @@ export const MetadataPost = forwardRef<HTMLDivElement, MetadataPostProps>(
                 className="ml-[-6px] text-xs text-gray-700 dark:text-gray-200"
                 dateTime={date}
               >
-                {formatDate(date)}
+                {cleanDate(date)}
               </time>
             </>
           )}
