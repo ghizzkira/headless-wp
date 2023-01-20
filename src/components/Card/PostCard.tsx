@@ -31,7 +31,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       date,
       ...rest
     } = props
-
+    const [image, setImage] = React.useState(authorAvatarUrl) as any
     return (
       <article
         className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate"
@@ -68,9 +68,12 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                         <NextImage
                           width="20"
                           height="20"
-                          src={authorAvatarUrl}
+                          src={image}
+                          onError={() => {
+                            setImage("/icons/author.jpg")
+                          }}
                           alt={authorName}
-                          className="rounded-full object-cover"
+                          className="rounded-full object-cover bg-[url('/icons/author.jpg')]"
                         />
                       )}
                       <NextLink href={authorUri}>
