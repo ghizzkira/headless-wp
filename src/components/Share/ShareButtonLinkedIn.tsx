@@ -11,7 +11,7 @@ export const ShareButtonLinkedIn = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-[#00A0DC] bg-white lg:bg-[#00A0DC] lg:text-white dark:text-gray-100 dark:bg-[#374151]"
+      additionalClassName="text-[#00A0DC] !bg-[#00A0DC] lg:text-white dark:text-gray-100 dark:bg-[#374151]"
       onClick={onClick}
       icon={<FaLinkedinIn />}
       text={text || "LinkedIn"}

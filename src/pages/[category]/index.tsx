@@ -59,7 +59,7 @@ export default function Category(props: CategoryProps) {
             </div>
             <div className="self-center">
               <Heading size="4xl" className="text-white">
-                Gamedaim
+                {category.name}
               </Heading>
             </div>
             <div className="self-center">

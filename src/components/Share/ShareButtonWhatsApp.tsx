@@ -11,7 +11,7 @@ export const ShareButtonWhatsApp = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="lg:bg-[#22C35E] lg:hover:bg-[#22C35E] lg:text-white dark:text-gray-100 text-[#22C35E] bg-white dark:bg-[#374151]"
+      additionalClassName="!bg-[#22C35E] lg:hover:bg-[#22C35E] text-white dark:text-gray-100 text-[#22C35E]"
       onClick={onClick}
       icon={<FaWhatsapp />}
       message={message}

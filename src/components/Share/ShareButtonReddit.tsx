@@ -11,7 +11,7 @@ export const ShareButtonReddit = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-[#ff4500] bg-white lg:bg-[#ff4500] lg:hover:bg-[#ff4500] lg:text-white dark:text-gray-100 dark:bg-[#374151]"
+      additionalClassName="!bg-[#ff4500] lg:hover:bg-[#ff4500] text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaRedditAlien />}
       text={text || "Reddit"}
