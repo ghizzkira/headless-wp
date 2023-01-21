@@ -19,6 +19,7 @@ export interface ShareButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   caption?: string | null
   content?: string | null
   title?: string
+  colorScheme?: string
 }
 
 export const ShareButton = React.forwardRef<HTMLDivElement, ShareButtonProps>(
@@ -30,6 +31,7 @@ export const ShareButton = React.forwardRef<HTMLDivElement, ShareButtonProps>(
       text,
       icon,
       additionalClassName,
+      colorScheme,
       ...rest
     } = props
     return (
@@ -43,6 +45,7 @@ export const ShareButton = React.forwardRef<HTMLDivElement, ShareButtonProps>(
         >
           <IconButton
             variant={variant}
+            colorScheme={colorScheme}
             className={`${additionalClassName} mb-0 h-12 w-12 md:mb-1 !h-10`}
           >
             {icon}

@@ -11,7 +11,7 @@ export const ShareButtonFacebook = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-[#314E89] bg-white lg:bg-[#314E89] lg:text-white dark:text-gray-100 lg:hover:bg-[#314E89] dark:bg-[#374151]"
+      additionalClassName="!bg-[#314E89] text-white dark:text-gray-100 lg:hover:bg-[#314E89] dark:bg-[#374151]"
       onClick={onClick}
       icon={<FaFacebookF />}
       fullUrl={`https://facebook.com/sharer/sharer.php?u=${encodeURI(

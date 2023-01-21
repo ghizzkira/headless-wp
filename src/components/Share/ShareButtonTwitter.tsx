@@ -11,7 +11,7 @@ export const ShareButtonTwitter = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-[#1DA1F2] bg-white lg:bg-[#1DA1F2] lg:hover:bg-[#1DA1F2] lg:text-white dark:text-gray-100 dark:bg-[#374151]"
+      additionalClassName="text-[#1DA1F2] !bg-[#1DA1F2] lg:hover:bg-[#1DA1F2] lg:text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaTwitter />}
       text={text || "Twitter"}

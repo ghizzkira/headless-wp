@@ -11,7 +11,7 @@ export const ShareButtonPinterest = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-[#C61F26] bg-white lg:bg-[#C61F26] lg:hover:bg-[#C61F26]  lg:text-white dark:text-gray-100 dark:bg-[#374151]"
+      additionalClassName="!bg-[#C61F26] lg:hover:bg-[#C61F26]  text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaPinterestP />}
       text={text || "Pinterest"}

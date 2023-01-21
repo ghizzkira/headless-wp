@@ -11,7 +11,7 @@ export const ShareButtonEmail = React.forwardRef<
 
   return (
     <ShareButton
-      additionalClassName="text-blue-300 bg-white lg:bg-blue-300 lg:hover:bg-blue-300 lg:text-white dark:text-gray-100"
+      additionalClassName="!bg-blue-300 lg:hover:bg-blue-300 text-white dark:text-gray-100"
       onClick={onClick}
       icon={<FaEnvelope />}
       subject={subject}

@@ -43,7 +43,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variantClasses = {
       outline: `shadow-sm text-${colorScheme}-700 hover:text-white border border-${colorScheme}-700 hover:bg-${colorScheme}-800 focus:ring-4 focus:ring-${colorScheme}-300  dark:border-${colorScheme}-500 dark:text-${colorScheme}-500 dark:hover:text-white dark:hover:bg-${colorScheme}-600 dark:focus:ring-${colorScheme}-800`,
-      solid: `shadow-sm text-white bg-${colorScheme}-700 hover:bg-${colorScheme}-800 focus:ring-4 focus:ring-${colorScheme}-300 dark:bg-${colorScheme}-600 dark:hover:bg-${colorScheme}-700 dark:focus:ring-${colorScheme}-800`,
+      solid: `shadow-sm text-white bg-${colorScheme}-700 hover:bg-${colorScheme}-800 focus:ring-4 focus:ring-${colorScheme}-300 dark:!bg-${colorScheme}-600 dark:hover:bg-${colorScheme}-700 dark:focus:ring-${colorScheme}-800`,
       ghost: `text-${colorScheme}-900 bg-transparent hover:bg-${colorScheme}-100 dark:bg-transparent dark:text-${colorScheme}-50 dark:hover:border-${colorScheme}-300 dark:hover:bg-${colorScheme}-700 dark:active:bg-${colorScheme}-600 dark:active:border-${colorScheme}-400 focus:ring-4 focus:ring-${colorScheme}-300 dark:focus:ring-${colorScheme}-800`,
       link: `h-auto p-0 leading-normal text-${colorScheme}-600 hover:underline active:text-${colorScheme}-700 dark:text-${colorScheme}-200 dark:active:text-${colorScheme}-600`,
     }
