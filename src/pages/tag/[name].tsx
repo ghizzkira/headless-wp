@@ -60,23 +60,13 @@ export default function Tag(props: TagProps) {
             </div>
             <div className="self-center">
               <NextLink href={`/${tag.slug}`}>
-                <Button className="mr-2 border border-[#24272f] !bg-[#1e3799]">
+                <Button className="!mr-2 border border-[#24272f] !bg-[#1e3799]">
                   All
                 </Button>
               </NextLink>
-              {/* {categoryChild &&
-                categoryChild.map((child: { slug: string; name: string }) => {
-                  return (
-                    <NextLink href={`/${child.slug}`}>
-                      <Button className="mr-2 border border-[#24272f] !bg-[#ffffff33] hover:!bg-[#1e3799]">
-                        {child.name}
-                      </Button>
-                    </NextLink>
-                  )
-                })} */}
             </div>
           </div>
-          <div className="mx-4 container md:mx-auto flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] md:mx-auto flex flex-row">
             <div className="w-full flex flex-col lg:mr-4">
               {posts.map(
                 (post: {

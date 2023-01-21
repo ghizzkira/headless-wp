@@ -23,7 +23,7 @@ export default function Author(props: AuthorProps) {
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
-        <section className="mx-4 md:max-w-[750px] lg:max-w-[1070px] xl:max-w-[1270px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
+        <section className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
               (post: {
@@ -105,9 +105,7 @@ export default function Author(props: AuthorProps) {
   )
 }
 export const getServerSideProps = async ({ params }: any) => {
-  const { posts, pageInfo, authorId } = await wpGetPostsByAuthorSlug(
-    params?.slug,
-  )
+  const { posts, pageInfo } = await wpGetPostsByAuthorSlug(params?.slug)
   // const sss = await wpGetUserbyId(authorId)
   // // if (user.error) {
   // //   return {

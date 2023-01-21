@@ -51,7 +51,7 @@ export default function Home(props: HomeProps) {
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
-        <section className="mx-4 w-full px-4 lg:max-w-[1024px] xl:max-w-[1280px] 2xl:!max-w-[1536px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
+        <section className="mx-4 px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
             {posts.map(
               (post: {

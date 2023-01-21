@@ -4,7 +4,7 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import parse from "html-react-parser"
 
-import { Heading, Button, ButtonGroup } from "@/ui"
+import { Heading, Button, ButtonGroup, Text } from "@/ui"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
@@ -14,6 +14,7 @@ import { PostCardSide } from "@/components/Card/PostCardSide"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
 import { ShareButtonArticle } from "@/components/Share"
 import env from "@/env"
+import { Key } from "react"
 
 interface PostProps {
   post: {
@@ -53,9 +54,9 @@ export default function Post(props: PostProps) {
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <SinglePostLayout>
-        <div className="flex mx-4">
+        <div className="flex px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] mx-auto">
           <section className="flex flex-row w-full lg:w-8/12">
-            <div className="pr-4">
+            <div className="lg:pr-4">
               <div>
                 {categories.map(
                   (category: { slug: string; name: string }, i: number) => {
@@ -82,7 +83,7 @@ export default function Post(props: PostProps) {
                   __html: title,
                 }}
               />
-              <div>
+              <div className="mb-2">
                 <MetadataPost
                   authorName={author.name}
                   authorAvatarUrl={author.avatar.url}
@@ -142,6 +143,37 @@ export default function Post(props: PostProps) {
                     </ButtonGroup>
                   )
                 })}
+              </section>
+              <section>
+                <div className="mb-2">
+                  <Heading
+                    as="h4"
+                    className="border-b-4 !text-primary-400 border-primary-400"
+                  >
+                    Related Posts
+                  </Heading>
+                </div>
+                <div className="grid grid-cols-[repeat(1,1fr)] md:grid-cols-2 gap-4">
+                  {posts.map(
+                    (
+                      post: { title: string; uri: string },
+                      i: Key | null | undefined,
+                    ) => {
+                      return (
+                        <article className="border-b-2 border-gray-200">
+                          <NextLink key={i} href={post.uri}>
+                            <Text
+                              size="lg"
+                              className="font-semibold hover:text-primary-400"
+                            >
+                              {post.title}
+                            </Text>
+                          </NextLink>
+                        </article>
+                      )
+                    },
+                  )}
+                </div>
               </section>
             </div>
           </section>

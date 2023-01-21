@@ -2,7 +2,7 @@ import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
 import { Heading } from "@/ui"
-import { formatDate } from "@/utils/datetime"
+import { cleanDate } from "@/utils/datetime"
 import { MdAccessTime } from "react-icons/md"
 
 interface PostCardProps {
@@ -31,14 +31,15 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
       date,
       ...rest
     } = props
+    const [image, setImage] = React.useState(authorAvatarUrl) as any
     return (
       <article
         className="flex flex-row grow lg:flex-col rounded-lg drop-shadow-md mb-[30px] border-separate"
         ref={ref}
         {...rest}
       >
-        <div className="relative  flex flex-row">
-          <div className="mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:w-[220px] md:min-w-[220px] md:min-h-[158px] md:h-[158px]">
+        <div className="relative flex flex-row">
+          <div className="order-2 md:order-1 md:mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:!w-[220px] md:!min-w-[220px] md:!min-h-[158px] md:!h-[158px]">
             <NextImage
               priority={true}
               height={250}
@@ -48,9 +49,11 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               alt={alt}
             />
           </div>
-          <div className="flex flex-col">
+          <div className="order-1 md:order-2 mr-3 md:mr-unset flex flex-col">
             <NextLink href={slug}>
-              <Heading as="h3">{title}</Heading>
+              <Heading as="h3" className="!text-md lg:!text-xl">
+                {title}
+              </Heading>
               <div
                 className="hidden md:my-3 md:inline-flex md:text-lg text-gray-500 dark:text-gray-300 text-base md:!line-clamp-2"
                 dangerouslySetInnerHTML={{ __html: excerpt }}
@@ -60,18 +63,21 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
               <div className="flex flex-row items-center ">
                 {authorName && (
                   <>
-                    <div className="flex flex-row items-center">
+                    <div className="hidden md:flex flex-row items-center">
                       {authorAvatarUrl && (
                         <NextImage
                           width="20"
                           height="20"
-                          src={authorAvatarUrl}
+                          src={image}
+                          onError={() => {
+                            setImage("/icons/author.jpg")
+                          }}
                           alt={authorName}
-                          className="rounded-full object-cover"
+                          className="rounded-full object-cover bg-[url('/icons/author.jpg')]"
                         />
                       )}
                       <NextLink href={authorUri}>
-                        <Heading bold as="h4" className="ml-2 text-[12px] ">
+                        <Heading bold as="h4" className="ml-2 !text-[12px] ">
                           {authorName}
                         </Heading>
                       </NextLink>
@@ -84,7 +90,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                     className="pl-0.5 text-xs text-gray-700 dark:text-gray-200"
                     dateTime={date}
                   >
-                    {formatDate(date)}
+                    {cleanDate(date)}
                   </time>
                 )}
               </div>
