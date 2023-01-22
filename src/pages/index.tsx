@@ -4,14 +4,15 @@ import { useRouter } from "next/router"
 import { Heading } from "@/ui"
 import parse from "html-react-parser"
 import env from "@/env"
-import { wpGetAllPosts } from "../lib/wp-posts"
+import { wpGetAllPosts, wpGetAllPostsLoadMore } from "../lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { getSeoDatas } from "@/lib/wp-seo"
-
+import { Text } from "@/ui"
 interface HomeProps {
   posts: any
+  pageInfo: any
   seo: {
     head: string
     success: boolean
@@ -19,41 +20,38 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  const { posts, seo } = props
-  // // const postsListA = posts.slice(0, posts.length / 2)
-  // // const postsListB = posts.slice(posts.length / 2)
-  // const [postsLM, setPostsLM] = React.useState(posts)
-  const router = useRouter()
-  // const [endCursor, setEndCursor] = React.useState(pageInfo.endCursor)
-  // const infiniteScroll = async () => {
-  //   const { posts, pageInfo } = await wpGetAllPostsLoadMore(endCursor)
-  //   setPostsLM([...posts, ...postsLM])
-  //   setEndCursor(pageInfo.endCursor)
-  // }
-  // console.log(postsLM)
+  const { posts, seo, pageInfo } = props
+  const loadMoreRef: any = React.useRef(null)
+  const [page, setPage] = React.useState(pageInfo)
+  const [list, setList] = React.useState(posts)
+  const handleObserver = React.useCallback(
+    async (entries: any) => {
+      const [target] = entries
+      if (target.isIntersecting && page.hasNextPage == true) {
+        const data: any = await wpGetAllPostsLoadMore(page.endCursor)
+        setList((list: any) => [...list, ...data.posts])
+        setPage(data.pageInfo)
+      }
+    },
+    [page.endCursor, page.hasNextPage],
+  )
 
-  // const handleKeyDown = async () => {
-  //   const { scrollHeight, scrollTop, clientHeight } = document.documentElement
-  //   if (scrollTop + clientHeight > scrollHeight) {
-  //     await infiniteScroll()
-  //   }
-  // }
-  // console.log(postsLM)
-  // React.useEffect(() => {
-  //   window.addEventListener("scroll", handleKeyDown)
+  console.log(list)
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(handleObserver)
 
-  //   // cleanup this component
-  //   return () => {
-  //     window.removeEventListener("scroll", handleKeyDown)
-  //   }
-  // }, [])
+    if (loadMoreRef.current) observer.observe(loadMoreRef.current)
+    return () => {
+      observer.unobserve(loadMoreRef.current)
+    }
+  }, [handleObserver])
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
         <section className="mx-4 px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] md:mx-auto w-full flex flex-row lg:mx-auto lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
-            {posts.map(
+            {list.map(
               (post: {
                 id: number
                 featuredImage: {
@@ -90,6 +88,11 @@ export default function Home(props: HomeProps) {
                 )
               },
             )}
+            <div ref={loadMoreRef} className="bg-primary-700 rounded-md p-4">
+              <Text className="!text-white m-auto">
+                {page.hasNextPage == true ? "Loading..." : "No More Posts"}
+              </Text>
+            </div>
           </div>
 
           <aside className="w-4/12 hidden lg:block">
