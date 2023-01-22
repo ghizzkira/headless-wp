@@ -36,13 +36,13 @@ export default function Home(props: HomeProps) {
     [page.endCursor, page.hasNextPage],
   )
 
-  console.log(list)
   React.useEffect(() => {
+    const lmRef: any = loadMoreRef.current
     const observer = new IntersectionObserver(handleObserver)
 
     if (loadMoreRef.current) observer.observe(loadMoreRef.current)
     return () => {
-      observer.unobserve(loadMoreRef.current)
+      observer.unobserve(lmRef)
     }
   }, [handleObserver])
   return (
