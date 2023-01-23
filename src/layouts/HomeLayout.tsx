@@ -31,7 +31,7 @@ export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
             className={`${
               isOpen == true &&
               "!opacity-100 md:!opacity-0 !translate-x-0 md:!-translate-x-full"
-            } -translate-x-full md:translate-x-0 transition ease-in-out delay-150 border-r border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 z-20 fixed pt-20 top-0 overflow-x-auto h-full opacity-0 md:opacity-100 flex flex-row bg-gray-100 w-[250px] scrollbar`}
+            } -translate-x-full md:translate-x-0 transition-[transform] ease-in-out delay-150 border-r border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-900 z-20 fixed pt-20 top-0 overflow-x-auto h-full opacity-0 md:opacity-100 flex flex-row bg-gray-100 w-[250px] scrollbar`}
           >
             <SideNav primaryMenus={primaryMenus} />
           </div>
@@ -53,7 +53,7 @@ export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
         </div>
         <Footer
           className={`md:pl-[250px] transition-[padding] ease-in-out delay-150 ${
-            isOpen == true && "md:pl-[0]"
+            isOpen == true && "md:!pl-[0]"
           }`}
         />
       </div>
