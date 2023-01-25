@@ -148,13 +148,15 @@ export default function Tag(props: TagProps) {
               )}
               <div ref={loadMoreRef}>
                 {infinite == true && (
-                  <div className="bg-primary-700 rounded-md p-4">
-                    <Text className="!text-white m-auto">
-                      {page.hasNextPage == true
-                        ? "Loading..."
-                        : "No More Posts"}
-                    </Text>
-                  </div>
+                  <Button
+                    ref={loadMoreRef}
+                    loading={page.hasNextPage == true}
+                    loadingText="Loading ..."
+                    colorScheme="blue"
+                    className="!w-full !cursor-default"
+                  >
+                    No More Posts
+                  </Button>
                 )}
               </div>
             </div>

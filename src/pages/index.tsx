@@ -2,7 +2,7 @@ import * as React from "react"
 import Head from "next/head"
 import parse from "html-react-parser"
 
-import { Heading, Text } from "@/ui"
+import { Button, Heading } from "@/ui"
 import env from "@/env"
 import { wpGetAllPosts, wpGetAllPostsLoadMore } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
@@ -90,11 +90,15 @@ export default function Home(props: HomeProps) {
                 )
               },
             )}
-            <div ref={loadMoreRef} className="bg-primary-700 rounded-md p-4">
-              <Text className="!text-white m-auto">
-                {page.hasNextPage == true ? "Loading..." : "No More Posts"}
-              </Text>
-            </div>
+            <Button
+              ref={loadMoreRef}
+              loading={page.hasNextPage == true}
+              loadingText="Loading ..."
+              colorScheme="blue"
+              className="!w-full !cursor-default"
+            >
+              No More Posts
+            </Button>
           </div>
 
           <aside className="w-4/12 hidden lg:block">
