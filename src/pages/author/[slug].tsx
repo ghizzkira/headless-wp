@@ -3,7 +3,7 @@ import Head from "next/head"
 import parse from "html-react-parser"
 import { useRouter } from "next/router"
 
-import { Heading, Text } from "@/ui"
+import { Button, Heading, Text } from "@/ui"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
@@ -107,11 +107,15 @@ export default function Author(props: AuthorProps) {
             )}
             <div ref={loadMoreRef}>
               {infinite == true && (
-                <div className="bg-primary-700 rounded-md p-4">
-                  <Text className="!text-white m-auto">
-                    {page.hasNextPage == true ? "Loading..." : "No More Posts"}
-                  </Text>
-                </div>
+                <Button
+                  ref={loadMoreRef}
+                  loading={page.hasNextPage == true}
+                  loadingText="Loading ..."
+                  colorScheme="blue"
+                  className="!w-full !cursor-default"
+                >
+                  No More Posts
+                </Button>
               )}
             </div>
           </div>
