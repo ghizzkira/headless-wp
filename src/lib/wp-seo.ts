@@ -1,5 +1,6 @@
-import env from "@/env"
 import axios from "axios"
+
+import env from "@/env"
 
 export async function getSeoDatas(url: string) {
   const headers = { "Content-Type": "application/json" }

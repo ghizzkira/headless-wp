@@ -5,11 +5,11 @@ import { TopNav, SideNav } from "@/components/Navigation"
 import { Footer } from "@/components/Footer"
 import { wpGetPrimaryMenus } from "@/lib/wp-menus"
 
-interface HeaderProps {
+interface HomeLayoutProps {
   children: React.ReactNode
 }
 
-export const HomeLayout = React.forwardRef<HTMLDivElement, HeaderProps>(
+export const HomeLayout = React.forwardRef<HTMLDivElement, HomeLayoutProps>(
   (props, ref) => {
     const { isOpen, onToggle } = useDisclosure()
     const [primaryMenus, setPrimaryMenus] = React.useState<any>(null)

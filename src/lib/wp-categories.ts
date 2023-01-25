@@ -16,6 +16,7 @@ export async function wpGetAllCategories() {
     categories,
   }
 }
+
 export async function wpGetAllCategoriesSiteMap() {
   const data = await wpFetchAPI(QUERY_WP_ALL_CATEGORIES_SITEMAP)
   const categories = data?.categories.edges.map(({ node = {} }) => node)
@@ -26,7 +27,6 @@ export async function wpGetAllCategoriesSiteMap() {
 
 export async function wpGetCategoryBySlug(slug: string) {
   let categoryData
-
   try {
     categoryData = await wpFetchAPI(QUERY_WP_CATEGORY_BY_SLUG, {
       slug,

@@ -1,9 +1,10 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
+import { MdAccessTime } from "react-icons/md"
+
 import { Heading } from "@/ui"
 import { cleanDate } from "@/utils/datetime"
-import { MdAccessTime } from "react-icons/md"
 
 interface PostCardProps {
   title: string

@@ -1,16 +1,15 @@
 import * as React from "react"
 import Head from "next/head"
-import { useRouter } from "next/router"
-import { Heading } from "@/ui"
 import parse from "html-react-parser"
+
+import { Heading, Text } from "@/ui"
 import env from "@/env"
-import { wpGetAllPosts, wpGetAllPostsLoadMore } from "../lib/wp-posts"
+import { wpGetAllPosts, wpGetAllPostsLoadMore } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { getSeoDatas } from "@/lib/wp-seo"
 
-import { Text } from "@/ui"
 interface HomeProps {
   posts: any
   pageInfo: any

@@ -1,8 +1,9 @@
-import env from "@/env"
 import Head from "next/head"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
+
 import { Button } from "@/ui"
+import env from "@/env"
 
 export default function Custom500() {
   const router = useRouter()
@@ -18,7 +19,7 @@ export default function Custom500() {
           href={`https://${env.DOMAIN}${router.pathname}`}
         />
       </Head>
-      <section className="bg-white dark:bg-gray-900">
+      <section className="flex h-screen items-center justify-center bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
           <div className="mx-auto max-w-screen-sm text-center">
             <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-blue-600 dark:text-blue-500">

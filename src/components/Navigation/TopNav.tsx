@@ -1,10 +1,11 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
-import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
-import env from "@/env"
+import { useTheme } from "next-themes"
+
 import { IconButton, MoonIcon, SunIcon } from "@/ui"
+import env from "@/env"
 
 interface TopNavProps {
   onToggle: any

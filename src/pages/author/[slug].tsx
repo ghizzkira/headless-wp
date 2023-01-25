@@ -1,15 +1,16 @@
-import { Heading } from "@/ui"
 import * as React from "react"
 import Head from "next/head"
 import parse from "html-react-parser"
+import { useRouter } from "next/router"
+
+import { Heading, Text } from "@/ui"
+import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { useRouter } from "next/router"
-import env from "@/env"
-import { Text } from "@/ui"
+
 interface AuthorProps {
   posts: any
   pageInfo: any
@@ -33,7 +34,7 @@ export default function Author(props: AuthorProps) {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
         setInfinite(true)
-        const data: any = await await wpGetPostsByAuthorSlug(
+        const data: any = await wpGetPostsByAuthorSlug(
           router.query.slug,
           page.endCursor,
         )
@@ -60,6 +61,7 @@ export default function Author(props: AuthorProps) {
       router.events.off("routeChangeComplete", handleRouteChange)
     }
   }, [handleObserver, router.events, posts])
+
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
@@ -154,14 +156,9 @@ export default function Author(props: AuthorProps) {
     </>
   )
 }
+
 export const getServerSideProps = async ({ params }: any) => {
   const { posts, pageInfo } = await wpGetPostsByAuthorSlug(params?.slug)
-  // const sss = await wpGetUserbyId(authorId)
-  // // if (user.error) {
-  // //   return {
-  // //     notFound: true,
-  // //   }
-  // // }
   const seo = await getSeoDatas(`https://${env.DOMAIN}/author/${params.slug}`)
 
   return {
