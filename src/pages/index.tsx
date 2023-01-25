@@ -9,6 +9,7 @@ import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { getSeoDatas } from "@/lib/wp-seo"
+
 import { Text } from "@/ui"
 interface HomeProps {
   posts: any
@@ -24,6 +25,7 @@ export default function Home(props: HomeProps) {
   const loadMoreRef: any = React.useRef(null)
   const [page, setPage] = React.useState(pageInfo)
   const [list, setList] = React.useState(posts)
+
   const handleObserver = React.useCallback(
     async (entries: any) => {
       const [target] = entries
@@ -45,6 +47,7 @@ export default function Home(props: HomeProps) {
       observer.unobserve(lmRef)
     }
   }, [handleObserver])
+
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
