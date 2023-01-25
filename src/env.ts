@@ -24,6 +24,8 @@ const env: EnvProps = {
   MENU_PRIMARY: process.env.NEXT_PUBLIC_MENU_PRIMARY,
   MENU_FOOTER: process.env.NEXT_PUBLIC_MENU_FOOTER,
   WP_SEO_API_URL: process.env.NEXT_PUBLIC_WP_SEO_API_URL,
+  STALE_FIVE_MINUTES: 5 * 60 * 1000,
+  STALE_ONE_DAY: 24 * 60 * 60 * 1000,
 }
 
 export default env

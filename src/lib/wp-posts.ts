@@ -1,7 +1,8 @@
 import axios from "axios"
+import { useQuery } from "@tanstack/react-query"
 
-import { wpUpdateUserAvatar } from "./wp-users"
 import env from "@/env"
+import { wpUpdateUserAvatar } from "./wp-users"
 import {
   QUERY_WP_ALL_POSTS,
   QUERY_WP_POSTS_BY_AUTHOR_SLUG,
@@ -38,6 +39,20 @@ export async function wpGetAllPosts() {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
     pageInfo: data?.data.posts.pageInfo,
   }
+}
+
+export const useWpGetAllPosts = (key: any = "posts") => {
+  const { data, isError, isFetching } = useQuery(key, () => wpGetAllPosts(), {
+    staleTime: env.STALE.FIVE_MINUTES,
+  })
+
+  return {
+    wpGetAllPostsData: {
+      data,
+      isError,
+      isFetching,
+    },
+  } as const
 }
 
 export async function wpGetAllPostsLoadMore(after = "") {
