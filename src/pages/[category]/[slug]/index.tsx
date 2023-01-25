@@ -78,7 +78,7 @@ export default function Post(props: PostProps) {
               </div>
               <Heading
                 as="h1"
-                className="mt-4 mb-2 border-b border-gray-200 pb-2 text-2xl font-bold leading-[36px] dark:border-gray-600 md:border-none md:text-3xl md:leading-[43px]"
+                className="mt-4 mb-2 border-b border-gray-200 pb-2 text-2xl font-bold !leading-[1.7] dark:border-gray-600 md:border-none md:text-3xl md:!leading-[43px]"
                 lineClamp={0}
                 dangerouslySetInnerHTML={{
                   __html: title,

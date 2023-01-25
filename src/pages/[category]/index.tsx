@@ -1,6 +1,7 @@
 import NextLink from "next/link"
+import * as React from "react"
 import { GetServerSideProps } from "next"
-import { Button, Heading } from "@/ui"
+import { Button, Heading, Text } from "@/ui"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
 import { HomeLayout } from "@/layouts/HomeLayout"
@@ -10,6 +11,7 @@ import { PostCardSide } from "@/components/Card/PostCardSide"
 import env from "@/env"
 import Head from "next/head"
 import parse from "html-react-parser"
+import { useRouter } from "next/router"
 
 interface CategoryProps {
   category: {
@@ -20,6 +22,7 @@ interface CategoryProps {
     }
   }
   posts: any
+  pageInfo: any
   seo: {
     head: string
     success: boolean
@@ -27,9 +30,47 @@ interface CategoryProps {
 }
 
 export default function Category(props: CategoryProps) {
-  const { category, posts, seo } = props
-  const categoryChild = category.children.nodes
+  const { category, posts, seo, pageInfo } = props
+  const router = useRouter()
 
+  const categoryChild = category.children.nodes
+  const loadMoreRef: any = React.useRef(null)
+  const [page, setPage] = React.useState(pageInfo)
+  const [list, setList] = React.useState(posts)
+  const [infinite, setInfinite] = React.useState<boolean>(false)
+
+  const handleObserver = React.useCallback(
+    async (entries: any) => {
+      const [target] = entries
+      if (target.isIntersecting && page.hasNextPage == true) {
+        setInfinite(true)
+        const data: any = await await wpGetPostsByCategoryId(
+          category.slug,
+          page.endCursor,
+        )
+        setList((list: any) => [...list, ...data.posts])
+        setPage(data.pageInfo)
+      }
+    },
+    [page.endCursor, page.hasNextPage, category.slug],
+  )
+
+  React.useEffect(() => {
+    const handleRouteChange = () => {
+      setInfinite(false)
+      setList(posts)
+    }
+
+    router.events.on("routeChangeComplete", handleRouteChange)
+    const lmRef: any = loadMoreRef.current
+    const observer = new IntersectionObserver(handleObserver)
+
+    if (loadMoreRef.current) observer.observe(loadMoreRef.current)
+    return () => {
+      observer.unobserve(lmRef)
+      router.events.off("routeChangeComplete", handleRouteChange)
+    }
+  }, [handleObserver, router.events, posts])
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
@@ -82,7 +123,7 @@ export default function Category(props: CategoryProps) {
           </div>
           <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
-              {posts.map(
+              {list.map(
                 (post: {
                   id: number
                   featuredImage: {
@@ -119,6 +160,17 @@ export default function Category(props: CategoryProps) {
                   )
                 },
               )}
+              <div ref={loadMoreRef}>
+                {infinite == true && (
+                  <div className="bg-primary-700 rounded-md p-4">
+                    <Text className="!text-white m-auto">
+                      {page.hasNextPage == true
+                        ? "Loading..."
+                        : "No More Posts"}
+                    </Text>
+                  </div>
+                )}
+              </div>
             </div>
             <aside className="w-4/12 hidden lg:block">
               <div className="rounded-xl border border-gray-100 dark:border-gray-700 p-4 sticky top-8">
@@ -172,13 +224,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     }
   }
 
-  const { posts } = await wpGetPostsByCategoryId(category.slug)
+  const { posts, pageInfo } = await wpGetPostsByCategoryId(category.slug)
   const seo = await getSeoDatas(`https://${env.DOMAIN}/${category.slug}`)
   return {
     props: {
       category,
       posts,
       seo,
+      pageInfo,
     },
   }
 }
