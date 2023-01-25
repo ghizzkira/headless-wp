@@ -1,6 +1,7 @@
 import * as React from "react"
 import NextImage from "next/image"
 import NextLink from "next/link"
+
 import { Heading } from "@/ui"
 
 interface PostCardSlideProps {

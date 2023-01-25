@@ -42,6 +42,7 @@ export async function wpGetUserByNameSlug(slug: string) {
 export function wpUserSlugByName(slug: string) {
   return slug
 }
+
 export async function wpGetUserbyId(id: string) {
   let usersData
 
@@ -54,15 +55,11 @@ export async function wpGetUserbyId(id: string) {
     throw e
   }
 
-  // let user = usersData?.data.data.user
-
-  // If the SEO plugin is enabled, look up the data
-  // and apply it to the default settings
-
   return {
     usersData,
   }
 }
+
 export async function wpGetAllUsers() {
   let usersData
 
@@ -81,6 +78,7 @@ export async function wpGetAllUsers() {
     users,
   }
 }
+
 export async function wpGetAllUsersSlug() {
   let usersData
 
@@ -101,14 +99,6 @@ export async function wpGetAllUsersSlug() {
 export async function wpGetAllAuthors() {
   const { users } = await wpGetAllUsers()
 
-  // TODO: Roles aren't showing in response - we should be filtering here
-
-  // const authors = users.filter(({ roles }) => {
-  //   const userRoles = roles.map(({ name }) => name);
-  //   const authorRoles = userRoles.filter(role => ROLES_AUTHOR.includes(role));
-  //   return authorRoles.length > 0;
-  // });
-
   return {
     user: users,
   }
@@ -126,11 +116,6 @@ export function wpMapUserData(user: {
 }
 
 export function wpUpdateUserAvatar(avatar: { url: string }) {
-  // The URL by default that comes from Gravatar / WordPress is not a secure
-  // URL. This ends up redirecting to https, but it gives mixed content warnings
-  // as the HTML shows it as http. Replace the url to avoid those warnings
-  // and provide a secure URL by default
-
   return {
     ...avatar,
     url: avatar.url?.replace("http://", "https://"),

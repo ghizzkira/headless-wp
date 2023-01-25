@@ -22,6 +22,7 @@ export const QUERY_WP_ALL_USERS = `
     }
   }
 `
+
 export const QUERY_WP_ALL_USERS_SLUG = `
   {
   users(first: 10) {

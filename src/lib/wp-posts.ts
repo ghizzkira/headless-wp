@@ -119,6 +119,7 @@ export async function wpGetAllSlug() {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
   }
 }
+
 export async function wpGetPostsBySearch(search: string | string[]) {
   let postData
   try {

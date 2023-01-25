@@ -59,6 +59,7 @@ export interface WpSinglePostProps {
   author?: WpAuthorsProps
   og?: WpOgProps
 }
+
 export interface WpPopularPosts {
   slug: string
   views: number
