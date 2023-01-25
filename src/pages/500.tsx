@@ -10,7 +10,7 @@ export default function Custom500() {
   return (
     <>
       <Head>
-        <title>{env.SITE_TITLE} | 404</title>
+        <title>{env.SITE_TITLE} | 500</title>
         <meta name="description" content={env.ABOUT} />
         <meta property="og:title" content={`${env.SITE_TITLE} | 500`} />
         <meta property="og:description" content={env.ABOUT} />
