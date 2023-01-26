@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document"
 import install from "@twind/with-next/document"
+
 import env from "@/env"
 
 class MyDocument extends Document {

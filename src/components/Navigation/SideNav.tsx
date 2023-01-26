@@ -1,7 +1,7 @@
-import NextLink from "next/link"
 import * as React from "react"
-import { Text } from "@/ui"
+import NextLink from "next/link"
 
+import { Text } from "@/ui"
 import env from "@/env"
 
 interface SideNavProps {

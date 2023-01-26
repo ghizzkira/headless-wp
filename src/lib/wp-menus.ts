@@ -9,6 +9,7 @@ export async function wpGetPrimaryMenus() {
     menu: Array.isArray(menu) && menu,
   }
 }
+
 export async function wpGetMenusByName(id: string) {
   const data = await wpFetchAPI(WP_GetMenusByName, { id })
   const menu = data?.data.menu.menuItems.edges.map(({ node = {} }) => node)

@@ -1,10 +1,12 @@
+import * as React from "react"
 import NextImage from "next/image"
 import NextLink from "next/link"
-import { GetServerSideProps } from "next"
 import Head from "next/head"
+import { GetServerSideProps } from "next"
 import parse from "html-react-parser"
 
 import { Heading, Button, ButtonGroup, Text } from "@/ui"
+import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
 import { wpPrimaryCategorySlug } from "@/lib/wp-categories"
@@ -13,8 +15,6 @@ import { SinglePostLayout } from "@/layouts/SinglePost"
 import { PostCardSide } from "@/components/Card/PostCardSide"
 import { MetadataPost } from "@/components/Metadata/MetaDataPost"
 import { ShareButtonArticle } from "@/components/Share"
-import env from "@/env"
-import { Key } from "react"
 
 interface PostProps {
   post: {
@@ -79,6 +79,7 @@ export default function Post(props: PostProps) {
               <Heading
                 as="h1"
                 className="mt-4 mb-2 border-b border-gray-200 pb-2 text-2xl font-bold !leading-[1.7] dark:border-gray-600 md:border-none md:text-3xl md:!leading-[43px]"
+                lineClamp={0}
                 dangerouslySetInnerHTML={{
                   __html: title,
                 }}
@@ -157,7 +158,7 @@ export default function Post(props: PostProps) {
                   {posts.map(
                     (
                       post: { title: string; uri: string },
-                      i: Key | null | undefined,
+                      i: React.Key | null | undefined,
                     ) => {
                       return (
                         <article className="border-b-2 border-gray-200">

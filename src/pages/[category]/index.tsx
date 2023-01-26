@@ -1,17 +1,18 @@
-import NextLink from "next/link"
 import * as React from "react"
+import NextLink from "next/link"
+import Head from "next/head"
+import parse from "html-react-parser"
+import { useRouter } from "next/router"
 import { GetServerSideProps } from "next"
+
 import { Button, Heading, Text } from "@/ui"
+import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import env from "@/env"
-import Head from "next/head"
-import parse from "html-react-parser"
-import { useRouter } from "next/router"
 
 interface CategoryProps {
   category: {
@@ -44,7 +45,7 @@ export default function Category(props: CategoryProps) {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
         setInfinite(true)
-        const data: any = await await wpGetPostsByCategoryId(
+        const data: any = await wpGetPostsByCategoryId(
           category.slug,
           page.endCursor,
         )
@@ -162,13 +163,15 @@ export default function Category(props: CategoryProps) {
               )}
               <div ref={loadMoreRef}>
                 {infinite == true && (
-                  <div className="bg-primary-700 rounded-md p-4">
-                    <Text className="!text-white m-auto">
-                      {page.hasNextPage == true
-                        ? "Loading..."
-                        : "No More Posts"}
-                    </Text>
-                  </div>
+                  <Button
+                    ref={loadMoreRef}
+                    loading={page.hasNextPage == true}
+                    loadingText="Loading ..."
+                    colorScheme="blue"
+                    className="!w-full !cursor-default"
+                  >
+                    No More Posts
+                  </Button>
                 )}
               </div>
             </div>

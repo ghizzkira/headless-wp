@@ -13,6 +13,7 @@ export const QUERY_WP_ALL_CATEGORIES = `
     }
   }
 `
+
 export const QUERY_WP_ALL_CATEGORIES_SITEMAP = `
   {
     categories(first: 1000) {
@@ -28,6 +29,7 @@ export const QUERY_WP_ALL_CATEGORIES_SITEMAP = `
     }
   }
 `
+
 export const QUERY_WP_CATEGORY_BY_SLUG = `
   query CategoryBySlug($slug: [String]) {
     categories(where: { slug: $slug }, first: 1000) {

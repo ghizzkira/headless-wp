@@ -1,9 +1,10 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
+import { MdAccessTime } from "react-icons/md"
+
 import { Heading } from "@/ui"
 import { cleanDate } from "@/utils/datetime"
-import { MdAccessTime } from "react-icons/md"
 
 interface PostCardProps {
   title: string
@@ -54,7 +55,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
           </NextLink>
           <div className="order-1 md:order-2 mr-3 md:mr-unset flex flex-col">
             <NextLink href={slug}>
-              <Heading as="h3" className="!text-md lg:!text-xl">
+              <Heading as="h3" className="!text-base !lg:text-xl" lineClamp={3}>
                 {title}
               </Heading>
               <div

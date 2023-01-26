@@ -1,6 +1,7 @@
 import * as React from "react"
 import NextLink from "next/link"
 import NextImage from "next/image"
+
 import env from "@/env"
 
 interface FooterProps {

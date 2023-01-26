@@ -58,6 +58,7 @@ export const QUERY_WP_ALL_POSTS = `
     }
   }
 `
+
 export const QUERY_WP_ALL_SLUG = `
 query AllSlug($after: String) {
   posts(after: $after, first: 100) {
@@ -86,6 +87,7 @@ query AllSlug($after: String) {
   }
 }
 `
+
 export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
   query AllPosts($after : String) {
     posts(first: 10, after: $after) {
@@ -146,6 +148,7 @@ export const QUERY_WP_ALL_POSTS_LOAD_MORE = `
     }
   }
 `
+
 export const QUERY_WP_POST_BY_SLUG = `
   query PostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
@@ -288,6 +291,7 @@ export const QUERY_WP_POSTS_BY_CATEGORY_SLUG = `
     }
   }
 `
+
 export const QUERY_WP_POSTS_BY_TAG_ID = `
   query PostsByTagId($id: ID!, $after: String ) {
   tag(id:$id,) {
@@ -351,6 +355,7 @@ export const QUERY_WP_POSTS_BY_TAG_ID = `
   }
 }
 `
+
 export const QUERY_WP_POSTS_BY_AUTHOR_SLUG = `
   query PostByAuthorSlug($slug: String, $after: String) {
     posts(where: { authorName: $slug }, first: 10, after: $after) {
@@ -419,6 +424,7 @@ export const QUERY_WP_POST_PER_PAGE = `
     }
   }
 `
+
 export const QUERY_WP_SEARCH_POSTS = `
   query SearchPosts($search: String!) {
     posts(first: 10, where: {search: $search}) {

@@ -1,18 +1,19 @@
-import { GetServerSideProps } from "next"
-import { Heading, Text } from "@/ui"
 import * as React from "react"
+import Head from "next/head"
+import parse from "html-react-parser"
 import NextLink from "next/link"
+import { useRouter } from "next/router"
+import { GetServerSideProps } from "next"
+
+import { Button, Heading, Text } from "@/ui"
+import env from "@/env"
 import { wpGetTagBySlug } from "@/lib/wp-tags"
 import { wpGetPostsByTagId } from "@/lib/wp-posts"
+import { getSeoDatas } from "@/lib/wp-seo"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { PostCard } from "@/components/Card/PostCard"
 import { PostCardSide } from "@/components/Card/PostCardSide"
-import { Button } from "@/ui"
-import Head from "next/head"
-import parse from "html-react-parser"
-import { getSeoDatas } from "@/lib/wp-seo"
-import env from "@/env"
-import { useRouter } from "next/router"
+
 interface TagProps {
   tag: {
     name: string
@@ -26,6 +27,7 @@ interface TagProps {
   posts: any
   pageInfo: any
 }
+
 export default function Tag(props: TagProps) {
   const { tag, posts, seo, pageInfo } = props
   const router: any = useRouter()
@@ -40,7 +42,7 @@ export default function Tag(props: TagProps) {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
         setInfinite(true)
-        const data: any = await await wpGetPostsByTagId(tag.id, page.endCursor)
+        const data: any = await wpGetPostsByTagId(tag.id, page.endCursor)
         setList((list: any) => [...list, ...data.posts])
         setPage(data.pageInfo)
       }
@@ -64,6 +66,7 @@ export default function Tag(props: TagProps) {
       router.events.off("routeChangeComplete", handleRouteChange)
     }
   }, [handleObserver, router.events, posts])
+
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
@@ -145,13 +148,15 @@ export default function Tag(props: TagProps) {
               )}
               <div ref={loadMoreRef}>
                 {infinite == true && (
-                  <div className="bg-primary-700 rounded-md p-4">
-                    <Text className="!text-white m-auto">
-                      {page.hasNextPage == true
-                        ? "Loading..."
-                        : "No More Posts"}
-                    </Text>
-                  </div>
+                  <Button
+                    ref={loadMoreRef}
+                    loading={page.hasNextPage == true}
+                    loadingText="Loading ..."
+                    colorScheme="blue"
+                    className="!w-full !cursor-default"
+                  >
+                    No More Posts
+                  </Button>
                 )}
               </div>
             </div>
@@ -196,6 +201,7 @@ export default function Tag(props: TagProps) {
     </>
   )
 }
+
 export const getServerSideProps: GetServerSideProps = async ({
   params,
 }: any) => {

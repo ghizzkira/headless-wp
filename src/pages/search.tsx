@@ -1,11 +1,11 @@
-import { useRouter } from "next/router"
 import * as React from "react"
-import { wpGetPostsBySearch, wpGetAllPosts } from "../lib/wp-posts"
-import { PostCard } from "@/components/Card/PostCard"
-import { PostCardSide } from "@/components/Card/PostCardSide"
-import { HomeLayout } from "@/layouts/HomeLayout"
-import { Heading } from "@/ui"
+import { useRouter } from "next/router"
 import NextLink from "next/link"
+
+import { Heading } from "@/ui"
+import { wpGetPostsBySearch, wpGetAllPosts } from "@/lib/wp-posts"
+import { PostCard, PostCardSide } from "@/components/Card"
+import { HomeLayout } from "@/layouts/HomeLayout"
 
 interface SearchProps {
   posts: any
@@ -16,10 +16,11 @@ export default function Search(props: SearchProps) {
   const router = useRouter()
   const [notFound, setNotFound] = React.useState(false)
   const [postsSearch, setPostsSearch] = React.useState([])
+
   const inputRef = React.useRef() as React.RefObject<HTMLInputElement>
+
   const handlerSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault()
-
     //@ts-ignore
     const value = inputRef.current.value
     router.push(`/search?q=${value}`)
@@ -41,6 +42,7 @@ export default function Search(props: SearchProps) {
       loadPosts()
     }
   }, [router.query.q])
+
   return (
     <>
       <HomeLayout>

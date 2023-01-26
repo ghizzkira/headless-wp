@@ -16,6 +16,7 @@ export async function wpGetAllTags() {
     tags,
   }
 }
+
 export async function wpGetAllTagsSiteMap() {
   const data = await wpFetchAPI(QUERY_WP_ALL_TAGS_SITEMAP)
   const tags = data?.data.tags.edges.map(({ node = {} }) => node)
