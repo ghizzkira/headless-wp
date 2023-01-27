@@ -18,8 +18,8 @@ export interface WpAuthorsProps {
 
 export interface WpFeaturedImageProps {
   id: string
-  sourceUrl?: string
-  altText?: string
+  sourceUrl: string
+  altText: string
   caption?: string
   srcSet?: string
   sizes?: string
@@ -53,12 +53,12 @@ export interface WpSinglePostProps {
   published?: string
   modified?: string
   content?: string
-  featuredImage?: WpFeaturedImageProps
+  featuredImage: WpFeaturedImageProps
   categories?: WpCategoriesProps[]
   tags?: WpTagsProps[]
   author?: WpAuthorsProps
   og?: WpOgProps
-  uri?: string
+  uri: string
 }
 
 export interface WpPopularPosts {

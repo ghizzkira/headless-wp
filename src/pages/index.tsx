@@ -9,6 +9,9 @@ import { PostCardSide, ListPostFeatured } from "@/components/Card"
 import { HomeLayout } from "@/layouts/HomeLayout"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { InfiniteScroll } from "@/components/InfiniteScrollPost"
+import { QueryClient, dehydrate } from "@tanstack/react-query"
+import { wpGetMenusByName } from "@/lib/wp-menus"
+
 interface HomeProps {
   posts: any
   pageInfo: any
@@ -75,8 +78,15 @@ export default function Home(props: HomeProps) {
 }
 
 export async function getServerSideProps() {
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery(["menus"], () =>
+    wpGetMenusByName(env.MENU_PRIMARY),
+  )
+
   const { posts, pageInfo } = await wpGetAllPosts()
   const seo = await getSeoDatas(`https://${env.DOMAIN}`)
 
-  return { props: { posts, pageInfo, seo } }
+  return {
+    props: { posts, dehydratedState: dehydrate(queryClient), pageInfo, seo },
+  }
 }

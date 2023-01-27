@@ -156,10 +156,7 @@ export default function Post(props: PostProps) {
                 </div>
                 <div className="grid grid-cols-[repeat(1,1fr)] md:grid-cols-2 gap-4">
                   {posts.map(
-                    (
-                      post: { title: string; uri: string },
-                      i: React.Key | null | undefined,
-                    ) => {
+                    (post: { title: string; uri: string }, i: number) => {
                       return (
                         <article className="border-b-2 border-gray-200">
                           <NextLink key={i} href={post.uri}>

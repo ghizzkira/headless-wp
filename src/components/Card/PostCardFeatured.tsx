@@ -25,7 +25,7 @@ export const PostCardFeatured = React.forwardRef<
         <div className="h-full">
           <NextLink
             className="after:absolute after:top-0 after:left-0 after:h-full after:w-full after:rounded-xl after:bg-gradient-to-t after:from-[#282828] after:to-transparent after:transition-all"
-            href={`/${uri}`}
+            href={uri}
           >
             <div className="relative box-border overflow-hidden ">
               <NextImage
@@ -40,7 +40,7 @@ export const PostCardFeatured = React.forwardRef<
           </NextLink>
         </div>
         <div className="featured-meta absolute bottom-0 left-0 z-10 w-full px-3 py-4 md:py-5 md:px-4">
-          <NextLink href={`/${uri}`}>
+          <NextLink href={uri}>
             <h3
               className={`font-sans text-base font-bold md:text-lg text-white line-clamp-3 hover:text-primary-400 dark:text-gray-100`}
             >
