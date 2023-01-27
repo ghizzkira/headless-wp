@@ -49,7 +49,7 @@ export default defineConfig({
     }
 
     .scrollbar::-webkit-scrollbar-thumb {
-      background: transparent;
+      background: #555;
     }
 
     .scrollbar::-webkit-scrollbar-thumb:hover {
@@ -59,7 +59,9 @@ export default defineConfig({
     .scrollbar::-webkit-scrollbar-track:hover {
       background: #f1f1f1;
     }
-
+    .post-card-thumbnail:hover img {
+      @apply scale-150;
+    }
     .article-body {
       @apply text-lg leading-7;
     }
