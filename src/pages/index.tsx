@@ -1,17 +1,26 @@
 import * as React from "react"
 import Head from "next/head"
 import parse from "html-react-parser"
-
-import { Heading } from "@/ui"
+import dynamic from "next/dynamic"
 import env from "@/env"
 import { wpGetAllPosts } from "../lib/wp-posts"
-import { PostCardSide, ListPostFeatured } from "@/components/Card"
-import { HomeLayout } from "@/layouts/HomeLayout"
 import { getSeoDatas } from "@/lib/wp-seo"
-import { InfiniteScroll } from "@/components/InfiniteScrollPost"
+
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { wpGetMenusByName } from "@/lib/wp-menus"
-
+const HomeLayout = dynamic(() =>
+  import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
+)
+const PostCardSide = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.PostCardSide),
+)
+const ListPostFeatured = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.ListPostFeatured),
+)
+const InfiniteScroll = dynamic(() =>
+  import("@/components/InfiniteScrollPost").then((mod) => mod.InfiniteScroll),
+)
+const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
 interface HomeProps {
   posts: any
   pageInfo: any
