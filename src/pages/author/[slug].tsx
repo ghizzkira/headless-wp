@@ -85,7 +85,11 @@ export default function Author(props: AuthorProps) {
   )
 }
 
-export const getServerSideProps = async ({ params }: any) => {
+export const getServerSideProps = async ({ params, res }: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59",
+  )
   const { posts, pageInfo } = await wpGetPostsByAuthorSlug(params?.slug)
   const seo = await getSeoDatas(`https://${env.DOMAIN}/author/${params.slug}`)
 

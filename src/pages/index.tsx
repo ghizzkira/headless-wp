@@ -92,7 +92,11 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: any) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59",
+  )
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["menus"], () =>
     wpGetMenusByName(env.MENU_PRIMARY),

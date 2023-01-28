@@ -56,7 +56,12 @@ export default function Post(props: PostProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
+  res,
 }: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1000, stale-while-revalidate=59",
+  )
   const { post } = await wpGetPostBySlug(params?.slug)
   const { posts } = await wpGetAllPosts()
   if (post.author === undefined) {

@@ -130,7 +130,12 @@ export default function Tag(props: TagProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
+  res,
 }: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59",
+  )
   const { tag } = await wpGetTagBySlug(params?.name)
   if (tag == null || tag?.error) {
     return {

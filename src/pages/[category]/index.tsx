@@ -144,7 +144,12 @@ export default function Category(props: CategoryProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
+  res,
 }: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=100, stale-while-revalidate=59",
+  )
   const { category } = await wpGetCategoryBySlug(params?.category)
   if (category.error) {
     return {
