@@ -16,7 +16,7 @@ export type ErrorProps = {
   isReadyToRender: boolean
 } & NextErrorProps
 
-const ErrorPage = (props: ErrorPageProps): JSX.Element => {
+const ErrorPage = (props: ErrorPageProps) => {
   const { statusCode, isReadyToRender, err, children = null } = props
 
   if (env.NODE_ENV !== "development") {
