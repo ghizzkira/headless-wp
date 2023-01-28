@@ -1,6 +1,6 @@
 import * as React from "react"
 import NextLink from "next/link"
-
+import { useGetMenusByName } from "@/lib/wp-menus"
 import { Text } from "@/ui"
 import env from "@/env"
 
@@ -10,13 +10,13 @@ interface SideNavProps {
 
 export const SideNav = React.forwardRef<HTMLDivElement, SideNavProps>(
   (props, ref) => {
-    const { primaryMenus, ...rest } = props
-
+    const { getMenusByName } = useGetMenusByName(env.MENU_PRIMARY)
+    const { data } = getMenusByName
     return (
-      <nav className="flex w-full flex-col w-56 relative" ref={ref} {...rest}>
+      <nav className="flex w-full flex-col w-56 relative" ref={ref}>
         <ul className="flex flex-col p-4  border-b border-gray-100 dark:border-gray-700">
-          {primaryMenus?.length > 0 &&
-            primaryMenus?.map((menu: { url: string; label: string }) => {
+          {data?.menu &&
+            data?.menu.map((menu: { url: string; label: string }) => {
               const domainUrl = `https://${env.DOMAIN}`
               const fullUrl = menu.url.includes(domainUrl)
               let slicedUrl

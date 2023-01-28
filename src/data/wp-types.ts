@@ -18,8 +18,8 @@ export interface WpAuthorsProps {
 
 export interface WpFeaturedImageProps {
   id: string
-  sourceUrl?: string
-  altText?: string
+  sourceUrl: string
+  altText: string
   caption?: string
   srcSet?: string
   sizes?: string
@@ -42,23 +42,23 @@ export interface WpTagsProps {
 }
 
 export interface WpSinglePostProps {
-  id?: string
-  article?: string
-  title?: string
+  id: string
+  article: string
+  title: string
   metaTitle?: string
   description?: string
-  slug?: string
-  excerpt?: string
-  date?: string
-  published?: string
-  modified?: string
-  content?: string
-  featuredImage?: WpFeaturedImageProps
-  categories?: WpCategoriesProps[]
-  tags?: WpTagsProps[]
-  author?: WpAuthorsProps
+  slug: string
+  excerpt: string
+  date: string
+  published: string
+  modified: string
+  content: string
+  featuredImage: WpFeaturedImageProps
+  categories: WpCategoriesProps[]
+  tags: WpTagsProps[]
+  author: WpAuthorsProps
   og?: WpOgProps
-  uri?: string
+  uri: string
 }
 
 export interface WpPopularPosts {
