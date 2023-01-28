@@ -8,6 +8,7 @@ import { getSeoDatas } from "@/lib/wp-seo"
 
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { wpGetMenusByName } from "@/lib/wp-menus"
+
 const HomeLayout = dynamic(() =>
   import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
 )
@@ -18,9 +19,10 @@ const ListPostFeatured = dynamic(() =>
   import("@/components/Card").then((mod) => mod.ListPostFeatured),
 )
 const InfiniteScroll = dynamic(() =>
-  import("@/components/InfiniteScrollPost").then((mod) => mod.InfiniteScroll),
+  import("@/components/InfiniteScroll").then((mod) => mod.InfiniteScroll),
 )
 const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
+
 interface HomeProps {
   posts: any
   pageInfo: any

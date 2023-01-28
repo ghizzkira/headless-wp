@@ -1,7 +1,9 @@
-import { wpGetAllPostsLoadMore } from "@/lib/wp-posts"
 import * as React from "react"
-import { PostCard } from "../Card/PostCard"
-import { Text } from "@/ui"
+
+import { wpGetAllPostsLoadMore } from "@/lib/wp-posts"
+import { PostCard } from "@/components/Card"
+import { Button } from "@/ui"
+
 export const InfiniteScroll = (props: any) => {
   const { posts, pageInfo } = props
 
@@ -68,10 +70,16 @@ export const InfiniteScroll = (props: any) => {
           )
         },
       )}
-      <div ref={loadMoreRef} className="bg-primary-700 rounded-md p-4">
-        <Text className="!text-white m-auto">
-          {page.hasNextPage == true ? "Loading..." : "No More Posts"}
-        </Text>
+      <div ref={loadMoreRef}>
+        <Button
+          ref={loadMoreRef}
+          loading={page.hasNextPage == true}
+          loadingText="Loading ..."
+          colorScheme="blue"
+          className="!w-full !cursor-default"
+        >
+          No More Posts
+        </Button>
       </div>
     </>
   )
