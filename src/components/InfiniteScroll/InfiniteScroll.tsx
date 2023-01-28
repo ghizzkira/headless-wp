@@ -1,11 +1,17 @@
 import * as React from "react"
-
-import { wpGetAllPostsLoadMore } from "@/lib/wp-posts"
+import { useRouter } from "next/router"
+import {
+  wpGetAllPostsLoadMore,
+  wpGetPostsByCategoryId,
+  wpGetPostsByAuthorSlug,
+  wpGetPostsByTagId,
+} from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card"
 import { Button } from "@/ui"
 
 export const InfiniteScroll = (props: any) => {
-  const { posts, pageInfo } = props
+  const { posts, pageInfo, pageType, id } = props
+  const router = useRouter()
 
   const loadMoreRef: any = React.useRef(null)
   const [page, setPage] = React.useState(pageInfo)
@@ -14,23 +20,48 @@ export const InfiniteScroll = (props: any) => {
     async (entries: any) => {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
-        const data: any = await wpGetAllPostsLoadMore(page.endCursor)
-        setList((list: any) => [...list, ...data.posts])
-        setPage(data.pageInfo)
+        if (pageType == "category") {
+          const data: any = await wpGetPostsByCategoryId(id, page.endCursor)
+          setList((list: any) => [...list, ...data.posts])
+          setPage(data.pageInfo)
+        } else if (pageType == "author") {
+          const data: any = await wpGetPostsByAuthorSlug(id, page.endCursor)
+          setList((list: any) => [...list, ...data.posts])
+          setPage(data.pageInfo)
+        } else if (pageType == "tag") {
+          const data: any = await wpGetPostsByTagId(id, page.endCursor)
+          setList((list: any) => [...list, ...data.posts])
+          setPage(data.pageInfo)
+        } else {
+          const data: any = await wpGetAllPostsLoadMore(page.endCursor)
+          setList((list: any) => [...list, ...data.posts])
+          setPage(data.pageInfo)
+        }
       }
     },
-    [page.endCursor, page.hasNextPage],
+    [id, page.endCursor, page.hasNextPage, pageType],
   )
 
   React.useEffect(() => {
     const lmRef: any = loadMoreRef.current
     const observer = new IntersectionObserver(handleObserver)
+    const handleRouteChange = () => {
+      setList(posts)
+    }
+    if (pageType != "home") {
+      router.events.on("routeChangeComplete", handleRouteChange)
+    }
 
     if (loadMoreRef.current) observer.observe(loadMoreRef.current)
     return () => {
-      observer.unobserve(lmRef)
+      if (lmRef) {
+        observer.unobserve(lmRef)
+      }
+      if (pageType != "home") {
+        router.events.off("routeChangeComplete", handleRouteChange)
+      }
     }
-  }, [handleObserver])
+  }, [handleObserver, pageType, posts, router.events])
   return (
     <>
       {list.map(

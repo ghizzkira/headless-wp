@@ -2,15 +2,21 @@ import * as React from "react"
 import Head from "next/head"
 import parse from "html-react-parser"
 import { useRouter } from "next/router"
-
-import { Button, Heading } from "@/ui"
+import dynamic from "next/dynamic"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
-import { HomeLayout } from "@/layouts/HomeLayout"
-import { PostCard } from "@/components/Card/PostCard"
-import { PostCardSide } from "@/components/Card/PostCardSide"
-
+const PostCardSide = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.PostCardSide),
+)
+const PostCard = dynamic(() =>
+  import("@/components/Card/PostCard").then((mod) => mod.PostCard),
+)
+const HomeLayout = dynamic(() =>
+  import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
+)
+const Button = dynamic(() => import("@/ui").then((mod) => mod.Button))
+const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
 interface AuthorProps {
   posts: any
   pageInfo: any

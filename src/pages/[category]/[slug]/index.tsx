@@ -11,10 +11,8 @@ const HomeLayout = dynamic(() =>
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
+import { SinglePostLayout } from "@/layouts/SinglePost"
 
-const SinglePostLayout = dynamic(() =>
-  import("@/layouts/SinglePost").then((mod) => mod.SinglePostLayout),
-)
 interface PostProps {
   post: {
     title: string

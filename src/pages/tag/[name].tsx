@@ -4,16 +4,22 @@ import parse from "html-react-parser"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { GetServerSideProps } from "next"
-
-import { Button, Heading } from "@/ui"
+import dynamic from "next/dynamic"
 import env from "@/env"
 import { wpGetTagBySlug } from "@/lib/wp-tags"
 import { wpGetPostsByTagId } from "@/lib/wp-posts"
 import { getSeoDatas } from "@/lib/wp-seo"
-import { HomeLayout } from "@/layouts/HomeLayout"
-import { PostCard } from "@/components/Card/PostCard"
-import { PostCardSide } from "@/components/Card/PostCardSide"
-
+const PostCardSide = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.PostCardSide),
+)
+const PostCard = dynamic(() =>
+  import("@/components/Card/PostCard").then((mod) => mod.PostCard),
+)
+const HomeLayout = dynamic(() =>
+  import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
+)
+const Button = dynamic(() => import("@/ui").then((mod) => mod.Button))
+const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
 interface TagProps {
   tag: {
     name: string

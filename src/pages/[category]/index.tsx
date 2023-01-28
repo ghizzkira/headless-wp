@@ -2,18 +2,24 @@ import * as React from "react"
 import NextLink from "next/link"
 import Head from "next/head"
 import parse from "html-react-parser"
-import { useRouter } from "next/router"
 import { GetServerSideProps } from "next"
-
-import { Button, Heading } from "@/ui"
+import dynamic from "next/dynamic"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
-import { HomeLayout } from "@/layouts/HomeLayout"
 import { wpGetPostsByCategoryId } from "@/lib/wp-posts"
-import { PostCard } from "@/components/Card/PostCard"
-import { PostCardSide } from "@/components/Card/PostCardSide"
+const InfiniteScroll = dynamic(() =>
+  import("@/components/InfiniteScroll").then((mod) => mod.InfiniteScroll),
+)
+const PostCardSide = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.PostCardSide),
+)
 
+const HomeLayout = dynamic(() =>
+  import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
+)
+const Button = dynamic(() => import("@/ui").then((mod) => mod.Button))
+const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
 interface CategoryProps {
   category: {
     name: string
@@ -32,46 +38,9 @@ interface CategoryProps {
 
 export default function Category(props: CategoryProps) {
   const { category, posts, seo, pageInfo } = props
-  const router = useRouter()
 
   const categoryChild = category.children.nodes
-  const loadMoreRef: any = React.useRef(null)
-  const [page, setPage] = React.useState(pageInfo)
-  const [list, setList] = React.useState(posts)
-  const [infinite, setInfinite] = React.useState<boolean>(false)
 
-  const handleObserver = React.useCallback(
-    async (entries: any) => {
-      const [target] = entries
-      if (target.isIntersecting && page.hasNextPage == true) {
-        setInfinite(true)
-        const data: any = await wpGetPostsByCategoryId(
-          category.slug,
-          page.endCursor,
-        )
-        setList((list: any) => [...list, ...data.posts])
-        setPage(data.pageInfo)
-      }
-    },
-    [page.endCursor, page.hasNextPage, category.slug],
-  )
-
-  React.useEffect(() => {
-    const handleRouteChange = () => {
-      setInfinite(false)
-      setList(posts)
-    }
-
-    router.events.on("routeChangeComplete", handleRouteChange)
-    const lmRef: any = loadMoreRef.current
-    const observer = new IntersectionObserver(handleObserver)
-
-    if (loadMoreRef.current) observer.observe(loadMoreRef.current)
-    return () => {
-      observer.unobserve(lmRef)
-      router.events.off("routeChangeComplete", handleRouteChange)
-    }
-  }, [handleObserver, router.events, posts])
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
@@ -124,56 +93,12 @@ export default function Category(props: CategoryProps) {
           </div>
           <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
-              {list.map(
-                (post: {
-                  id: number
-                  featuredImage: {
-                    sourceUrl: string
-                    altText: string
-                  }
-                  slug: string
-                  title: string
-                  excerpt: string
-                  categories: any
-                  author: {
-                    name: string
-                    avatar: {
-                      url: string
-                    }
-                    uri: string
-                  }
-                  uri: string
-                  date: string
-                }) => {
-                  return (
-                    <PostCard
-                      key={post.id}
-                      src={post.featuredImage.sourceUrl}
-                      alt={post.featuredImage.altText}
-                      slug={post.uri}
-                      title={post.title}
-                      excerpt={post.excerpt}
-                      authorName={post.author.name}
-                      authorAvatarUrl={post.author.avatar.url}
-                      authorUri={post.author.uri}
-                      date={post.date}
-                    />
-                  )
-                },
-              )}
-              <div ref={loadMoreRef}>
-                {infinite == true && (
-                  <Button
-                    ref={loadMoreRef}
-                    loading={page.hasNextPage == true}
-                    loadingText="Loading ..."
-                    colorScheme="blue"
-                    className="!w-full !cursor-default"
-                  >
-                    No More Posts
-                  </Button>
-                )}
-              </div>
+              <InfiniteScroll
+                pageType="category"
+                posts={posts}
+                id={category.slug}
+                pageInfo={pageInfo}
+              />
             </div>
             <aside className="w-4/12 hidden lg:block">
               <div className="rounded-xl border border-gray-100 dark:border-gray-700 p-4 sticky top-8">

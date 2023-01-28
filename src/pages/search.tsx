@@ -1,12 +1,18 @@
 import * as React from "react"
 import { useRouter } from "next/router"
 import NextLink from "next/link"
-
-import { Heading } from "@/ui"
+import dynamic from "next/dynamic"
 import { wpGetPostsBySearch, wpGetAllPosts } from "@/lib/wp-posts"
-import { PostCard, PostCardSide } from "@/components/Card"
-import { HomeLayout } from "@/layouts/HomeLayout"
-
+const PostCardSide = dynamic(() =>
+  import("@/components/Card").then((mod) => mod.PostCardSide),
+)
+const PostCard = dynamic(() =>
+  import("@/components/Card/PostCard").then((mod) => mod.PostCard),
+)
+const HomeLayout = dynamic(() =>
+  import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
+)
+const Heading = dynamic(() => import("@/ui").then((mod) => mod.Heading))
 interface SearchProps {
   posts: any
 }
