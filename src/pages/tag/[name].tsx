@@ -5,7 +5,7 @@ import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { GetServerSideProps } from "next"
 
-import { Button, Heading, Text } from "@/ui"
+import { Button, Heading } from "@/ui"
 import env from "@/env"
 import { wpGetTagBySlug } from "@/lib/wp-tags"
 import { wpGetPostsByTagId } from "@/lib/wp-posts"
