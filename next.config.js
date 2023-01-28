@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const { withSentryConfig } = require("@sentry/nextjs")
+
 const nextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
@@ -6,6 +8,10 @@ const nextConfig = {
   images: {
     domains: ["gamedaim.com", "secure.gravatar.com", "i.postimg.cc"],
   },
+  sentry: {
+    silent: true,
+    hideSourceMaps: true,
+  },
 }
 
-module.exports = nextConfig
+module.exports = withSentryConfig(nextConfig)
