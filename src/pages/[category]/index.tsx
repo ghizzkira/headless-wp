@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 import { useRouter } from "next/router"
 import { GetServerSideProps } from "next"
 
-import { Button, Heading, Text } from "@/ui"
+import { Button, Heading } from "@/ui"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetCategoryBySlug } from "@/lib/wp-categories"
