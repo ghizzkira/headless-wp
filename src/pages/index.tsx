@@ -44,7 +44,11 @@ export default function Home(props: HomeProps) {
           <ListPostFeatured featured={featured} />
           <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:mx-auto lg:px-4">
             <div className="w-full flex flex-col lg:mr-4">
-              <InfiniteScroll posts={posts} pageInfo={pageInfo} />
+              <InfiniteScroll
+                pageType="home"
+                posts={posts}
+                pageInfo={pageInfo}
+              />
             </div>
             <aside className="w-4/12 hidden lg:block">
               <div className="rounded-xl border border-gray-100 dark:border-gray-700 p-4 sticky top-8">
@@ -88,7 +92,11 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: any) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59",
+  )
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["menus"], () =>
     wpGetMenusByName(env.MENU_PRIMARY),

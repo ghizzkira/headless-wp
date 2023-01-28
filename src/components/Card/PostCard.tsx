@@ -55,7 +55,11 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
           </NextLink>
           <div className="order-1 md:order-2 mr-3 md:mr-unset flex flex-col">
             <NextLink href={slug}>
-              <Heading as="h3" className="!text-base !lg:text-xl" lineClamp={3}>
+              <Heading
+                as="h3"
+                className="!text-base !lg:text-xl hover:text-primary-400"
+                lineClamp={3}
+              >
                 {title}
               </Heading>
               <div

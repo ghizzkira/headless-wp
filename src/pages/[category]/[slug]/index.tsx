@@ -11,10 +11,8 @@ const HomeLayout = dynamic(() =>
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
+import { SinglePostLayout } from "@/layouts/SinglePost"
 
-const SinglePostLayout = dynamic(() =>
-  import("@/layouts/SinglePost").then((mod) => mod.SinglePostLayout),
-)
 interface PostProps {
   post: {
     title: string
@@ -58,7 +56,12 @@ export default function Post(props: PostProps) {
 
 export const getServerSideProps: GetServerSideProps = async ({
   params,
+  res,
 }: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=1000, stale-while-revalidate=59",
+  )
   const { post } = await wpGetPostBySlug(params?.slug)
   const { posts } = await wpGetAllPosts()
   if (post.author === undefined) {

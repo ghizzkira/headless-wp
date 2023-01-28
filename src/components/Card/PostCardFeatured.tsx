@@ -32,7 +32,7 @@ export const PostCardFeatured = React.forwardRef<
                 priority={true}
                 height={500}
                 width={600}
-                className="!w-auto rounded-md aspect-[9/16] object-cover !h-[200px] min-h-[200px] md:!h-[350px] hover:scale-150 transition-all"
+                className="!w-auto rounded-md aspect-[8/16] md:!aspect-[9/16] object-cover !h-[300px] transition-all"
                 src={featuredImage.sourceUrl}
                 alt={featuredImage.altText}
               />
@@ -56,7 +56,7 @@ export const PostCardFeatured = React.forwardRef<
 export const ListPostFeatured = (props: { featured: any }) => {
   const { featured } = props
   return (
-    <div className="mx-auto w-full max-w-full">
+    <div className="mx-auto px-4 w-full max-w-full">
       <div className="mb-4 block h-auto min-w-full overflow-x-auto overflow-y-hidden whitespace-nowrap px-3 scrollbar">
         {featured.map((featuredItem: any, i: number) => {
           return (
