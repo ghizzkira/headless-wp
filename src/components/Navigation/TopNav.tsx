@@ -3,6 +3,7 @@ import NextLink from "next/link"
 import NextImage from "next/image"
 import { useRouter } from "next/router"
 import { useTheme } from "next-themes"
+import { FaTwitter, FaFacebook, FaYoutube, FaInstagram } from "react-icons/fa"
 
 import { IconButton, MoonIcon, SunIcon } from "@/ui"
 import env from "@/env"
@@ -90,7 +91,29 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
                   </div>
                 </form>
               </div>
-              <div className="grow-1 ml-auto">
+              <div className="grow-1 flex flex-row ml-auto space-x-4">
+                <div className="space-x-4">
+                  <NextLink href="#">
+                    <IconButton variant="ghost" className="!text-lg">
+                      <FaFacebook />
+                    </IconButton>
+                  </NextLink>
+                  <NextLink href="#">
+                    <IconButton variant="ghost" className="!text-lg">
+                      <FaTwitter />
+                    </IconButton>
+                  </NextLink>
+                  <NextLink href="#">
+                    <IconButton variant="ghost" className="!text-lg">
+                      <FaYoutube />
+                    </IconButton>
+                  </NextLink>
+                  <NextLink href="#">
+                    <IconButton variant="ghost" className="!text-lg">
+                      <FaInstagram />
+                    </IconButton>
+                  </NextLink>
+                </div>
                 <IconButton
                   variant="ghost"
                   aria-label="Toggle Dark Mode"
