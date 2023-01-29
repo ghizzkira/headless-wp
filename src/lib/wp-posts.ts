@@ -41,14 +41,14 @@ export async function wpGetAllPosts() {
   }
 }
 
-export const useWpGetAllPosts = (key: any = "posts") => {
+export const useWpGetAllPosts = (key: any = ["posts"]) => {
   const { data, isError, isFetching } = useQuery(key, () => wpGetAllPosts(), {
-    staleTime: env.STALE.FIVE_MINUTES,
+    staleTime: 1,
   })
 
   return {
     wpGetAllPostsData: {
-      data,
+      data: data,
       isError,
       isFetching,
     },
@@ -179,6 +179,24 @@ export async function wpGetPostBySlug(slug: string) {
   return {
     post,
   }
+}
+export const useWpGetPostBySlug = (slug: string) => {
+  const { data, isError, isFetching } = useQuery(
+    ["post", slug],
+    () => wpGetPostBySlug(slug),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    wpGetPostBySlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
 }
 
 export async function wpGetPostsByAuthorSlug(

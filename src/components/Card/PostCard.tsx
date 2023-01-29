@@ -42,6 +42,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
         <div className="relative flex flex-row">
           <NextLink
             href={slug}
+            shallow={true}
             className="order-2 md:order-1 md:mr-3 w-[125px] min-w-[125px] min-h-[90px] h-[90px] md:!w-[220px] md:!min-w-[220px] md:!min-h-[158px] md:!h-[158px]"
           >
             <NextImage
@@ -54,7 +55,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
             />
           </NextLink>
           <div className="order-1 md:order-2 mr-3 md:mr-unset flex flex-col">
-            <NextLink href={slug}>
+            <NextLink href={slug} shallow={true}>
               <Heading
                 as="h3"
                 className="!text-base !lg:text-xl hover:text-primary-400"
@@ -84,7 +85,7 @@ export const PostCard = React.forwardRef<HTMLDivElement, PostCardProps>(
                           className="rounded-full object-cover bg-[url('/icons/author.jpg')]"
                         />
                       )}
-                      <NextLink href={authorUri}>
+                      <NextLink href={authorUri} shallow={true}>
                         <Heading bold as="h4" className="ml-2 !text-[12px] ">
                           {authorName}
                         </Heading>

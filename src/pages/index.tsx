@@ -3,7 +3,7 @@ import Head from "next/head"
 import parse from "html-react-parser"
 import dynamic from "next/dynamic"
 import env from "@/env"
-import { wpGetAllPosts } from "../lib/wp-posts"
+import { wpGetAllPosts, useWpGetAllPosts } from "../lib/wp-posts"
 import { getSeoDatas } from "@/lib/wp-seo"
 
 import { QueryClient, dehydrate } from "@tanstack/react-query"
@@ -33,8 +33,10 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  const { posts, seo, pageInfo } = props
-  const featured = posts.slice(0, 7)
+  const { seo } = props
+  const { wpGetAllPostsData } = useWpGetAllPosts()
+  const { data } = wpGetAllPostsData
+  const featured = data?.posts?.slice(0, 7)
 
   return (
     <>
@@ -46,8 +48,8 @@ export default function Home(props: HomeProps) {
             <div className="w-full flex flex-col lg:mr-4">
               <InfiniteScroll
                 pageType="home"
-                posts={posts}
-                pageInfo={pageInfo}
+                posts={data?.posts}
+                pageInfo={data?.pageInfo}
               />
             </div>
             <aside className="w-4/12 hidden lg:block">
@@ -59,7 +61,7 @@ export default function Home(props: HomeProps) {
                     </span>
                   </Heading>
                 </div>
-                {posts.map(
+                {data?.posts.map(
                   (post: {
                     id: number
                     featuredImage: {
@@ -92,20 +94,15 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps({ res }: any) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59",
-  )
+export async function getServerSideProps() {
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["menus"], () =>
     wpGetMenusByName(env.MENU_PRIMARY),
   )
-
-  const { posts, pageInfo } = await wpGetAllPosts()
+  await queryClient.prefetchQuery(["posts"], () => wpGetAllPosts())
   const seo = await getSeoDatas(`https://${env.DOMAIN}`)
 
   return {
-    props: { posts, dehydratedState: dehydrate(queryClient), pageInfo, seo },
+    props: { dehydratedState: dehydrate(queryClient), seo },
   }
 }
