@@ -47,7 +47,7 @@ export const useWpGetAllPosts = (key: any = ["posts"]) => {
   })
 
   return {
-    wpGetAllPostsData: {
+    getAllPostsData: {
       data: data,
       isError,
       isFetching,
@@ -191,7 +191,7 @@ export const useWpGetPostBySlug = (slug: string) => {
   )
 
   return {
-    wpGetPostBySlug: {
+    getPostBySlug: {
       data: data,
       isError,
       isFetching,
@@ -230,7 +230,7 @@ export async function wpGetPostsByAuthorSlug(
   }
 }
 
-export async function wpGetPostsByCategoryId(categoryId: any, after = "") {
+export async function wpGetPostsByCategorySlug(categoryId: any, after = "") {
   let postData
   try {
     postData = await wpFetchAPI(QUERY_WP_POSTS_BY_CATEGORY_SLUG, {
@@ -254,6 +254,24 @@ export async function wpGetPostsByCategoryId(categoryId: any, after = "") {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
     pageInfo: postData?.data.posts.pageInfo,
   }
+}
+export const useWpGetPostsByCategorySlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["categoryPosts", slug],
+    () => wpGetPostsByCategorySlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    getPostsByCategorySlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
 }
 
 export async function wpGetPostsByTagId(id: any, after = "") {
@@ -340,7 +358,7 @@ export async function wpGetRelatedPosts(
   let relatedPosts: string | any[] = []
 
   if (category) {
-    const { posts }: any = await wpGetPostsByCategoryId(category.categoryId)
+    const { posts }: any = await wpGetPostsByCategorySlug(category.categoryId)
     const filtered = posts.filter(({ postId: id }: any) => id !== postId)
     relatedPosts = filtered.map(
       (post: {

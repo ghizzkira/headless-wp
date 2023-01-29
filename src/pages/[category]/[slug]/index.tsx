@@ -19,81 +19,95 @@ import {
 } from "@/lib/wp-posts"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 
-// interface PostProps {
-//   post: {
-//     title: string
-//     content: string
-//     author: {
-//       name: string
-//       slug: string
-//       avatar: {
-//         url: string
-//       }
-//     }
-//     slug: string
-//     categories: any
-//     featuredImage: {
-//       altText: string
-//       sourceUrl: string
-//       caption: string
-//     }
-//     tags: any
-//     date: string
-//   }
-//   seo: {
-//     head: string
-//     success: boolean
-//   }
-//   posts: any
-// }
+interface PostProps {
+  post: {
+    title: string
+    content: string
+    author: {
+      name: string
+      slug: string
+      avatar: {
+        url: string
+      }
+    }
+    slug: string
+    categories: any
+    featuredImage: {
+      altText: string
+      sourceUrl: string
+      caption: string
+    }
+    tags: any
+    date: string
+  }
+  seo: {
+    head: string
+    success: boolean
+  }
+  posts: any
+}
 
-export default function Post() {
+export default function Post(props: PostProps) {
+  const { seo } = props
+  console.log(seo)
   const router = useRouter()
   const {
     query: { slug },
   } = router
-  const { wpGetAllPostsData } = useWpGetAllPosts()
+  const { getAllPostsData } = useWpGetAllPosts()
 
-  const { wpGetPostBySlug } = useWpGetPostBySlug(slug as string)
+  const { getPostBySlug } = useWpGetPostBySlug(slug as string)
   return (
     <>
-      {/* <Head>{seo.success === true && parse(seo.head)}</Head> */}
+      <Head>{seo?.success === true && parse(seo?.head)}</Head>
       <HomeLayout>
-        <SinglePostLayout
-          post={wpGetPostBySlug?.data?.post}
-          posts={wpGetAllPostsData?.data?.posts}
-        />
+        {getPostBySlug?.data !== undefined &&
+          getAllPostsData?.data !== undefined && (
+            <SinglePostLayout
+              post={getPostBySlug?.data?.post}
+              posts={getAllPostsData?.data?.posts}
+            />
+          )}
       </HomeLayout>
     </>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = withCSR(
-  async ({ params, res }: any) => {
-    const queryClient = new QueryClient()
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res,
+}: any) => {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=120, stale-while-revalidate=600",
+  )
 
-    let isError = false
+  const queryClient = new QueryClient()
 
-    try {
-      await queryClient.fetchQuery(["post"], () =>
-        wpGetPostBySlug(params?.slug),
-      )
-      await queryClient.fetchQuery(["posts"], () => wpGetAllPosts())
-    } catch (error: any) {
-      isError = true
-      res.statusCode = error.response.status
-    }
-    if (isError) {
-      return {
-        notFound: true,
-      }
-    }
-    // const seo = await getSeoDatas(`https://${env.DOMAIN}${post.uri}`)
+  let isError = false
 
+  const seo = await getSeoDatas(
+    `https://${env.DOMAIN}/${params.category}/${params.slug}`,
+  )
+  await queryClient.prefetchQuery(["posts"], () => wpGetAllPosts())
+  try {
+    await queryClient.fetchQuery(["post", params?.slug], () =>
+      wpGetPostBySlug(params?.slug),
+    )
+  } catch (error: any) {
+    isError = true
+    res.statusCode = error.response.status
+  }
+  if (isError) {
     return {
-      props: {
-        dehydratedState: dehydrate(queryClient),
-      },
+      notFound: true,
     }
-  },
-)
+  }
+
+  return {
+    props: {
+      seo,
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
+}

@@ -34,8 +34,8 @@ interface HomeProps {
 
 export default function Home(props: HomeProps) {
   const { seo } = props
-  const { wpGetAllPostsData } = useWpGetAllPosts()
-  const { data } = wpGetAllPostsData
+  const { getAllPostsData } = useWpGetAllPosts()
+  const { data }: any = getAllPostsData
   const featured = data?.posts?.slice(0, 7)
 
   return (
@@ -94,7 +94,12 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=120, stale-while-revalidate=600",
+  )
+
   const queryClient = new QueryClient()
   await queryClient.prefetchQuery(["menus"], () =>
     wpGetMenusByName(env.MENU_PRIMARY),

@@ -2,7 +2,7 @@ import * as React from "react"
 import { useRouter } from "next/router"
 import {
   wpGetAllPostsLoadMore,
-  wpGetPostsByCategoryId,
+  wpGetPostsByCategorySlug,
   wpGetPostsByAuthorSlug,
   wpGetPostsByTagId,
 } from "@/lib/wp-posts"
@@ -21,7 +21,7 @@ export const InfiniteScroll = (props: any) => {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
         if (pageType == "category") {
-          const data: any = await wpGetPostsByCategoryId(id, page.endCursor)
+          const data: any = await wpGetPostsByCategorySlug(id, page.endCursor)
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else if (pageType == "author") {
