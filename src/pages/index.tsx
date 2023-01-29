@@ -94,7 +94,7 @@ export default function Home(props: HomeProps) {
   )
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ res }: any) {
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=120, stale-while-revalidate=600",
