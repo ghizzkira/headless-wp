@@ -37,7 +37,6 @@ export default function Author(props: AuthorProps) {
     query: { slug },
   } = router
   const { getPostsByAuthorSlug }: any = useWpGetPostsByAuthorSlug(slug)
-  console.log(getPostsByAuthorSlug)
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>

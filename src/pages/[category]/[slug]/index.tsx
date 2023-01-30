@@ -49,7 +49,6 @@ interface PostProps {
 
 export default function Post(props: PostProps) {
   const { seo } = props
-  console.log(seo)
   const router = useRouter()
   const {
     query: { slug },
