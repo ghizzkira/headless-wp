@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   )
   await queryClient.prefetchQuery(["posts"], () => wpGetAllPosts())
   try {
-    await queryClient.fetchQuery(["post", params?.slug], () =>
+    await queryClient.prefetchQuery(["post", params?.slug], () =>
       wpGetPostBySlug(params?.slug),
     )
   } catch (error: any) {

@@ -5,9 +5,11 @@ import NextLink from "next/link"
 import { GetServerSideProps } from "next"
 import dynamic from "next/dynamic"
 import env from "@/env"
-import { wpGetTagBySlug } from "@/lib/wp-tags"
-import { wpGetPostsByTagId } from "@/lib/wp-posts"
+import { wpGetTagBySlug, useWpGetTagBySlug } from "@/lib/wp-tags"
+import { wpGetPostsByTagSlug, useWpGetPostsByTagSlug } from "@/lib/wp-posts"
 import { getSeoDatas } from "@/lib/wp-seo"
+import { QueryClient, dehydrate } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 const PostCardSide = dynamic(() =>
   import("@/components/Card").then((mod) => mod.PostCardSide),
 )
@@ -35,8 +37,13 @@ interface TagProps {
 }
 
 export default function Tag(props: TagProps) {
-  const { tag, posts, seo, pageInfo } = props
-
+  const { seo } = props
+  const router: any = useRouter()
+  const {
+    query: { slug },
+  } = router
+  const { getTagBySlug }: any = useWpGetTagBySlug(slug)
+  const { getPostsByTagSlug }: any = useWpGetPostsByTagSlug(slug)
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
@@ -57,7 +64,7 @@ export default function Tag(props: TagProps) {
                   <li aria-current="page">
                     <div className="flex items-center">
                       <span className="text-sm font-medium text-white dark:text-gray-400">
-                        {tag.name}
+                        {getTagBySlug?.data?.tag.name}
                       </span>
                     </div>
                   </li>
@@ -66,11 +73,11 @@ export default function Tag(props: TagProps) {
             </div>
             <div className="self-center">
               <Heading size="4xl" className="text-white">
-                Gamedaim
+                {getTagBySlug?.data?.tag?.name}
               </Heading>
             </div>
             <div className="self-center">
-              <NextLink href={`/${tag.slug}`}>
+              <NextLink href={`/${slug}`}>
                 <Button className="!mr-2 border border-[#24272f] !bg-[#1e3799]">
                   All
                 </Button>
@@ -81,9 +88,9 @@ export default function Tag(props: TagProps) {
             <div className="w-full flex flex-col lg:mr-4">
               <InfiniteScroll
                 pageType="tag"
-                posts={posts}
-                id={tag.id}
-                pageInfo={pageInfo}
+                posts={getPostsByTagSlug?.data?.posts}
+                id={slug}
+                pageInfo={getPostsByTagSlug?.data?.pageInfo}
               />
             </div>
             <aside className="w-4/12 hidden lg:block">
@@ -95,7 +102,7 @@ export default function Tag(props: TagProps) {
                     </span>
                   </Heading>
                 </div>
-                {posts.map(
+                {getPostsByTagSlug?.data?.posts.map(
                   (post: {
                     id: number
                     featuredImage: {
@@ -137,22 +144,27 @@ export const getServerSideProps: GetServerSideProps = async ({
     "public, s-maxage=120, stale-while-revalidate=600",
   )
 
-  const { tag } = await wpGetTagBySlug(params?.name)
-  if (tag == null || tag?.error) {
+  const queryClient = new QueryClient()
+  const slug = params?.slug
+  const seo = await getSeoDatas(`https://${env.DOMAIN}/tag/${slug}`)
+  let isError = false
+  await queryClient.prefetchQuery(["tag", slug], () => wpGetTagBySlug(slug))
+  try {
+    await queryClient.prefetchQuery(["tagPosts", slug], () =>
+      wpGetPostsByTagSlug(slug),
+    )
+  } catch (error: any) {
+    isError = true
+  }
+  if (isError) {
     return {
       notFound: true,
     }
   }
-
-  const { posts, pageInfo } = await wpGetPostsByTagId(tag.id)
-  const seo = await getSeoDatas(`https://${env.DOMAIN}${tag.uri}`)
-
   return {
     props: {
-      tag,
-      posts,
       seo,
-      pageInfo,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }

@@ -292,9 +292,9 @@ export const QUERY_WP_POSTS_BY_CATEGORY_SLUG = `
   }
 `
 
-export const QUERY_WP_POSTS_BY_TAG_ID = `
-  query PostsByTagId($id: ID!, $after: String ) {
-  tag(id:$id,) {
+export const QUERY_WP_POSTS_BY_TAG_SLUG = `
+  query PostsByTagSlug($id: ID!, $after: String ) {
+  tag(id:$id,idType: SLUG) {
      posts(after: $after, first: 10) {
        pageInfo {
          endCursor

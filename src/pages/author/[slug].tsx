@@ -5,7 +5,11 @@ import { useRouter } from "next/router"
 import dynamic from "next/dynamic"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
-import { wpGetPostsByAuthorSlug } from "@/lib/wp-posts"
+import {
+  wpGetPostsByAuthorSlug,
+  useWpGetPostsByAuthorSlug,
+} from "@/lib/wp-posts"
+import { QueryClient, dehydrate } from "@tanstack/react-query"
 const PostCardSide = dynamic(() =>
   import("@/components/Card").then((mod) => mod.PostCardSide),
 )
@@ -27,21 +31,27 @@ interface AuthorProps {
 }
 
 export default function Author(props: AuthorProps) {
-  const { posts, seo, pageInfo } = props
+  const { seo } = props
   const router: any = useRouter()
-
+  const {
+    query: { slug },
+  } = router
+  const { getPostsByAuthorSlug }: any = useWpGetPostsByAuthorSlug(slug)
+  console.log(getPostsByAuthorSlug)
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
       <HomeLayout>
         <section className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:px-4">
           <div className="w-full flex flex-col lg:mr-4">
-            <InfiniteScroll
-              pageType="author"
-              posts={posts}
-              id={router.query.slug}
-              pageInfo={pageInfo}
-            />
+            {getPostsByAuthorSlug?.isFetching == false && (
+              <InfiniteScroll
+                pageType="author"
+                posts={getPostsByAuthorSlug?.data?.posts}
+                id={slug}
+                pageInfo={getPostsByAuthorSlug?.data?.pageInfo}
+              />
+            )}
           </div>
 
           <aside className="w-4/12 hidden lg:block">
@@ -53,7 +63,7 @@ export default function Author(props: AuthorProps) {
                   </span>
                 </Heading>
               </div>
-              {posts.map(
+              {getPostsByAuthorSlug?.data?.posts.map(
                 (post: {
                   id: number
                   featuredImage: {
@@ -91,14 +101,28 @@ export const getServerSideProps = async ({ params, res }: any) => {
     "public, s-maxage=120, stale-while-revalidate=600",
   )
 
-  const { posts, pageInfo } = await wpGetPostsByAuthorSlug(params?.slug)
   const seo = await getSeoDatas(`https://${env.DOMAIN}/author/${params.slug}`)
 
+  const queryClient = new QueryClient()
+  const slug = params?.slug
+  let isError = false
+  try {
+    await queryClient.prefetchQuery(["authorPosts", slug], () =>
+      wpGetPostsByAuthorSlug(slug),
+    )
+  } catch (error: any) {
+    isError = true
+    res.statusCode = error.response.status
+  }
+  if (isError) {
+    return {
+      notFound: true,
+    }
+  }
   return {
     props: {
-      posts,
       seo,
-      pageInfo,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }

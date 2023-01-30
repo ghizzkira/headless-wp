@@ -4,7 +4,7 @@ import {
   wpGetAllPostsLoadMore,
   wpGetPostsByCategorySlug,
   wpGetPostsByAuthorSlug,
-  wpGetPostsByTagId,
+  wpGetPostsByTagSlug,
 } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card"
 import { Button } from "@/ui"
@@ -29,7 +29,7 @@ export const InfiniteScroll = (props: any) => {
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else if (pageType == "tag") {
-          const data: any = await wpGetPostsByTagId(id, page.endCursor)
+          const data: any = await wpGetPostsByTagSlug(id, page.endCursor)
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else {

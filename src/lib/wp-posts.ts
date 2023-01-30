@@ -8,7 +8,7 @@ import {
   QUERY_WP_POSTS_BY_AUTHOR_SLUG,
   QUERY_WP_POSTS_BY_CATEGORY_SLUG,
   QUERY_WP_POST_PER_PAGE,
-  QUERY_WP_POSTS_BY_TAG_ID,
+  QUERY_WP_POSTS_BY_TAG_SLUG,
   QUERY_WP_ALL_POSTS_LOAD_MORE,
   QUERY_WP_ALL_SLUG,
   QUERY_WP_POST_BY_SLUG,
@@ -229,6 +229,24 @@ export async function wpGetPostsByAuthorSlug(
     authorId: authorId,
   }
 }
+export const useWpGetPostsByAuthorSlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["authorPosts", slug],
+    () => wpGetPostsByAuthorSlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    getPostsByAuthorSlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
+}
 
 export async function wpGetPostsByCategorySlug(categoryId: any, after = "") {
   let postData
@@ -274,10 +292,10 @@ export const useWpGetPostsByCategorySlug = (slug: string, after = "") => {
   } as const
 }
 
-export async function wpGetPostsByTagId(id: any, after = "") {
+export async function wpGetPostsByTagSlug(id: any, after = "") {
   let postData
   try {
-    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_ID, { id, after })
+    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_SLUG, { id, after })
   } catch (e) {
     console.log(`Failed to query post data: ${e}`)
     throw e
@@ -295,6 +313,24 @@ export async function wpGetPostsByTagId(id: any, after = "") {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
     pageInfo: postData?.data.tag.posts.pageInfo,
   }
+}
+export const useWpGetPostsByTagSlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["tagPosts", slug],
+    () => wpGetPostsByTagSlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    getPostsByTagSlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
 }
 
 // export async function wpGetRecentPosts({ count }: { count: number }) {
