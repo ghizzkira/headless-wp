@@ -2,9 +2,9 @@ import * as React from "react"
 import { useRouter } from "next/router"
 import {
   wpGetAllPostsLoadMore,
-  wpGetPostsByCategoryId,
+  wpGetPostsByCategorySlug,
   wpGetPostsByAuthorSlug,
-  wpGetPostsByTagId,
+  wpGetPostsByTagSlug,
 } from "@/lib/wp-posts"
 import { PostCard } from "@/components/Card"
 import { Button } from "@/ui"
@@ -21,7 +21,7 @@ export const InfiniteScroll = (props: any) => {
       const [target] = entries
       if (target.isIntersecting && page.hasNextPage == true) {
         if (pageType == "category") {
-          const data: any = await wpGetPostsByCategoryId(id, page.endCursor)
+          const data: any = await wpGetPostsByCategorySlug(id, page.endCursor)
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else if (pageType == "author") {
@@ -29,7 +29,7 @@ export const InfiniteScroll = (props: any) => {
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else if (pageType == "tag") {
-          const data: any = await wpGetPostsByTagId(id, page.endCursor)
+          const data: any = await wpGetPostsByTagSlug(id, page.endCursor)
           setList((list: any) => [...list, ...data.posts])
           setPage(data.pageInfo)
         } else {

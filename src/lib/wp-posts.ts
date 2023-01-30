@@ -8,7 +8,7 @@ import {
   QUERY_WP_POSTS_BY_AUTHOR_SLUG,
   QUERY_WP_POSTS_BY_CATEGORY_SLUG,
   QUERY_WP_POST_PER_PAGE,
-  QUERY_WP_POSTS_BY_TAG_ID,
+  QUERY_WP_POSTS_BY_TAG_SLUG,
   QUERY_WP_ALL_POSTS_LOAD_MORE,
   QUERY_WP_ALL_SLUG,
   QUERY_WP_POST_BY_SLUG,
@@ -41,14 +41,14 @@ export async function wpGetAllPosts() {
   }
 }
 
-export const useWpGetAllPosts = (key: any = "posts") => {
+export const useWpGetAllPosts = (key: any = ["posts"]) => {
   const { data, isError, isFetching } = useQuery(key, () => wpGetAllPosts(), {
-    staleTime: env.STALE.FIVE_MINUTES,
+    staleTime: 1,
   })
 
   return {
-    wpGetAllPostsData: {
-      data,
+    getAllPostsData: {
+      data: data,
       isError,
       isFetching,
     },
@@ -180,6 +180,24 @@ export async function wpGetPostBySlug(slug: string) {
     post,
   }
 }
+export const useWpGetPostBySlug = (slug: string) => {
+  const { data, isError, isFetching } = useQuery(
+    ["post", slug],
+    () => wpGetPostBySlug(slug),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    getPostBySlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
+}
 
 export async function wpGetPostsByAuthorSlug(
   slug: string | string[],
@@ -211,8 +229,26 @@ export async function wpGetPostsByAuthorSlug(
     authorId: authorId,
   }
 }
+export const useWpGetPostsByAuthorSlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["authorPosts", slug],
+    () => wpGetPostsByAuthorSlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
 
-export async function wpGetPostsByCategoryId(categoryId: any, after = "") {
+  return {
+    getPostsByAuthorSlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
+}
+
+export async function wpGetPostsByCategorySlug(categoryId: any, after = "") {
   let postData
   try {
     postData = await wpFetchAPI(QUERY_WP_POSTS_BY_CATEGORY_SLUG, {
@@ -237,11 +273,29 @@ export async function wpGetPostsByCategoryId(categoryId: any, after = "") {
     pageInfo: postData?.data.posts.pageInfo,
   }
 }
+export const useWpGetPostsByCategorySlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["categoryPosts", slug],
+    () => wpGetPostsByCategorySlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
 
-export async function wpGetPostsByTagId(id: any, after = "") {
+  return {
+    getPostsByCategorySlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
+}
+
+export async function wpGetPostsByTagSlug(id: any, after = "") {
   let postData
   try {
-    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_ID, { id, after })
+    postData = await wpFetchAPI(QUERY_WP_POSTS_BY_TAG_SLUG, { id, after })
   } catch (e) {
     console.log(`Failed to query post data: ${e}`)
     throw e
@@ -259,6 +313,24 @@ export async function wpGetPostsByTagId(id: any, after = "") {
     posts: Array.isArray(posts) && posts.map(wpMapPostData),
     pageInfo: postData?.data.tag.posts.pageInfo,
   }
+}
+export const useWpGetPostsByTagSlug = (slug: string, after = "") => {
+  const { data, isError, isFetching } = useQuery(
+    ["tagPosts", slug],
+    () => wpGetPostsByTagSlug(slug, after),
+    {
+      staleTime: env.STALE_FIVE_MINUTES,
+      keepPreviousData: true,
+    },
+  )
+
+  return {
+    getPostsByTagSlug: {
+      data: data,
+      isError,
+      isFetching,
+    },
+  } as const
 }
 
 // export async function wpGetRecentPosts({ count }: { count: number }) {
@@ -322,7 +394,7 @@ export async function wpGetRelatedPosts(
   let relatedPosts: string | any[] = []
 
   if (category) {
-    const { posts }: any = await wpGetPostsByCategoryId(category.categoryId)
+    const { posts }: any = await wpGetPostsByCategorySlug(category.categoryId)
     const filtered = posts.filter(({ postId: id }: any) => id !== postId)
     relatedPosts = filtered.map(
       (post: {

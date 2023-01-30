@@ -1,8 +1,9 @@
 import * as React from "react"
-
+import { QueryClient, dehydrate } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import Head from "next/head"
 import dynamic from "next/dynamic"
-
+import { withCSR } from "@/utils/with-CSR"
 import { GetServerSideProps } from "next"
 import parse from "html-react-parser"
 const HomeLayout = dynamic(() =>
@@ -10,7 +11,12 @@ const HomeLayout = dynamic(() =>
 )
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
-import { wpGetPostBySlug, wpGetAllPosts } from "@/lib/wp-posts"
+import {
+  wpGetPostBySlug,
+  wpGetAllPosts,
+  useWpGetAllPosts,
+  useWpGetPostBySlug,
+} from "@/lib/wp-posts"
 import { SinglePostLayout } from "@/layouts/SinglePost"
 
 interface PostProps {
@@ -42,13 +48,26 @@ interface PostProps {
 }
 
 export default function Post(props: PostProps) {
-  const { post, posts, seo } = props
+  const { seo } = props
+  console.log(seo)
+  const router = useRouter()
+  const {
+    query: { slug },
+  } = router
+  const { getAllPostsData } = useWpGetAllPosts()
 
+  const { getPostBySlug } = useWpGetPostBySlug(slug as string)
   return (
     <>
-      <Head>{seo.success === true && parse(seo.head)}</Head>
+      <Head>{seo?.success === true && parse(seo?.head)}</Head>
       <HomeLayout>
-        <SinglePostLayout post={post} posts={posts} />
+        {getPostBySlug?.data !== undefined &&
+          getAllPostsData?.data !== undefined && (
+            <SinglePostLayout
+              post={getPostBySlug?.data?.post}
+              posts={getAllPostsData?.data?.posts}
+            />
+          )}
       </HomeLayout>
     </>
   )
@@ -60,22 +79,35 @@ export const getServerSideProps: GetServerSideProps = async ({
 }: any) => {
   res.setHeader(
     "Cache-Control",
-    "public, s-maxage=1000, stale-while-revalidate=59",
+    "public, s-maxage=120, stale-while-revalidate=600",
   )
-  const { post } = await wpGetPostBySlug(params?.slug)
-  const { posts } = await wpGetAllPosts()
-  if (post.author === undefined) {
+
+  const queryClient = new QueryClient()
+
+  let isError = false
+
+  const seo = await getSeoDatas(
+    `https://${env.DOMAIN}/${params.category}/${params.slug}`,
+  )
+  await queryClient.prefetchQuery(["posts"], () => wpGetAllPosts())
+  try {
+    await queryClient.prefetchQuery(["post", params?.slug], () =>
+      wpGetPostBySlug(params?.slug),
+    )
+  } catch (error: any) {
+    isError = true
+    res.statusCode = error.response.status
+  }
+  if (isError) {
     return {
       notFound: true,
     }
   }
-  const seo = await getSeoDatas(`https://${env.DOMAIN}${post.uri}`)
 
   return {
     props: {
-      post,
-      posts,
       seo,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }

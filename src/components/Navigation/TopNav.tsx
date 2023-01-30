@@ -92,7 +92,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
                 </form>
               </div>
               <div className="grow-1 flex flex-row ml-auto space-x-4">
-                <div className="space-x-4">
+                <div className="space-x-2 hidden lg:block">
                   <NextLink href="#">
                     <IconButton variant="ghost" className="!text-lg">
                       <FaFacebook />
