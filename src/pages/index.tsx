@@ -5,7 +5,6 @@ import dynamic from "next/dynamic"
 import env from "@/env"
 import { wpGetAllPosts, useWpGetAllPosts } from "../lib/wp-posts"
 import { getSeoDatas } from "@/lib/wp-seo"
-
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { wpGetMenusByName } from "@/lib/wp-menus"
 
@@ -44,7 +43,7 @@ export default function Home(props: HomeProps) {
       <HomeLayout>
         <section className="flex w-full flex-col">
           <ListPostFeatured featured={featured} />
-          <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row lg:mx-auto lg:px-4">
+          <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] flex flex-row">
             <div className="w-full flex flex-col lg:mr-4">
               <InfiniteScroll
                 pageType="home"

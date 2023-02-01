@@ -60,7 +60,6 @@ export default function Category(props: CategoryProps) {
   if (isError) {
     router.push("/404")
   }
-  console.log(seo)
   return (
     <>
       <Head>{seo?.success === true && parse(seo?.head)}</Head>

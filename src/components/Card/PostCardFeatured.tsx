@@ -56,7 +56,7 @@ export const PostCardFeatured = React.forwardRef<
 export const ListPostFeatured = (props: { featured: any }) => {
   const { featured } = props
   return (
-    <div className="mx-auto px-4 w-full max-w-full">
+    <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px]">
       <div className="mb-4 block h-auto min-w-full overflow-x-auto overflow-y-hidden whitespace-nowrap px-3 scrollbar">
         {featured.map((featuredItem: any, i: number) => {
           return (

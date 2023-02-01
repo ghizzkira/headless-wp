@@ -41,7 +41,7 @@ export default defineConfig({
     }
 
     .scrollbar::-webkit-scrollbar {
-      width: 5px;
+      width: 3px;
     }
 
     .scrollbar::-webkit-scrollbar-track {

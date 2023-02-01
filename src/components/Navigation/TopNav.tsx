@@ -69,7 +69,7 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
                   </div>
                 </div>
               </div>
-              <div className="ml-10 hidden lg:block">
+              <div className="mx-auto w-[50%] hidden lg:block">
                 <form
                   className="bg-white dark:bg-gray-800"
                   onSubmit={handlerSubmit}
@@ -93,22 +93,32 @@ export const TopNav = React.forwardRef<HTMLDivElement, TopNavProps>(
               </div>
               <div className="grow-1 flex flex-row ml-auto space-x-4">
                 <div className="space-x-2 hidden lg:block">
-                  <NextLink href="#">
+                  <NextLink
+                    href={`https://www.facebook.com/${env.FACEBOOK_USERNAME}`}
+                  >
                     <IconButton variant="ghost" className="!text-lg">
                       <FaFacebook />
                     </IconButton>
                   </NextLink>
-                  <NextLink href="#">
+                  <NextLink
+                    href={`https://www.twitter.com/${env.TWITTER_USERNAME}`}
+                  >
                     <IconButton variant="ghost" className="!text-lg">
                       <FaTwitter />
                     </IconButton>
                   </NextLink>
-                  <NextLink href="#">
-                    <IconButton variant="ghost" className="!text-lg">
-                      <FaYoutube />
-                    </IconButton>
-                  </NextLink>
-                  <NextLink href="#">
+                  {env.YOUTUBE ? (
+                    <NextLink
+                      href={`https://www.youtube.com/channel/${env.YOUTUBE}`}
+                    >
+                      <IconButton variant="ghost" className="!text-lg">
+                        <FaYoutube />
+                      </IconButton>
+                    </NextLink>
+                  ) : null}
+                  <NextLink
+                    href={`https://www.instagram.com/${env.INSTAGRAM_USERNAME}`}
+                  >
                     <IconButton variant="ghost" className="!text-lg">
                       <FaInstagram />
                     </IconButton>
