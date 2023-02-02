@@ -40,7 +40,7 @@ export const PostCardFeatured = React.forwardRef<
             </div>
           </NextLink>
         </div>
-        <div className="featured-meta absolute bottom-0 left-0 z-10 w-full p-[20px] min-[992px]:p-[25px] md:py-5 md:px-4">
+        <div className="featured-meta absolute bottom-0 left-0 z-[9] w-full p-[20px] min-[992px]:p-[25px] md:py-5 md:px-4">
           <NextLink href={uri}>
             <h3
               className={`text-xl font-bold text-white line-clamp-3 hover:text-primary-400 dark:text-gray-100`}
@@ -56,36 +56,36 @@ export const PostCardFeatured = React.forwardRef<
 
 export const ListPostFeatured = (props: { featured: any }) => {
   const { featured } = props
-  const [prevDisplay, setPrevDisplay] = React.useState("none")
-  const [nextDisplay, setNextDisplay] = React.useState("flex")
+  const [prevDisplay, setPrevDisplay] = React.useState("md:!hidden")
+  const [nextDisplay, setNextDisplay] = React.useState("md:!flex")
   const arrowClass =
-    "flex justify-center content-center bg-white p-2 cursor-pointer !absolute rounded-full z-[99]"
+    "!hidden justify-center content-center bg-white p-2 cursor-pointer !absolute rounded-full z-[99]"
 
   const contentRef: any = React.useRef(null)
 
   const content: any = contentRef.current
   function handleNextClick() {
     content.scrollBy(200, 0)
-    if (content.scrollLeft !== 0) {
-      setPrevDisplay("!flex")
+    if (content.scrollLeft > 190) {
+      setPrevDisplay("md:!flex")
     }
     if (content.scrollLeft >= content.scrollWidth - content.offsetWidth - 200) {
-      setNextDisplay("!hidden")
+      setNextDisplay("md:!hidden")
     }
   }
 
   function handlePrevClick() {
     content.scrollBy(-200, 0)
     if (content.scrollLeft < 200) {
-      setPrevDisplay("!hidden")
+      setPrevDisplay("md:!hidden")
     }
     if (content.scrollLeft - 210) {
-      setNextDisplay("!flex")
+      setNextDisplay("md:!flex")
     }
   }
 
   return (
-    <div className="mx-auto px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] relative">
+    <div className="mx-auto max-[991px]:px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] relative">
       <Button
         onClick={handlePrevClick}
         id="prev"
@@ -106,7 +106,7 @@ export const ListPostFeatured = (props: { featured: any }) => {
         onClick={handleNextClick}
         id="next"
         variant="outline"
-        className={`${arrowClass} ${nextDisplay} right-[40px] top-[50%] -translate-y-2/4	translate-x-2/4	`}
+        className={`${arrowClass} md:flex ${nextDisplay} right-[40px] top-[50%] -translate-y-2/4	translate-x-2/4	`}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

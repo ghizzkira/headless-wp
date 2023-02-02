@@ -54,10 +54,10 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, PostProps>(
     return (
       <div
         ref={ref}
-        className="flex px-4 w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] mx-auto"
+        className="flex w-full md:max-[991px]:max-w-[750px] min-[992px]:max-[1199px]:max-w-[970px] min-[1200px]:max-w-[1170px] mx-auto"
       >
-        <section className="flex flex-row w-full lg:w-8/12">
-          <div className="lg:pr-4">
+        <section className="flex px-4 flex-row w-full lg:w-8/12">
+          <div>
             <div>
               {categories.map(
                 (category: { slug: string; name: string }, i: number) => {
@@ -79,7 +79,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, PostProps>(
             </div>
             <Heading
               as="h1"
-              className="mt-4 mb-2 border-b border-gray-200 pb-2 text-2xl font-bold !leading-[1.7] dark:border-gray-600 md:border-none md:text-3xl md:!leading-[43px]"
+              className="mt-4 mb-2 border-b border-gray-200 pb-2 !text-[25px] font-bold !leading-[1.7] dark:border-gray-600 md:border-none md:!text-[40px] md:!leading-[43px]"
               lineClamp={0}
               dangerouslySetInnerHTML={{
                 __html: title,
@@ -176,7 +176,7 @@ export const SinglePostLayout = React.forwardRef<HTMLDivElement, PostProps>(
             </section>
           </div>
         </section>
-        <aside className="w-4/12 hidden lg:block">
+        <aside className="w-4/12 px-4 hidden lg:block">
           <div className="rounded-xl border border-gray-100 dark:border-gray-700 p-4 sticky top-8">
             <div className="mb-4">
               <Heading as="h4" className="!text-transparent">
