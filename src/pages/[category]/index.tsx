@@ -56,7 +56,7 @@ export default function Category(props: CategoryProps) {
   const { getPostsByCategorySlug }: any = useWpGetPostsByCategorySlug(
     category as string,
   )
-  const categoryChild = getCategoryBySlug?.data?.category.children.nodes
+  const categoryChild = getCategoryBySlug?.data?.category?.children?.nodes
   if (isError) {
     router.push("/404")
   }
