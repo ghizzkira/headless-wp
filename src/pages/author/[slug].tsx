@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import dynamic from "next/dynamic"
 import env from "@/env"
 import { getSeoDatas } from "@/lib/wp-seo"
+import { GetServerSideProps } from "next"
 import {
   wpGetPostsByAuthorSlug,
   useWpGetPostsByAuthorSlug,
@@ -94,12 +95,10 @@ export default function Author(props: AuthorProps) {
   )
 }
 
-export const getServerSideProps = async ({ params, res }: any) => {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=120, stale-while-revalidate=600",
-  )
-
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  res,
+}: any) => {
   const seo = await getSeoDatas(`https://${env.DOMAIN}/author/${params.slug}`)
 
   const queryClient = new QueryClient()
@@ -123,5 +122,6 @@ export const getServerSideProps = async ({ params, res }: any) => {
       seo,
       dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 100,
   }
 }

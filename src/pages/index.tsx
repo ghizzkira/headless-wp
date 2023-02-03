@@ -3,10 +3,11 @@ import Head from "next/head"
 import parse from "html-react-parser"
 import dynamic from "next/dynamic"
 import env from "@/env"
-import { wpGetAllPosts, useWpGetAllPosts } from "../lib/wp-posts"
+import { wpGetAllPosts, useWpGetAllPosts, wpGetAllSlug } from "../lib/wp-posts"
 import { getSeoDatas } from "@/lib/wp-seo"
 import { QueryClient, dehydrate } from "@tanstack/react-query"
 import { wpGetMenusByName } from "@/lib/wp-menus"
+import { wpGetAllCategories } from "@/lib/wp-categories"
 
 const HomeLayout = dynamic(() =>
   import("@/layouts/HomeLayout").then((mod) => mod.HomeLayout),
@@ -29,6 +30,7 @@ interface HomeProps {
     head: string
     success: boolean
   }
+  categories: any
 }
 
 export default function Home(props: HomeProps) {
@@ -36,7 +38,6 @@ export default function Home(props: HomeProps) {
   const { getAllPostsData } = useWpGetAllPosts()
   const { data }: any = getAllPostsData
   const featured = data?.posts?.slice(0, 7)
-
   return (
     <>
       <Head>{seo.success === true && parse(seo.head)}</Head>
