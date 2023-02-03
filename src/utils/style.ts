@@ -15,7 +15,19 @@ export default defineConfig({
       "2xl": "1536px",
     },
     fontFamily: {
-      sans: ["-apple-system", "BlinkMacSystemFont", "segoe ui"],
+      sans: [
+        "-apple-system",
+        "BlinkMacSystemFont",
+        "segoe ui",
+        "helvetica neue",
+        "Arial",
+        "noto sans",
+        "sans-serif",
+        "apple color emoji",
+        "segoe ui emoji",
+        "segoe ui symbol",
+        "noto color emoji",
+      ],
     },
     extend: {
       colors: {
